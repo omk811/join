@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مجتمع اللغة العربية - الصف الخامس</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      background: #f0fdf4;
+      color: #064e3b;
+      font-family: 'Tajawal', 'Arial', sans-serif;
+    }
+    
+    * {
+      font-family: 'Tajawal', 'Arial', sans-serif;
+    }
+    
+    .smooth-transition {
+      transition: all 0.3s ease;
+    }
+    
+    input:focus, select:focus {
+      transform: translateY(-2px);
+    }
+    
+    .form-input {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    @keyframes pulse-subtle {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .pulse-animation {
+      animation: pulse-subtle 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="h-full">
+  <main id="app" class="w-full h-full overflow-auto">
+    <div class="min-h-full py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto">
+        <!-- Header Section -->
+        <header id="main-header" class="text-center mb-10">
+          <div class="mb-6">
+            <svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="#10b981" opacity="0.15"/>
+              <circle cx="50" cy="50" r="40" fill="#10b981" opacity="0.25"/>
+              <path d="M35 45 L45 55 L65 35" stroke="#10b981" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <text x="50" y="85" text-anchor="middle" font-size="16" font-weight="700" fill="#10b981" font-family="Tajawal">عربي</text>
+            </svg>
+          </div>
+          <h1 id="page-title" class="text-3xl sm:text-4xl font-bold mb-3">مجتمع اللغة العربية - الصف الخامس</h1>
+          <p id="page-subtitle" class="text-lg sm:text-xl opacity-90">انضم إلى مجتمعنا التعليمي المميز على الواتساب</p>
+        </header>
+
+        <!-- Full Message -->
+        <div id="full-message" class="hidden rounded-xl p-8 mb-6 border-r-4 shadow-lg text-center bg-red-50 border-red-500 text-red-900">
+          <svg class="w-20 h-20 mx-auto mb-4 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          <h2 class="text-3xl font-bold mb-4">😔 عذرا، لقد اكتمل العدد</h2>
+          <p class="text-lg mb-2">تم الوصول إلى الحد الأقصى من الأعضاء (1888 عضو)</p>
+          <p class="text-base opacity-80">نأسف لعدم قدرتنا على قبول المزيد من الطلبات حاليا</p>
+        </div>
+
+        <!-- Info Card -->
+        <div id="info-card" class="rounded-xl p-6 mb-8 border-r-4 shadow-sm bg-white border-emerald-500">
+          <div class="flex items-start gap-4">
+            <svg class="w-7 h-7 flex-shrink-0 mt-0.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+              <h2 class="text-xl font-bold mb-2">مجتمع خاص للطلاب وأولياء الأمور</h2>
+              <p id="welcome-text" class="text-base leading-relaxed">سيتم إرسال رابط الانضمام إلى البريد الإلكتروني المسجل. يرجى التأكد من صحة البيانات المدخلة.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Card -->
+        <div id="form-card" class="rounded-xl shadow-xl p-6 sm:p-10 bg-white">
+          <form id="join-form">
+            <div class="space-y-6">
+              <!-- Name Field -->
+              <div>
+                <label for="name" class="block font-semibold mb-2 text-base">
+                  الاسم الكامل <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="name" name="name" required 
+                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
+                  placeholder="أدخل الاسم الكامل">
+              </div>
+
+              <!-- Governorate Field -->
+              <div>
+                <label for="governorate" class="block font-semibold mb-2 text-base">
+                  المحافظة <span class="text-red-500">*</span>
+                </label>
+                <select id="governorate" name="governorate" required 
+                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition appearance-none cursor-pointer text-base"
+                  style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: left 1.25rem center; background-size: 1.5em 1.5em; padding-left: 3.5rem;">
+                  <option value="">اختر المحافظة</option>
+                  <option value="مسقط">مسقط</option>
+                  <option value="ظفار">ظفار</option>
+                  <option value="مسندم">مسندم</option>
+                  <option value="البريمي">البريمي</option>
+                  <option value="الداخلية">الداخلية</option>
+                  <option value="شمال الباطنة">شمال الباطنة</option>
+                  <option value="جنوب الباطنة">جنوب الباطنة</option>
+                  <option value="جنوب الشرقية">جنوب الشرقية</option>
+                  <option value="شمال الشرقية">شمال الشرقية</option>
+                  <option value="الظاهرة">الظاهرة</option>
+                  <option value="الوسطى">الوسطى</option>
+                </select>
+              </div>
+
+              <!-- Wilayat Field -->
+              <div>
+                <label for="wilayat" class="block font-semibold mb-2 text-base">
+                  الولاية <span class="text-red-500">*</span>
+                </label>
+                <select id="wilayat" name="wilayat" required disabled
+                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-base"
+                  style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: left 1.25rem center; background-size: 1.5em 1.5em; padding-left: 3.5rem;">
+                  <option value="">اختر المحافظة أولا</option>
+                </select>
+              </div>
+
+              <!-- School Field -->
+              <div>
+                <label for="school" class="block font-semibold mb-2 text-base">
+                  المدرسة <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="school" name="school" required 
+                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
+                  placeholder="أدخل اسم المدرسة">
+                <div class="mt-2 p-3 bg-red-50 border-r-4 border-red-500 rounded-lg">
+                  <p class="text-sm text-red-700 font-semibold">⚠️ تنويه: لا نستقبل طلاب من مدرسة سعد بن معاذ للتعليم الأساسي</p>
+                </div>
+              </div>
+
+              <!-- Email Field -->
+              <div>
+                <label for="email" class="block font-semibold mb-2 text-base">
+                  البريد الإلكتروني <span class="text-red-500">*</span>
+                </label>
+                <input type="email" id="email" name="email" required 
+                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
+                  placeholder="example@email.com" dir="ltr" style="text-align: left;">
+                <p class="text-sm mt-2 opacity-75">سيتم إرسال رابط الانضمام إلى هذا البريد</p>
+              </div>
+
+              <!-- Phone Field -->
+              <div>
+                <label for="phone" class="block font-semibold mb-2 text-base">
+                  رقم الهاتف <span class="text-red-500">*</span>
+                </label>
+                <input type="tel" id="phone" name="phone" required pattern="^[0-9]{8}$" 
+                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
+                  placeholder="XXXXXXXX" title="يجب إدخال 8 أرقام فقط" maxlength="8" dir="ltr" style="text-align: left;">
+                <p class="text-sm mt-2 opacity-75">مثال: 91234567</p>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" id="submit-btn" 
+                class="w-full py-4 px-6 rounded-xl font-bold text-lg smooth-transition transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-200 shadow-lg mt-8 bg-emerald-600 hover:bg-emerald-700 text-white">
+                <span id="button-text">إرسال الطلب</span>
+                <span id="loading-spinner" class="hidden">
+                  <svg class="inline w-5 h-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                  </svg>
+                  جاري الإرسال...
+                </span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Success Message -->
+          <div id="success-message" class="hidden mt-6 p-5 rounded-xl border-r-4 border-emerald-500 shadow-sm bg-emerald-50">
+            <div class="flex items-center gap-3">
+              <svg class="w-7 h-7 flex-shrink-0 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <p id="success-text" class="font-semibold text-base text-emerald-900">تم إرسال طلبك بنجاح! سيتم التواصل معك قريبا عبر البريد الإلكتروني.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer id="main-footer" class="text-center mt-10 text-base opacity-80">
+          <p>للاستفسارات، يرجى <a href="https://omk811.github.io/info/index.html" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline font-bold smooth-transition text-emerald-600">التواصل مع إدارة المجتمع</a></p>
+          <button id="admin-btn" class="mt-4 text-sm opacity-50 hover:opacity-100 smooth-transition">🔐 لوحة التحكم</button>
+        </footer>
+
+        <!-- Admin Login Modal -->
+        <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">🔐 لوحة التحكم</h2>
+            <form id="admin-login-form">
+              <div class="mb-6">
+                <label for="admin-password" class="block font-semibold mb-2 text-gray-700">الرمز السري</label>
+                <input type="password" id="admin-password" 
+                  class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200" 
+                  placeholder="أدخل الرمز السري" dir="ltr" style="text-align: left;">
+              </div>
+              <div id="login-error" class="hidden mb-4 p-3 bg-red-50 border-r-4 border-red-500 text-red-700 text-sm rounded">
+                ❌ الرمز السري غير صحيح
+              </div>
+              <div class="flex gap-3">
+                <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg smooth-transition">
+                  دخول
+                </button>
+                <button type="button" id="cancel-login-btn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 rounded-lg smooth-transition">
+                  إلغاء
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="hidden">
+          <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-10 mb-8">
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+              <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">📊 لوحة التحكم - الطلبات المستلمة</h2>
+              <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg smooth-transition">
+                تسجيل الخروج
+              </button>
+            </div>
+            <div class="mb-6 p-4 bg-emerald-50 border-r-4 border-emerald-500 rounded-lg">
+              <p class="text-lg font-semibold text-emerald-800">📊 عدد الطلبات: <span id="total-count">0</span></p>
+              <p class="text-lg font-semibold text-emerald-800 mt-2">🎯 الأماكن المتبقية: <span id="admin-remaining-spots">1888</span></p>
+            </div>
+            <div id="applications-list" class="space-y-4">
+              <!-- Applications will be loaded here -->
+            </div>
+            <div id="no-applications" class="hidden text-center py-12 text-gray-500">
+              <svg class="w-20 h-20 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+              </svg>
+              <p class="text-xl font-semibold">لا توجد طلبات بعد</p>
+              <p class="text-sm mt-2 opacity-75">سيتم عرض جميع الطلبات هنا عندما يقوم الطلاب بالتسجيل</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ⚠️ ضع رابط Google Apps Script هنا
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0zBNz3S7VAUo4o0YbCnyjkFM14db8h7WKlycxGjgGhlu4UtOKoDOq44rJlZhAIUL-/exec';
+    
+    const MAX_MEMBERS = 1875;
+    const ADMIN_PASSWORD = "aysha123";
+    
+    let currentRecordCount = 0;
+    let allApplications = [];
+
+    // Wilayats data
+    const wilayatsData = {
+      "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
+      "ظفار": ["صلالة", "طاقة", "مرباط", "ثمريت", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات"],
+      "مسندم": ["خصب", "بخاء", "دبا", "مدحاء"],
+      "البريمي": ["البريمي", "محضة", "السنينة"],
+      "الداخلية": ["نزوى", "سمائل", "بهلاء", "أدم", "الحمراء", "منح", "إزكي", "بدبد"],
+      "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
+      "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء", "المصنعة"],
+      "جنوب الشرقية": ["صور", "الكامل والوافي", "جعلان بني بو حسن", "جعلان بني بو علي", "مصيرة"],
+      "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
+      "الظاهرة": ["عبري", "ينقل", "ضنك"],
+      "الوسطى": ["هيما", "محوت", "الدقم", "الجازر"]
+    };
+
+    // Load all records on page load
+    async function loadAllRecords() {
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAll`);
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+          allApplications = data.data;
+          currentRecordCount = allApplications.length;
+          updateAvailabilityDisplay();
+        }
+      } catch (error) {
+        console.error('Error loading records:', error);
+      }
+    }
+
+    function updateAvailabilityDisplay() {
+      const remainingSpots = MAX_MEMBERS - currentRecordCount;
+      const fullMessage = document.getElementById('full-message');
+      const infoCard = document.getElementById('info-card');
+      const formCard = document.getElementById('form-card');
+      
+      if (remainingSpots <= 0) {
+        formCard.classList.add('hidden');
+        infoCard.classList.add('hidden');
+        fullMessage.classList.remove('hidden');
+      } else {
+        formCard.classList.remove('hidden');
+        infoCard.classList.remove('hidden');
+        fullMessage.classList.add('hidden');
+      }
+      
+      const adminRemaining = document.getElementById('admin-remaining-spots');
+      if (adminRemaining) {
+        adminRemaining.textContent = remainingSpots;
+      }
+    }
+
+    // Governorate change handler
+    document.getElementById('governorate').addEventListener('change', function() {
+      const wilayatSelect = document.getElementById('wilayat');
+      const selectedGovernorate = this.value;
+      
+      wilayatSelect.innerHTML = '<option value="">اختر الولاية</option>';
+      
+      if (selectedGovernorate && wilayatsData[selectedGovernorate]) {
+        wilayatSelect.disabled = false;
+        
+        wilayatsData[selectedGovernorate].forEach(wilayat => {
+          const option = document.createElement('option');
+          option.value = wilayat;
+          option.textContent = wilayat;
+          wilayatSelect.appendChild(option);
+        });
+      } else {
+        wilayatSelect.disabled = true;
+        wilayatSelect.innerHTML = '<option value="">اختر المحافظة أولا</option>';
+      }
+    });
+
+    // Form submission
+    document.getElementById('join-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const remainingSpots = MAX_MEMBERS - currentRecordCount;
+
+      if (remainingSpots <= 0) {
+        showMessage('عذرا، لقد اكتمل العدد (1888 عضو). لا يمكن قبول المزيد من الطلبات.', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-btn');
+      const buttonText = document.getElementById('button-text');
+      const loadingSpinner = document.getElementById('loading-spinner');
+      
+      submitBtn.disabled = true;
+      buttonText.classList.add('hidden');
+      loadingSpinner.classList.remove('hidden');
+
+      const formData = {
+        id: Date.now().toString(),
+        name: document.getElementById('name').value,
+        governorate: document.getElementById('governorate').value,
+        wilayat: document.getElementById('wilayat').value,
+        school: document.getElementById('school').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        submitted_at: new Date().toISOString()
+      };
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'create', ...formData })
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          document.getElementById('join-form').reset();
+          document.getElementById('wilayat').disabled = true;
+          document.getElementById('wilayat').innerHTML = '<option value="">اختر المحافظة أولا</option>';
+          
+          showMessage('تم إرسال طلبك بنجاح! سيتم التواصل معك قريبا عبر البريد الإلكتروني.', 'success');
+          
+          await loadAllRecords();
+        } else {
+          showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.', 'error');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.', 'error');
+      }
+
+      submitBtn.disabled = false;
+      buttonText.classList.remove('hidden');
+      loadingSpinner.classList.add('hidden');
+    });
+
+    function showMessage(message, type) {
+      const successMessage = document.getElementById('success-message');
+      const successText = document.getElementById('success-text');
+      
+      successText.textContent = message;
+      successMessage.classList.remove('hidden');
+      
+      if (type === 'error') {
+        successMessage.style.background = '#fef2f2';
+        successMessage.style.borderRightColor = '#ef4444';
+        successMessage.querySelector('svg').style.color = '#dc2626';
+        successText.style.color = '#991b1b';
+      } else {
+        successMessage.style.background = '#f0fdf4';
+        successMessage.style.borderRightColor = '#10b981';
+        successMessage.querySelector('svg').style.color = '#059669';
+        successText.style.color = '#064e3b';
+      }
+      
+      setTimeout(() => {
+        successMessage.classList.add('hidden');
+      }, type === 'error' ? 5000 : 8000);
+    }
+
+    function renderApplicationsList() {
+      const listContainer = document.getElementById('applications-list');
+      const noAppsMessage = document.getElementById('no-applications');
+      const totalCount = document.getElementById('total-count');
+      
+      totalCount.textContent = allApplications.length;
+      
+      if (allApplications.length === 0) {
+        listContainer.innerHTML = '';
+        noAppsMessage.classList.remove('hidden');
+        return;
+      }
+      
+      noAppsMessage.classList.add('hidden');
+      
+      const sortedApps = [...allApplications].sort((a, b) => {
+        return new Date(b.submitted_at) - new Date(a.submitted_at);
+      });
+      
+      listContainer.innerHTML = sortedApps.map(app => {
+        const submittedDate = new Date(app.submitted_at);
+        const formattedDate = submittedDate.toLocaleDateString('ar-SA', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        return `
+          <div class="border-2 border-gray-200 rounded-xl p-6 hover:shadow-lg smooth-transition bg-gray-50">
+            <div class="flex justify-between items-start mb-4 gap-4">
+              <h3 class="text-xl font-bold text-gray-800">👤 ${app.name}</h3>
+              <button onclick="deleteApplication('${app.id}')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition text-sm flex-shrink-0">
+                🗑️ حذف
+              </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+              <div><span class="font-semibold">📍 المحافظة:</span> ${app.governorate}</div>
+              <div><span class="font-semibold">📍 الولاية:</span> ${app.wilayat}</div>
+              <div class="md:col-span-2"><span class="font-semibold">🏫 المدرسة:</span> ${app.school}</div>
+              <div class="md:col-span-2">
+                <span class="font-semibold">📧 البريد الإلكتروني:</span> 
+                <a href="mailto:${app.email}" class="text-emerald-600 hover:underline" dir="ltr">${app.email}</a>
+              </div>
+              <div>
+                <span class="font-semibold">📞 رقم الهاتف:</span> 
+                <a href="tel:${app.phone}" class="text-emerald-600 hover:underline" dir="ltr">${app.phone}</a>
+              </div>
+              <div><span class="font-semibold">📅 تاريخ التقديم:</span> ${formattedDate}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.deleteApplication = async function(recordId) {
+      const app = allApplications.find(a => a.id === recordId);
+      if (!app) return;
+      
+      if (!confirm(`هل أنت متأكد من حذف طلب: ${app.name}؟`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'delete', id: recordId })
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          await loadAllRecords();
+          renderApplicationsList();
+        } else {
+          alert('❌ حدث خطأ أثناء الحذف');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('❌ حدث خطأ أثناء الحذف');
+      }
+    };
+
+    // Admin login
+    document.getElementById('admin-btn').addEventListener('click', () => {
+      document.getElementById('admin-login-modal').classList.remove('hidden');
+      document.getElementById('admin-password').focus();
+    });
+
+    document.getElementById('cancel-login-btn').addEventListener('click', () => {
+      document.getElementById('admin-login-modal').classList.add('hidden');
+      document.getElementById('admin-password').value = '';
+      document.getElementById('login-error').classList.add('hidden');
+    });
+
+    document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const password = document.getElementById('admin-password').value;
+      
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('admin-login-modal').classList.add('hidden');
+        document.getElementById('admin-password').value = '';
+        document.getElementById('login-error').classList.add('hidden');
+        
+        document.getElementById('main-header').classList.add('hidden');
+        document.getElementById('info-card').classList.add('hidden');
+        document.getElementById('form-card').classList.add('hidden');
+        document.getElementById('main-footer').classList.add('hidden');
+        document.getElementById('full-message').classList.add('hidden');
+        
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+        renderApplicationsList();
+      } else {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      document.getElementById('admin-dashboard').classList.add('hidden');
+      
+      document.getElementById('main-header').classList.remove('hidden');
+      document.getElementById('main-footer').classList.remove('hidden');
+      
+      updateAvailabilityDisplay();
+    });
+
+    // Initialize
+    loadAllRecords();
+  </script>
+</body>
+</html>
