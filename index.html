@@ -852,7 +852,7 @@
     // ⚠️ ضع رابط Google Apps Script هنا
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8wxFnGTb0HIdz6EuszPR153VyPDZPgfH-NvAwr4xxzo4jmdr5wo51vRf79mS_tL-F/exec';
     
-    const MAX_MEMBERS = 1870;
+    const MAX_MEMBERS = 1875;
     
     let currentRecordCount = 0;
     let allApplications = [];
@@ -908,6 +908,11 @@
           
           currentRecordCount = allApplications.length;
           updateAvailabilityDisplay();
+          
+          // عرض البيانات إذا كنا في لوحة التحكم
+          if (!document.getElementById('admin-dashboard').classList.contains('hidden')) {
+            renderApplicationsList();
+          }
         }
       } catch (error) {
         console.error('Error:', error);
