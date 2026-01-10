@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl" class="h-full">
+<html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,262 +7,626 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <style>
-    body {
-      box-sizing: border-box;
-      background: #f0fdf4;
-      color: #064e3b;
-      font-family: 'Tajawal', 'Arial', sans-serif;
-    }
-    
-    * {
-      font-family: 'Tajawal', 'Arial', sans-serif;
-    }
-    
-    .smooth-transition {
-      transition: all 0.3s ease;
-    }
-    
-    input:focus, select:focus {
-      transform: translateY(-2px);
-    }
-    
-    .form-input {
-      background: rgba(255, 255, 255, 0.9);
+    :root {
+      --primary: #0ea5e9;
+      --secondary: #8b5cf6;
+      --accent: #ec4899;
+      --success: #10b981;
+      --dark: #0f172a;
     }
 
-    @keyframes pulse-subtle {
-      0%, 100% {
+    * {
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      min-height: 100vh;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .glass-dark {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      animation: textGradient 3s linear infinite;
+    }
+
+    @keyframes textGradient {
+      to { background-position: 200% center; }
+    }
+
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .scale-in {
+      animation: scaleIn 0.5s ease-out;
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
         transform: scale(1);
       }
-      50% {
-        transform: scale(1.05);
+    }
+
+    .slide-up {
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    .pulse-animation {
-      animation: pulse-subtle 2s ease-in-out infinite;
+    input:focus, select:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn-gradient:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-gradient:hover::before {
+      left: 100%;
+    }
+
+    .input-modern {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .input-modern:focus {
+      background: white;
+      border-color: #667eea;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .badge-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .badge-success {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+    }
+
+    .badge-warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+    }
+
+    .card-hover {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .wave-animation {
+      animation: wave 2s ease-in-out infinite;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(20deg); }
+      75% { transform: rotate(-20deg); }
+    }
+
+    .shimmer {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .icon-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+
+    .progress-ring-circle {
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      transition: stroke-dashoffset 0.5s;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      body {
+        background-size: 600% 600%;
+      }
+      
+      .glass-card {
+        backdrop-filter: blur(10px);
+      }
+    }
+
+    /* Dark mode for admin dashboard */
+    .dark-theme {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    }
+
+    .dark-theme .glass-card {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(148, 163, 184, 0.1);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    /* Loading spinner */
+    .spinner {
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Particle background effect */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float 10s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(50px);
+        opacity: 0;
+      }
     }
   </style>
 </head>
-<body class="h-full">
-  <main id="app" class="w-full h-full overflow-auto">
-    <div class="min-h-full py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto">
-        <!-- Header Section -->
-        <header id="main-header" class="text-center mb-10">
-          <div class="mb-6">
-            <svg class="w-24 h-24 mx-auto" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="48" fill="#10b981" opacity="0.15"/>
-              <circle cx="50" cy="50" r="40" fill="#10b981" opacity="0.25"/>
-              <path d="M35 45 L45 55 L65 35" stroke="#10b981" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <text x="50" y="85" text-anchor="middle" font-size="16" font-weight="700" fill="#10b981" font-family="Tajawal">عربي</text>
-            </svg>
+<body>
+  <!-- Particles Background -->
+  <div class="particles" id="particles"></div>
+
+  <main class="relative z-10 min-h-screen py-6 px-4 sm:py-12 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- Header with floating logo -->
+      <header class="text-center mb-12 scale-in">
+        <div class="relative inline-block mb-6">
+          <div class="icon-circle floating mx-auto text-5xl">
+            📚
           </div>
-          <h1 id="page-title" class="text-3xl sm:text-4xl font-bold mb-3">مجتمع اللغة العربية - الصف الخامس</h1>
-          <p id="page-subtitle" class="text-lg sm:text-xl opacity-90">انضم إلى مجتمعنا التعليمي المميز على الواتساب</p>
-        </header>
-
-        <!-- Full Message -->
-        <div id="full-message" class="hidden rounded-xl p-8 mb-6 border-r-4 shadow-lg text-center bg-red-50 border-red-500 text-red-900">
-          <svg class="w-20 h-20 mx-auto mb-4 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-          </svg>
-          <h2 class="text-3xl font-bold mb-4">😔 عذرا، لقد اكتمل العدد</h2>
-          <p class="text-lg mb-2">تم الوصول إلى الحد الأقصى من الأعضاء (1888 عضو)</p>
-          <p class="text-base opacity-80">نأسف لعدم قدرتنا على قبول المزيد من الطلبات حاليا</p>
-        </div>
-
-        <!-- Info Card -->
-        <div id="info-card" class="rounded-xl p-6 mb-8 border-r-4 shadow-sm bg-white border-emerald-500">
-          <div class="flex items-start gap-4">
-            <svg class="w-7 h-7 flex-shrink-0 mt-0.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <div>
-              <h2 class="text-xl font-bold mb-2">مجتمع خاص للطلاب وأولياء الأمور</h2>
-              <p id="welcome-text" class="text-base leading-relaxed">سيتم إرسال رابط الانضمام إلى البريد الإلكتروني المسجل. يرجى التأكد من صحة البيانات المدخلة.</p>
-            </div>
+          <div class="absolute -top-2 -right-2">
+            <span class="flex h-6 w-6">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-6 w-6 bg-emerald-500 items-center justify-center text-white text-xs font-bold">✓</span>
+            </span>
           </div>
         </div>
-
-        <!-- Form Card -->
-        <div id="form-card" class="rounded-xl shadow-xl p-6 sm:p-10 bg-white">
-          <form id="join-form">
-            <div class="space-y-6">
-              <!-- Name Field -->
-              <div>
-                <label for="name" class="block font-semibold mb-2 text-base">
-                  الاسم الكامل <span class="text-red-500">*</span>
-                </label>
-                <input type="text" id="name" name="name" required 
-                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
-                  placeholder="أدخل الاسم الكامل">
-              </div>
-
-              <!-- Governorate Field -->
-              <div>
-                <label for="governorate" class="block font-semibold mb-2 text-base">
-                  المحافظة <span class="text-red-500">*</span>
-                </label>
-                <select id="governorate" name="governorate" required 
-                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition appearance-none cursor-pointer text-base"
-                  style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: left 1.25rem center; background-size: 1.5em 1.5em; padding-left: 3.5rem;">
-                  <option value="">اختر المحافظة</option>
-                  <option value="مسقط">مسقط</option>
-                  <option value="ظفار">ظفار</option>
-                  <option value="مسندم">مسندم</option>
-                  <option value="البريمي">البريمي</option>
-                  <option value="الداخلية">الداخلية</option>
-                  <option value="شمال الباطنة">شمال الباطنة</option>
-                  <option value="جنوب الباطنة">جنوب الباطنة</option>
-                  <option value="جنوب الشرقية">جنوب الشرقية</option>
-                  <option value="شمال الشرقية">شمال الشرقية</option>
-                  <option value="الظاهرة">الظاهرة</option>
-                  <option value="الوسطى">الوسطى</option>
-                </select>
-              </div>
-
-              <!-- Wilayat Field -->
-              <div>
-                <label for="wilayat" class="block font-semibold mb-2 text-base">
-                  الولاية <span class="text-red-500">*</span>
-                </label>
-                <select id="wilayat" name="wilayat" required disabled
-                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-base"
-                  style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27currentColor%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: left 1.25rem center; background-size: 1.5em 1.5em; padding-left: 3.5rem;">
-                  <option value="">اختر المحافظة أولا</option>
-                </select>
-              </div>
-
-              <!-- School Field -->
-              <div>
-                <label for="school" class="block font-semibold mb-2 text-base">
-                  المدرسة <span class="text-red-500">*</span>
-                </label>
-                <input type="text" id="school" name="school" required 
-                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
-                  placeholder="أدخل اسم المدرسة">
-                <div class="mt-2 p-3 bg-red-50 border-r-4 border-red-500 rounded-lg">
-                  <p class="text-sm text-red-700 font-semibold">⚠️ تنويه: لا نستقبل طلاب من مدرسة سعد بن معاذ للتعليم الأساسي</p>
-                </div>
-              </div>
-
-              <!-- Email Field -->
-              <div>
-                <label for="email" class="block font-semibold mb-2 text-base">
-                  البريد الإلكتروني <span class="text-red-500">*</span>
-                </label>
-                <input type="email" id="email" name="email" required 
-                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
-                  placeholder="example@email.com" dir="ltr" style="text-align: left;">
-                <p class="text-sm mt-2 opacity-75">سيتم إرسال رابط الانضمام إلى هذا البريد</p>
-              </div>
-
-              <!-- Phone Field -->
-              <div>
-                <label for="phone" class="block font-semibold mb-2 text-base">
-                  رقم الهاتف <span class="text-red-500">*</span>
-                </label>
-                <input type="tel" id="phone" name="phone" required pattern="^[0-9]{8}$" 
-                  class="form-input w-full px-5 py-3.5 rounded-xl border-2 border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200 smooth-transition text-base" 
-                  placeholder="XXXXXXXX" title="يجب إدخال 8 أرقام فقط" maxlength="8" dir="ltr" style="text-align: left;">
-                <p class="text-sm mt-2 opacity-75">مثال: 91234567</p>
-              </div>
-
-              <!-- Submit Button -->
-              <button type="submit" id="submit-btn" 
-                class="w-full py-4 px-6 rounded-xl font-bold text-lg smooth-transition transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-200 shadow-lg mt-8 bg-emerald-600 hover:bg-emerald-700 text-white">
-                <span id="button-text">إرسال الطلب</span>
-                <span id="loading-spinner" class="hidden">
-                  <svg class="inline w-5 h-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                  </svg>
-                  جاري الإرسال...
-                </span>
-              </button>
-            </div>
-          </form>
-
-          <!-- Success Message -->
-          <div id="success-message" class="hidden mt-6 p-5 rounded-xl border-r-4 border-emerald-500 shadow-sm bg-emerald-50">
-            <div class="flex items-center gap-3">
-              <svg class="w-7 h-7 flex-shrink-0 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <p id="success-text" class="font-semibold text-base text-emerald-900">تم إرسال طلبك بنجاح! سيتم التواصل معك قريبا عبر البريد الإلكتروني.</p>
-            </div>
-          </div>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 gradient-text">
+          مجتمع اللغة العربية
+        </h1>
+        <div class="badge badge-primary inline-flex mb-4">
+          <span>🎯</span>
+          <span>الصف الخامس</span>
         </div>
+        <p class="text-xl sm:text-2xl text-white font-semibold drop-shadow-lg">
+          انضم إلى مجتمعنا التعليمي المميز على الواتساب
+        </p>
+      </header>
 
-        <!-- Footer -->
-        <footer id="main-footer" class="text-center mt-10 text-base opacity-80">
-          <p>للاستفسارات، يرجى <a href="https://omk811.github.io/info/index.html" target="_blank" rel="noopener noreferrer" class="underline hover:no-underline font-bold smooth-transition text-emerald-600">التواصل مع إدارة المجتمع</a></p>
-          <button id="admin-btn" class="mt-4 text-sm opacity-50 hover:opacity-100 smooth-transition">🔐 لوحة التحكم</button>
-        </footer>
-
-        <!-- Admin Login Modal -->
-        <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
-            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">🔐 لوحة التحكم</h2>
-            <form id="admin-login-form">
-              <div class="mb-6">
-                <label for="admin-password" class="block font-semibold mb-2 text-gray-700">الرمز السري</label>
-                <input type="password" id="admin-password" 
-                  class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200" 
-                  placeholder="أدخل الرمز السري" dir="ltr" style="text-align: left;">
-              </div>
-              <div id="login-error" class="hidden mb-4 p-3 bg-red-50 border-r-4 border-red-500 text-red-700 text-sm rounded">
-                ❌ الرمز السري غير صحيح
-              </div>
-              <div class="flex gap-3">
-                <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg smooth-transition">
-                  دخول
-                </button>
-                <button type="button" id="cancel-login-btn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 rounded-lg smooth-transition">
-                  إلغاء
-                </button>
-              </div>
-            </form>
-          </div>
+      <!-- Alert Message (Full) -->
+      <div id="full-message" class="hidden glass-dark rounded-3xl p-8 mb-8 scale-in text-center text-white">
+        <div class="text-6xl mb-4 wave-animation">⚠️</div>
+        <h2 class="text-3xl font-bold mb-4">عذراً، لقد اكتمل العدد</h2>
+        <p class="text-xl mb-3">تم الوصول إلى الحد الأقصى من الأعضاء</p>
+        <div class="badge badge-warning inline-flex">
+          <span>👥</span>
+          <span>1888 عضو</span>
         </div>
+        <p class="text-lg mt-4 opacity-80">نأسف لعدم قدرتنا على قبول المزيد من الطلبات حالياً</p>
+      </div>
 
-        <!-- Admin Dashboard -->
-        <div id="admin-dashboard" class="hidden">
-          <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-10 mb-8">
-            <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
-              <h2 class="text-2xl sm:text-3xl font-bold text-gray-800">📊 لوحة التحكم - الطلبات المستلمة</h2>
-              <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg smooth-transition">
-                تسجيل الخروج
-              </button>
-            </div>
-            <div class="mb-6 p-4 bg-emerald-50 border-r-4 border-emerald-500 rounded-lg">
-              <p class="text-lg font-semibold text-emerald-800">📊 عدد الطلبات: <span id="total-count">0</span></p>
-              <p class="text-lg font-semibold text-emerald-800 mt-2">🎯 الأماكن المتبقية: <span id="admin-remaining-spots">1888</span></p>
-            </div>
-            <div id="applications-list" class="space-y-4">
-              <!-- Applications will be loaded here -->
-            </div>
-            <div id="no-applications" class="hidden text-center py-12 text-gray-500">
-              <svg class="w-20 h-20 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-              </svg>
-              <p class="text-xl font-semibold">لا توجد طلبات بعد</p>
-              <p class="text-sm mt-2 opacity-75">سيتم عرض جميع الطلبات هنا عندما يقوم الطلاب بالتسجيل</p>
-            </div>
+      <!-- Info Card -->
+      <div id="info-card" class="glass-card rounded-3xl p-6 sm:p-8 mb-8 slide-up">
+        <div class="flex items-start gap-4">
+          <div class="icon-circle flex-shrink-0">
+            ℹ️
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              مجتمع خاص للطلاب وأولياء الأمور
+            </h2>
+            <p class="text-gray-700 text-lg leading-relaxed">
+              سيتم إرسال رابط الانضمام إلى البريد الإلكتروني المسجل. يرجى التأكد من صحة البيانات المدخلة.
+            </p>
           </div>
         </div>
       </div>
+
+      <!-- Main Form Card -->
+      <div id="form-card" class="glass-card rounded-3xl p-6 sm:p-10 slide-up" style="animation-delay: 0.1s">
+        <form id="join-form" class="space-y-6">
+          
+          <!-- Name Field -->
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
+              <span>👤</span>
+              <span>الاسم الكامل</span>
+              <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="name" required
+              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              placeholder="أدخل الاسم الكامل">
+          </div>
+
+          <!-- Governorate Field -->
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
+              <span>🗺️</span>
+              <span>المحافظة</span>
+              <span class="text-red-500">*</span>
+            </label>
+            <select id="governorate" required
+              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all cursor-pointer">
+              <option value="">اختر المحافظة</option>
+              <option value="مسقط">مسقط</option>
+              <option value="ظفار">ظفار</option>
+              <option value="مسندم">مسندم</option>
+              <option value="البريمي">البريمي</option>
+              <option value="الداخلية">الداخلية</option>
+              <option value="شمال الباطنة">شمال الباطنة</option>
+              <option value="جنوب الباطنة">جنوب الباطنة</option>
+              <option value="جنوب الشرقية">جنوب الشرقية</option>
+              <option value="شمال الشرقية">شمال الشرقية</option>
+              <option value="الظاهرة">الظاهرة</option>
+              <option value="الوسطى">الوسطى</option>
+            </select>
+          </div>
+
+          <!-- Wilayat Field -->
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
+              <span>📍</span>
+              <span>الولاية</span>
+              <span class="text-red-500">*</span>
+            </label>
+            <select id="wilayat" required disabled
+              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              <option value="">اختر المحافظة أولاً</option>
+            </select>
+          </div>
+
+          <!-- School Field -->
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
+              <span>🏫</span>
+              <span>المدرسة</span>
+              <span class="text-red-500">*</span>
+            </label>
+            <input type="text" id="school" required
+              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              placeholder="أدخل اسم المدرسة">
+            <div class="mt-3 p-4 bg-gradient-to-r from-red-50 to-orange-50 border-r-4 border-red-500 rounded-xl">
+              <p class="text-red-700 font-semibold flex items-center gap-2">
+                <span class="text-xl">⚠️</span>
+                <span>تنويه: لا نستقبل طلاب من مدرسة سعد بن معاذ للتعليم الأساسي</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
+              <span>📧</span>
+              <span>البريد الإلكتروني</span>
+              <span class="text-red-500">*</span>
+            </label>
+            <input type="email" id="email" required
+              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              placeholder="example@email.com" dir="ltr" style="text-align: left;">
+            <p class="text-sm text-gray-600 flex items-center gap-2">
+              <span>💡</span>
+              <span>سيتم إرسال رابط الانضمام إلى هذا البريد</span>
+            </p>
+          </div>
+
+          <!-- Phone Field -->
+          <div class="space-y-2">
+            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
+              <span>📱</span>
+              <span>رقم الهاتف</span>
+              <span class="text-red-500">*</span>
+            </label>
+            <input type="tel" id="phone" required pattern="^[0-9]{8}$"
+              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              placeholder="XXXXXXXX" maxlength="8" dir="ltr" style="text-align: left;">
+            <p class="text-sm text-gray-600 flex items-center gap-2">
+              <span>💡</span>
+              <span>مثال: 91234567</span>
+            </p>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="submit-btn"
+            class="btn-gradient w-full py-5 px-8 rounded-2xl text-white font-bold text-xl shadow-2xl transition-all">
+            <span id="button-text" class="flex items-center justify-center gap-3">
+              <span>✨</span>
+              <span>إرسال الطلب</span>
+            </span>
+            <span id="loading-spinner" class="hidden flex items-center justify-center gap-3">
+              <div class="spinner"></div>
+              <span>جاري الإرسال...</span>
+            </span>
+          </button>
+        </form>
+
+        <!-- Success Message -->
+        <div id="success-message" class="hidden mt-8 p-6 rounded-2xl border-r-4 scale-in">
+          <div class="flex items-center gap-4">
+            <div class="text-4xl">✅</div>
+            <p id="success-text" class="font-bold text-lg"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer id="main-footer" class="text-center mt-10 text-white slide-up" style="animation-delay: 0.2s">
+        <div class="glass-card rounded-3xl p-6 inline-block">
+          <p class="text-lg mb-4">
+            للاستفسارات، يرجى 
+            <a href="https://omk811.github.io/info/index.html" target="_blank" 
+              class="font-bold underline hover:no-underline transition-all bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              التواصل مع إدارة المجتمع
+            </a>
+          </p>
+          <button id="admin-btn" 
+            class="badge badge-primary opacity-70 hover:opacity-100 transition-all cursor-pointer">
+            <span>🔐</span>
+            <span>لوحة التحكم</span>
+          </button>
+        </div>
+      </footer>
+
+      <!-- Admin Login Modal -->
+      <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="glass-card rounded-3xl p-8 max-w-md w-full scale-in">
+          <div class="text-center mb-6">
+            <div class="icon-circle mx-auto mb-4">🔐</div>
+            <h2 class="text-3xl font-bold gradient-text">لوحة التحكم</h2>
+          </div>
+          
+          <form id="admin-login-form" class="space-y-6">
+            <div>
+              <label class="block font-bold mb-2 text-gray-800">الرمز السري</label>
+              <input type="password" id="admin-password"
+                class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none"
+                placeholder="أدخل الرمز السري" dir="ltr" style="text-align: left;">
+            </div>
+            
+            <div id="login-error" class="hidden p-4 bg-red-50 border-r-4 border-red-500 text-red-700 rounded-xl flex items-center gap-3">
+              <span class="text-2xl">❌</span>
+              <span class="font-semibold">الرمز السري غير صحيح</span>
+            </div>
+            
+            <div class="flex gap-3">
+              <button type="submit" 
+                class="flex-1 btn-gradient py-4 rounded-2xl text-white font-bold text-lg">
+                دخول
+              </button>
+              <button type="button" id="cancel-login-btn"
+                class="flex-1 py-4 rounded-2xl font-bold text-lg bg-gray-200 hover:bg-gray-300 transition-all">
+                إلغاء
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard -->
+      <div id="admin-dashboard" class="hidden">
+        <div class="glass-dark rounded-3xl p-6 sm:p-10 mb-8 text-white">
+          <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+            <div>
+              <h2 class="text-3xl sm:text-4xl font-bold mb-2 gradient-text">لوحة التحكم</h2>
+              <p class="text-gray-300">إدارة الطلبات المستلمة</p>
+            </div>
+            <button id="logout-btn" 
+              class="px-6 py-3 bg-red-500 hover:bg-red-600 rounded-2xl font-bold transition-all shadow-lg hover:shadow-xl">
+              🚪 تسجيل الخروج
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            <div class="glass-card rounded-2xl p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-600 font-semibold mb-1">عدد الطلبات</p>
+                  <p class="text-4xl font-black gradient-text" id="total-count">0</p>
+                </div>
+                <div class="icon-circle">📊</div>
+              </div>
+            </div>
+            
+            <div class="glass-card rounded-2xl p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-600 font-semibold mb-1">الأماكن المتبقية</p>
+                  <p class="text-4xl font-black gradient-text" id="admin-remaining-spots">1888</p>
+                </div>
+                <div class="icon-circle">🎯</div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="applications-list" class="space-y-4">
+            <!-- Applications will be loaded here -->
+          </div>
+          
+          <div id="no-applications" class="hidden text-center py-16">
+            <div class="text-6xl mb-4 opacity-50">📭</div>
+            <p class="text-2xl font-bold text-gray-400 mb-2">لا توجد طلبات بعد</p>
+            <p class="text-gray-500">سيتم عرض جميع الطلبات هنا عندما يقوم الطلاب بالتسجيل</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
   <script>
+    // Create particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = window.innerWidth < 768 ? 20 : 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+    createParticles();
+
     // ⚠️ ضع رابط Google Apps Script هنا
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxLqcf-aYQpqJ9x3iN-RstvPuL8JF_BRxRgao8OQjpd2qaKYIsE8XIw59594HCAQiH/exec';
     
-    const MAX_MEMBERS = 1875;
+    const MAX_MEMBERS = 1870;
     const ADMIN_PASSWORD = "aysha123";
     
     let currentRecordCount = 0;
@@ -283,7 +647,6 @@
       "الوسطى": ["هيما", "محوت", "الدقم", "الجازر"]
     };
 
-    // Load all records on page load
     async function loadAllRecords() {
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAll`);
@@ -321,7 +684,6 @@
       }
     }
 
-    // Governorate change handler
     document.getElementById('governorate').addEventListener('change', function() {
       const wilayatSelect = document.getElementById('wilayat');
       const selectedGovernorate = this.value;
@@ -339,18 +701,17 @@
         });
       } else {
         wilayatSelect.disabled = true;
-        wilayatSelect.innerHTML = '<option value="">اختر المحافظة أولا</option>';
+        wilayatSelect.innerHTML = '<option value="">اختر المحافظة أولاً</option>';
       }
     });
 
-    // Form submission
     document.getElementById('join-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const remainingSpots = MAX_MEMBERS - currentRecordCount;
 
       if (remainingSpots <= 0) {
-        showMessage('عذرا، لقد اكتمل العدد (1888 عضو). لا يمكن قبول المزيد من الطلبات.', 'error');
+        showMessage('عذراً، لقد اكتمل العدد (1888 عضو). لا يمكن قبول المزيد من الطلبات.', 'error');
         return;
       }
 
@@ -384,17 +745,17 @@
         if (result.status === 'success') {
           document.getElementById('join-form').reset();
           document.getElementById('wilayat').disabled = true;
-          document.getElementById('wilayat').innerHTML = '<option value="">اختر المحافظة أولا</option>';
+          document.getElementById('wilayat').innerHTML = '<option value="">اختر المحافظة أولاً</option>';
           
-          showMessage('تم إرسال طلبك بنجاح! سيتم التواصل معك قريبا عبر البريد الإلكتروني.', 'success');
+          showMessage('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً عبر البريد الإلكتروني. 🎉', 'success');
           
           await loadAllRecords();
         } else {
-          showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.', 'error');
+          showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى. ❌', 'error');
         }
       } catch (error) {
         console.error('Error:', error);
-        showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.', 'error');
+        showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى. ❌', 'error');
       }
 
       submitBtn.disabled = false;
@@ -410,15 +771,13 @@
       successMessage.classList.remove('hidden');
       
       if (type === 'error') {
-        successMessage.style.background = '#fef2f2';
+        successMessage.style.background = 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)';
         successMessage.style.borderRightColor = '#ef4444';
-        successMessage.querySelector('svg').style.color = '#dc2626';
-        successText.style.color = '#991b1b';
+        successMessage.style.color = '#991b1b';
       } else {
-        successMessage.style.background = '#f0fdf4';
+        successMessage.style.background = 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)';
         successMessage.style.borderRightColor = '#10b981';
-        successMessage.querySelector('svg').style.color = '#059669';
-        successText.style.color = '#064e3b';
+        successMessage.style.color = '#064e3b';
       }
       
       setTimeout(() => {
@@ -445,7 +804,7 @@
         return new Date(b.submitted_at) - new Date(a.submitted_at);
       });
       
-      listContainer.innerHTML = sortedApps.map(app => {
+      listContainer.innerHTML = sortedApps.map((app, index) => {
         const submittedDate = new Date(app.submitted_at);
         const formattedDate = submittedDate.toLocaleDateString('ar-SA', {
           year: 'numeric',
@@ -456,26 +815,60 @@
         });
         
         return `
-          <div class="border-2 border-gray-200 rounded-xl p-6 hover:shadow-lg smooth-transition bg-gray-50">
-            <div class="flex justify-between items-start mb-4 gap-4">
-              <h3 class="text-xl font-bold text-gray-800">👤 ${app.name}</h3>
-              <button onclick="deleteApplication('${app.id}')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition text-sm flex-shrink-0">
-                🗑️ حذف
+          <div class="glass-card rounded-2xl p-6 hover:shadow-2xl transition-all card-hover scale-in" style="animation-delay: ${index * 0.05}s">
+            <div class="flex justify-between items-start mb-4 gap-4 flex-wrap">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg">
+                  ${app.name.charAt(0)}
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800">${app.name}</h3>
+                  <p class="text-sm text-gray-500">${formattedDate}</p>
+                </div>
+              </div>
+              <button onclick="deleteApplication('${app.id}')" 
+                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
+                <span>🗑️</span>
+                <span>حذف</span>
               </button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <div><span class="font-semibold">📍 المحافظة:</span> ${app.governorate}</div>
-              <div><span class="font-semibold">📍 الولاية:</span> ${app.wilayat}</div>
-              <div class="md:col-span-2"><span class="font-semibold">🏫 المدرسة:</span> ${app.school}</div>
-              <div class="md:col-span-2">
-                <span class="font-semibold">📧 البريد الإلكتروني:</span> 
-                <a href="mailto:${app.email}" class="text-emerald-600 hover:underline" dir="ltr">${app.email}</a>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">📍</span>
+                <div>
+                  <p class="text-xs text-gray-500">المحافظة</p>
+                  <p class="font-semibold">${app.governorate}</p>
+                </div>
               </div>
-              <div>
-                <span class="font-semibold">📞 رقم الهاتف:</span> 
-                <a href="tel:${app.phone}" class="text-emerald-600 hover:underline" dir="ltr">${app.phone}</a>
+              <div class="flex items-center gap-2">
+                <span class="text-xl">📍</span>
+                <div>
+                  <p class="text-xs text-gray-500">الولاية</p>
+                  <p class="font-semibold">${app.wilayat}</p>
+                </div>
               </div>
-              <div><span class="font-semibold">📅 تاريخ التقديم:</span> ${formattedDate}</div>
+              <div class="flex items-center gap-2 sm:col-span-2">
+                <span class="text-xl">🏫</span>
+                <div>
+                  <p class="text-xs text-gray-500">المدرسة</p>
+                  <p class="font-semibold">${app.school}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 sm:col-span-2">
+                <span class="text-xl">📧</span>
+                <div>
+                  <p class="text-xs text-gray-500">البريد الإلكتروني</p>
+                  <a href="mailto:${app.email}" class="font-semibold text-purple-600 hover:underline" dir="ltr">${app.email}</a>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xl">📱</span>
+                <div>
+                  <p class="text-xs text-gray-500">رقم الهاتف</p>
+                  <a href="tel:${app.phone}" class="font-semibold text-purple-600 hover:underline" dir="ltr">${app.phone}</a>
+                </div>
+              </div>
             </div>
           </div>
         `;
@@ -510,7 +903,6 @@
       }
     };
 
-    // Admin login
     document.getElementById('admin-btn').addEventListener('click', () => {
       document.getElementById('admin-login-modal').classList.remove('hidden');
       document.getElementById('admin-password').focus();
@@ -531,12 +923,13 @@
         document.getElementById('admin-password').value = '';
         document.getElementById('login-error').classList.add('hidden');
         
-        document.getElementById('main-header').classList.add('hidden');
+        document.getElementById('main-footer').classList.add('hidden');
         document.getElementById('info-card').classList.add('hidden');
         document.getElementById('form-card').classList.add('hidden');
-        document.getElementById('main-footer').classList.add('hidden');
         document.getElementById('full-message').classList.add('hidden');
+        document.querySelector('header').classList.add('hidden');
         
+        document.body.classList.add('dark-theme');
         document.getElementById('admin-dashboard').classList.remove('hidden');
         renderApplicationsList();
       } else {
@@ -546,14 +939,14 @@
 
     document.getElementById('logout-btn').addEventListener('click', () => {
       document.getElementById('admin-dashboard').classList.add('hidden');
+      document.body.classList.remove('dark-theme');
       
-      document.getElementById('main-header').classList.remove('hidden');
+      document.querySelector('header').classList.remove('hidden');
       document.getElementById('main-footer').classList.remove('hidden');
       
       updateAvailabilityDisplay();
     });
 
-    // Initialize
     loadAllRecords();
   </script>
 </body>
