@@ -852,7 +852,7 @@
     // ⚠️ ضع رابط Google Apps Script هنا
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyWRPAEdZQzFqmAcHDl7S93cGkbyFlcYH-ELOiJg7oUOmVvPjxlcGXzdsYFL-Lz8jUd/exec';
     
-    const MAX_MEMBERS = 1888;
+    const MAX_MEMBERS = 1870;
     
     let currentRecordCount = 0;
     let allApplications = [];
@@ -891,7 +891,8 @@
     };
 
     async function loadAllRecords() {
-      if (!isAdminAuthenticated) return;
+      // تم تعطيل شرط المصادقة مؤقتاً - استخدم google-apps-script-reviewed.gs بدلاً من secure
+      // if (!isAdminAuthenticated) return;
       
       try {
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAll`);
