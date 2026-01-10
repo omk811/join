@@ -523,26 +523,6 @@
       font-weight: 800;
       box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
     }
-
-    /* Notification */
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      animation: slideInRight 0.3s ease-out;
-    }
-
-    @keyframes slideInRight {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
   </style>
 </head>
 <body>
@@ -865,14 +845,27 @@
   </main>
 
   <script>
-    // ============================================
-    // التهيئة والإعدادات
-    // ============================================
-    
+    // Particles
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const count = window.innerWidth < 768 ? 15 : 30;
+      
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        container.appendChild(particle);
+      }
+    }
+    createParticles();
+
     // ⚠️ ضع رابط Google Apps Script هنا
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuZ4z3ceXeKzvGAWxkLBg7bSVG3gECE7ofeTVdmpOSqjvFAHlSMYeLlKk-0Fgf7U7N/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuZ4z3ceXeKzvGAWxkLBg7bSVG3gECE7ofeTVdmpOSqjvFAHlSMYeLlKk-0Fgf7U7N/exec
+';
     
-    const MAX_MEMBERS = 1876;
+    const MAX_MEMBERS = 1888;
     const ADMIN_PASSWORD = "aysha123";
     
     let currentRecordCount = 0;
@@ -894,46 +887,10 @@
       "الوسطى": ["هيما", "محوت", "الدقم", "الجازر"]
     };
 
-    // ============================================
-    // دوال التهيئة
-    // ============================================
-    
-    function createParticles() {
-      const container = document.getElementById('particles');
-      const count = window.innerWidth < 768 ? 15 : 30;
-      
-      for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 15 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-        container.appendChild(particle);
-      }
-    }
-    
-    function showMessage(message, type) {
-      const box = document.getElementById('success-message');
-      const text = document.getElementById('success-text');
-      
-      text.textContent = message;
-      box.classList.remove('hidden');
-      box.className = 'mt-8 p-6 rounded-2xl scale-in alert-' + type;
-      
-      setTimeout(() => box.classList.add('hidden'), type === 'error' ? 5000 : 8000);
-    }
-
-    // ============================================
-    // دوال إدارة البيانات
-    // ============================================
-    
     async function loadAllRecords() {
       try {
-        console.log('Loading all records...');
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAll`);
         const data = await response.json();
-        
-        console.log('Records loaded:', data);
         
         if (data.status === 'success') {
           // دمج البيانات مع الحالات المحفوظة
@@ -941,40 +898,14 @@
           
           allApplications = data.data.map(app => ({
             ...app,
-            id: app.ID || app.id, // استخدم ID من Google Sheet
-            status: savedStatuses[app.ID || app.id] || 'new'
+            status: savedStatuses[app.id] || 'new'
           }));
           
-          console.log('Processed applications:', allApplications);
-          currentRecordCount = allApplications.length;
-          updateAvailabilityDisplay();
-          
-          // تحديث لوحة التحكم إذا كانت مفتوحة
-          if (!document.getElementById('admin-dashboard').classList.contains('hidden')) {
-            renderApplicationsList();
-          }
-        } else {
-          console.error('Error loading records:', data.message);
-          // حل بديل: عرض بيانات تجريبية
-          allApplications = [
-            {
-              ID: '123',
-              name: 'اختبار',
-              governorate: 'مسقط',
-              wilayat: 'السيب',
-              school: 'مدرسة الاختبار',
-              email: 'test@example.com',
-              phone: '12345678',
-              submitted_at: new Date().toISOString(),
-              status: 'new'
-            }
-          ];
           currentRecordCount = allApplications.length;
           updateAvailabilityDisplay();
         }
       } catch (error) {
-        console.error('Error loading records:', error);
-        showMessage('حدث خطأ في تحميل البيانات ❌', 'error');
+        console.error('Error:', error);
       }
     }
 
@@ -983,8 +914,6 @@
       const full = document.getElementById('full-message');
       const info = document.getElementById('info-card');
       const form = document.getElementById('form-card');
-      
-      console.log('Remaining spots:', remaining);
       
       if (remaining <= 0) {
         form.classList.add('hidden');
@@ -1000,265 +929,6 @@
       if (adminSpots) adminSpots.textContent = remaining;
     }
 
-    // ============================================
-    // دوال عرض البيانات
-    // ============================================
-    
-    function renderApplicationsList() {
-      const list = document.getElementById('applications-list');
-      const noApps = document.getElementById('no-applications');
-      const count = document.getElementById('total-count');
-      
-      count.textContent = allApplications.length;
-      
-      // تحديث عدادات الفلاتر
-      updateFilterCounts();
-      
-      if (allApplications.length === 0) {
-        list.innerHTML = '';
-        noApps.classList.remove('hidden');
-        return;
-      }
-      
-      noApps.classList.add('hidden');
-      
-      // فلترة الطلبات
-      let filtered = allApplications;
-      
-      if (currentFilter !== 'all') {
-        filtered = allApplications.filter(app => app.status === currentFilter);
-      }
-      
-      if (hideAdded) {
-        filtered = filtered.filter(app => app.status !== 'added');
-      }
-      
-      if (filtered.length === 0) {
-        list.innerHTML = `
-          <div class="text-center py-12">
-            <div class="text-5xl mb-4 opacity-50">🔍</div>
-            <p class="text-xl font-bold text-gray-400">لا توجد نتائج للفلتر المحدد</p>
-            <button onclick="filterApplications('all')" class="mt-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all">
-              عرض الكل
-            </button>
-          </div>
-        `;
-        return;
-      }
-      
-      const sorted = [...filtered].sort((a, b) => 
-        new Date(b.submitted_at || b['تاريخ التقديم']) - new Date(a.submitted_at || a['تاريخ التقديم'])
-      );
-      
-      list.innerHTML = sorted.map((app, i) => {
-        const date = app.submitted_at || app['تاريخ التقديم'] || new Date().toISOString();
-        const formattedDate = new Date(date).toLocaleDateString('ar-SA', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        });
-        
-        const appId = app.ID || app.id;
-        const appName = app.name || app['الاسم'] || 'بدون اسم';
-        const appGovernorate = app.governorate || app['المحافظة'] || '';
-        const appWilayat = app.wilayat || app['الولاية'] || '';
-        const appSchool = app.school || app['المدرسة'] || '';
-        const appEmail = app.email || app['البريد الإلكتروني'] || '';
-        const appPhone = app.phone || app['رقم الهاتف'] || '';
-        
-        const statusClass = app.status === 'added' ? 'added-application' : 'new-application';
-        const statusBadge = app.status === 'added' 
-          ? '<div class="status-badge added"><span>✅</span><span>تمت الإضافة</span></div>'
-          : '<div class="status-badge new"><span>🆕</span><span>جديد</span></div>';
-        
-        return `
-          <div class="app-card ${statusClass} scale-in" style="animation-delay: ${i * 0.05}s">
-            ${statusBadge}
-            
-            <div class="flex justify-between items-start mb-4 gap-4 flex-wrap">
-              <div class="flex items-center gap-3 flex-1">
-                <div class="avatar">${appName.charAt(0)}</div>
-                <div class="flex-1">
-                  <h3 class="text-xl font-black text-gray-800 dark:text-white">${appName}</h3>
-                  <p class="text-sm text-gray-500 font-semibold">${formattedDate}</p>
-                </div>
-              </div>
-              
-              <div class="flex items-center gap-2">
-                <label class="checkbox-label" onclick="event.stopPropagation()">
-                  <input type="checkbox" 
-                    class="status-checkbox" 
-                    ${app.status === 'added' ? 'checked' : ''} 
-                    onchange="toggleApplicationStatus('${appId}', this.checked)">
-                  <span class="text-gray-700 dark:text-gray-300 font-bold text-sm">تمت الإضافة</span>
-                </label>
-                
-                <button onclick="deleteApplication('${appId}')" 
-                  class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all shadow-lg flex items-center gap-2">
-                  <span>🗑️</span>
-                  <span>حذف</span>
-                </button>
-              </div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">📍</span>
-                <div>
-                  <p class="text-xs text-gray-500 font-semibold">المحافظة</p>
-                  <p class="font-black">${appGovernorate}</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-xl">📍</span>
-                <div>
-                  <p class="text-xs text-gray-500 font-semibold">الولاية</p>
-                  <p class="font-black">${appWilayat}</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 sm:col-span-2">
-                <span class="text-xl">🏫</span>
-                <div>
-                  <p class="text-xs text-gray-500 font-semibold">المدرسة</p>
-                  <p class="font-black">${appSchool}</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 sm:col-span-2">
-                <span class="text-xl">📧</span>
-                <div>
-                  <p class="text-xs text-gray-500 font-semibold">البريد</p>
-                  <a href="mailto:${appEmail}" class="font-black text-green-600 hover:underline" dir="ltr">${appEmail}</a>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-xl">📱</span>
-                <div>
-                  <p class="text-xs text-gray-500 font-semibold">الهاتف</p>
-                  <a href="tel:${appPhone}" class="font-black text-green-600 hover:underline" dir="ltr">${appPhone}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // ============================================
-    // دوال الإدارة
-    // ============================================
-    
-    window.deleteApplication = async function(id) {
-      const app = allApplications.find(a => (a.ID || a.id) === id);
-      if (!app || !confirm(`هل أنت متأكد من حذف طلب: ${app.name || app['الاسم']}؟`)) return;
-
-      try {
-        console.log('Deleting application ID:', id);
-        
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 
-            action: 'delete', 
-            id: id 
-          })
-        });
-
-        const result = await response.json();
-        console.log('Delete result:', result);
-        
-        if (result.status === 'success') {
-          // تحديث البيانات المحلية
-          allApplications = allApplications.filter(a => (a.ID || a.id) !== id);
-          currentRecordCount = allApplications.length;
-          
-          // تحديث localStorage
-          const statuses = JSON.parse(localStorage.getItem('applicationStatuses') || '{}');
-          delete statuses[id];
-          localStorage.setItem('applicationStatuses', JSON.stringify(statuses));
-          
-          // تحديث العروض
-          renderApplicationsList();
-          updateAvailabilityDisplay();
-          
-          showMessage('تم حذف الطلب بنجاح ✅', 'success');
-          
-        } else {
-          showMessage(`فشل في حذف الطلب: ${result.message} ❌`, 'error');
-        }
-      } catch (error) {
-        console.error('Delete error:', error);
-        showMessage('حدث خطأ في عملية الحذف ❌', 'error');
-      }
-    };
-
-    function toggleApplicationStatus(id, isAdded) {
-      const app = allApplications.find(a => (a.ID || a.id) === id);
-      if (!app) return;
-      
-      app.status = isAdded ? 'added' : 'new';
-      
-      // حفظ الحالات في localStorage
-      const statuses = JSON.parse(localStorage.getItem('applicationStatuses') || '{}');
-      statuses[id] = app.status;
-      localStorage.setItem('applicationStatuses', JSON.stringify(statuses));
-      
-      // تحديث العداد مباشرة
-      updateFilterCounts();
-      renderApplicationsList();
-      
-      // إظهار رسالة تأكيد
-      const appName = app.name || app['الاسم'] || 'هذا الطلب';
-      showMessage(
-        isAdded ? `تم تمييز طلب ${appName} كمضاف ✅` : `تم إزالة تمييز طلب ${appName}`,
-        isAdded ? 'success' : 'info'
-      );
-    }
-
-    function updateFilterCounts() {
-      const newCount = allApplications.filter(app => app.status === 'new').length;
-      const addedCount = allApplications.filter(app => app.status === 'added').length;
-      
-      document.getElementById('count-all').textContent = allApplications.length;
-      document.getElementById('count-new').textContent = newCount;
-      document.getElementById('count-added').textContent = addedCount;
-    }
-
-    function filterApplications(filter) {
-      currentFilter = filter;
-      
-      // تحديث أزرار الفلتر
-      document.getElementById('filter-all').className = 'px-4 py-2 rounded-xl font-bold transition-all ' + 
-        (filter === 'all' ? 'bg-green-500 text-white border-2 border-green-500' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-green-500');
-      
-      document.getElementById('filter-new').className = 'px-4 py-2 rounded-xl font-bold transition-all ' + 
-        (filter === 'new' ? 'bg-amber-500 text-white border-2 border-amber-500' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-amber-500');
-      
-      document.getElementById('filter-added').className = 'px-4 py-2 rounded-xl font-bold transition-all ' + 
-        (filter === 'added' ? 'bg-green-500 text-white border-2 border-green-500' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-green-500');
-      
-      renderApplicationsList();
-    }
-
-    function toggleShowAddedOnly() {
-      hideAdded = document.getElementById('show-added-only').checked;
-      
-      // تغيير نص التسمية
-      const label = document.querySelector('label[for="show-added-only"] span');
-      if (label) {
-        label.textContent = hideAdded ? 'إظهار المضافين' : 'إخفاء المضافين';
-      }
-      
-      renderApplicationsList();
-    }
-
-    // ============================================
-    // مستمعي الأحداث
-    // ============================================
-    
     document.getElementById('governorate').addEventListener('change', function() {
       const wilayat = document.getElementById('wilayat');
       const gov = this.value;
@@ -1308,14 +978,10 @@
       try {
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           body: JSON.stringify({ action: 'create', ...data })
         });
 
         const result = await response.json();
-        console.log('Submit result:', result);
 
         if (result.status === 'success') {
           document.getElementById('join-form').reset();
@@ -1326,7 +992,6 @@
           showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
         }
       } catch (error) {
-        console.error('Submit error:', error);
         showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
       }
 
@@ -1335,7 +1000,208 @@
       spinner.classList.add('hidden');
     });
 
-    // إدارة لوحة التحكم
+    function showMessage(message, type) {
+      const box = document.getElementById('success-message');
+      const text = document.getElementById('success-text');
+      
+      text.textContent = message;
+      box.classList.remove('hidden');
+      box.className = 'mt-8 p-6 rounded-2xl scale-in alert-' + type;
+      
+      setTimeout(() => box.classList.add('hidden'), type === 'error' ? 5000 : 8000);
+    }
+
+    function renderApplicationsList() {
+      const list = document.getElementById('applications-list');
+      const noApps = document.getElementById('no-applications');
+      const count = document.getElementById('total-count');
+      
+      count.textContent = allApplications.length;
+      
+      // تحديث عدادات الفلاتر
+      const newCount = allApplications.filter(app => app.status === 'new').length;
+      const addedCount = allApplications.filter(app => app.status === 'added').length;
+      
+      document.getElementById('count-all').textContent = allApplications.length;
+      document.getElementById('count-new').textContent = newCount;
+      document.getElementById('count-added').textContent = addedCount;
+      
+      if (allApplications.length === 0) {
+        list.innerHTML = '';
+        noApps.classList.remove('hidden');
+        return;
+      }
+      
+      noApps.classList.add('hidden');
+      
+      // فلترة الطلبات
+      let filtered = allApplications;
+      
+      if (currentFilter !== 'all') {
+        filtered = allApplications.filter(app => app.status === currentFilter);
+      }
+      
+      if (hideAdded) {
+        filtered = filtered.filter(app => app.status !== 'added');
+      }
+      
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-12">
+            <div class="text-5xl mb-4 opacity-50">🔍</div>
+            <p class="text-xl font-bold text-gray-400">لا توجد نتائج للفلتر المحدد</p>
+          </div>
+        `;
+        return;
+      }
+      
+      const sorted = [...filtered].sort((a, b) => 
+        new Date(b.submitted_at) - new Date(a.submitted_at)
+      );
+      
+      list.innerHTML = sorted.map((app, i) => {
+        const date = new Date(app.submitted_at).toLocaleDateString('ar-SA', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        const statusClass = app.status === 'added' ? 'added-application' : 'new-application';
+        const statusBadge = app.status === 'added' 
+          ? '<div class="status-badge added"><span>✅</span><span>تمت الإضافة</span></div>'
+          : '<div class="status-badge new"><span>🆕</span><span>جديد</span></div>';
+        
+        return `
+          <div class="app-card ${statusClass} scale-in" style="animation-delay: ${i * 0.05}s">
+            ${statusBadge}
+            
+            <div class="flex justify-between items-start mb-4 gap-4 flex-wrap">
+              <div class="flex items-center gap-3 flex-1">
+                <div class="avatar">${app.name.charAt(0)}</div>
+                <div class="flex-1">
+                  <h3 class="text-xl font-black text-gray-800 dark:text-white">${app.name}</h3>
+                  <p class="text-sm text-gray-500 font-semibold">${date}</p>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-2">
+                <label class="checkbox-label" onclick="event.stopPropagation()">
+                  <input type="checkbox" 
+                    class="status-checkbox" 
+                    ${app.status === 'added' ? 'checked' : ''} 
+                    onchange="toggleApplicationStatus('${app.id}', this.checked)">
+                  <span class="text-gray-700 dark:text-gray-300 font-bold text-sm">تمت الإضافة</span>
+                </label>
+                
+                <button onclick="deleteApplication('${app.id}')" 
+                  class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all shadow-lg flex items-center gap-2">
+                  <span>🗑️</span>
+                  <span>حذف</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">📍</span>
+                <div>
+                  <p class="text-xs text-gray-500 font-semibold">المحافظة</p>
+                  <p class="font-black">${app.governorate}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xl">📍</span>
+                <div>
+                  <p class="text-xs text-gray-500 font-semibold">الولاية</p>
+                  <p class="font-black">${app.wilayat}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 sm:col-span-2">
+                <span class="text-xl">🏫</span>
+                <div>
+                  <p class="text-xs text-gray-500 font-semibold">المدرسة</p>
+                  <p class="font-black">${app.school}</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 sm:col-span-2">
+                <span class="text-xl">📧</span>
+                <div>
+                  <p class="text-xs text-gray-500 font-semibold">البريد</p>
+                  <a href="mailto:${app.email}" class="font-black text-green-600 hover:underline" dir="ltr">${app.email}</a>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xl">📱</span>
+                <div>
+                  <p class="text-xs text-gray-500 font-semibold">الهاتف</p>
+                  <a href="tel:${app.phone}" class="font-black text-green-600 hover:underline" dir="ltr">${app.phone}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleApplicationStatus(id, isAdded) {
+      const app = allApplications.find(a => a.id === id);
+      if (!app) return;
+      
+      app.status = isAdded ? 'added' : 'new';
+      
+      // حفظ الحالات في localStorage
+      const statuses = JSON.parse(localStorage.getItem('applicationStatuses') || '{}');
+      statuses[id] = app.status;
+      localStorage.setItem('applicationStatuses', JSON.stringify(statuses));
+      
+      renderApplicationsList();
+    }
+
+    function filterApplications(filter) {
+      currentFilter = filter;
+      
+      // تحديث أزرار الفلتر
+      document.getElementById('filter-all').className = 'px-4 py-2 rounded-xl font-bold transition-all ' + 
+        (filter === 'all' ? 'bg-green-500 text-white border-2 border-green-500' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-green-500');
+      
+      document.getElementById('filter-new').className = 'px-4 py-2 rounded-xl font-bold transition-all ' + 
+        (filter === 'new' ? 'bg-amber-500 text-white border-2 border-amber-500' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-amber-500');
+      
+      document.getElementById('filter-added').className = 'px-4 py-2 rounded-xl font-bold transition-all ' + 
+        (filter === 'added' ? 'bg-green-500 text-white border-2 border-green-500' : 'bg-white text-gray-800 border-2 border-gray-300 hover:border-green-500');
+      
+      renderApplicationsList();
+    }
+
+    function toggleShowAddedOnly() {
+      hideAdded = document.getElementById('show-added-only').checked;
+      renderApplicationsList();
+    }
+
+    window.deleteApplication = async function(id) {
+      const app = allApplications.find(a => a.id === id);
+      if (!app || !confirm(`حذف طلب: ${app.name}؟`)) return;
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'delete', id })
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+          await loadAllRecords();
+          renderApplicationsList();
+        } else {
+          alert('❌ حدث خطأ');
+        }
+      } catch (error) {
+        alert('❌ حدث خطأ');
+      }
+    };
+
     document.getElementById('admin-btn').addEventListener('click', () => {
       document.getElementById('admin-login-modal').classList.remove('hidden');
       document.getElementById('admin-password').focus();
@@ -1380,11 +1246,6 @@
       updateAvailabilityDisplay();
     });
 
-    // ============================================
-    // تهيئة التطبيق
-    // ============================================
-    
-    createParticles();
     loadAllRecords();
   </script>
 </body>
