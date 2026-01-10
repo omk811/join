@@ -523,6 +523,26 @@
       font-weight: 800;
       box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
     }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      animation: slideInRight 0.3s ease-out;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -808,15 +828,15 @@
           <div class="glass-card rounded-2xl p-4 mb-6 flex flex-wrap gap-4 items-center justify-between">
             <div class="flex flex-wrap gap-3">
               <button onclick="filterApplications('all')" id="filter-all" 
-                class="px-4 py-2 rounded-xl font-bold transition-all bg-white text-gray-800 border-2 border-gray-300 hover:border-green-500">
+                class="px-4 py-2 rounded-xl font-bold transition-all border-2">
                 📋 الكل (<span id="count-all">0</span>)
               </button>
               <button onclick="filterApplications('new')" id="filter-new"
-                class="px-4 py-2 rounded-xl font-bold transition-all bg-white text-gray-800 border-2 border-gray-300 hover:border-amber-500">
+                class="px-4 py-2 rounded-xl font-bold transition-all border-2">
                 🆕 جديد (<span id="count-new">0</span>)
               </button>
               <button onclick="filterApplications('added')" id="filter-added"
-                class="px-4 py-2 rounded-xl font-bold transition-all bg-white text-gray-800 border-2 border-gray-300 hover:border-green-500">
+                class="px-4 py-2 rounded-xl font-bold transition-all border-2">
                 ✅ تمت الإضافة (<span id="count-added">0</span>)
               </button>
             </div>
@@ -845,26 +865,14 @@
   </main>
 
   <script>
-    // Particles
-    function createParticles() {
-      const container = document.getElementById('particles');
-      const count = window.innerWidth < 768 ? 15 : 30;
-      
-      for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 15 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-        container.appendChild(particle);
-      }
-    }
-    createParticles();
-
+    // ============================================
+    // التهيئة والإعدادات
+    // ============================================
+    
     // ⚠️ ضع رابط Google Apps Script هنا
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyG2SVhDTeX-CFl8EewR7XWHm0rWAGcOjk6phvlNmNvv_VMVz2EMNxlDXj930Fxbtgl/exec';
     
-    const MAX_MEMBERS = 1888;
+    const MAX_MEMBERS = 1876;
     const ADMIN_PASSWORD = "aysha123";
     
     let currentRecordCount = 0;
@@ -886,10 +894,46 @@
       "الوسطى": ["هيما", "محوت", "الدقم", "الجازر"]
     };
 
+    // ============================================
+    // دوال التهيئة
+    // ============================================
+    
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const count = window.innerWidth < 768 ? 15 : 30;
+      
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        container.appendChild(particle);
+      }
+    }
+    
+    function showMessage(message, type) {
+      const box = document.getElementById('success-message');
+      const text = document.getElementById('success-text');
+      
+      text.textContent = message;
+      box.classList.remove('hidden');
+      box.className = 'mt-8 p-6 rounded-2xl scale-in alert-' + type;
+      
+      setTimeout(() => box.classList.add('hidden'), type === 'error' ? 5000 : 8000);
+    }
+
+    // ============================================
+    // دوال إدارة البيانات
+    // ============================================
+    
     async function loadAllRecords() {
       try {
+        console.log('Loading all records...');
         const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAll`);
         const data = await response.json();
+        
+        console.log('Records loaded:', data);
         
         if (data.status === 'success') {
           // دمج البيانات مع الحالات المحفوظة
@@ -902,9 +946,17 @@
           
           currentRecordCount = allApplications.length;
           updateAvailabilityDisplay();
+          
+          // تحديث لوحة التحكم إذا كانت مفتوحة
+          if (!document.getElementById('admin-dashboard').classList.contains('hidden')) {
+            renderApplicationsList();
+          }
+        } else {
+          console.error('Error loading records:', data.message);
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error loading records:', error);
+        showMessage('حدث خطأ في تحميل البيانات ❌', 'error');
       }
     }
 
@@ -913,6 +965,8 @@
       const full = document.getElementById('full-message');
       const info = document.getElementById('info-card');
       const form = document.getElementById('form-card');
+      
+      console.log('Remaining spots:', remaining);
       
       if (remaining <= 0) {
         form.classList.add('hidden');
@@ -928,88 +982,10 @@
       if (adminSpots) adminSpots.textContent = remaining;
     }
 
-    document.getElementById('governorate').addEventListener('change', function() {
-      const wilayat = document.getElementById('wilayat');
-      const gov = this.value;
-      
-      wilayat.innerHTML = '<option value="">اختر الولاية</option>';
-      
-      if (gov && wilayatsData[gov]) {
-        wilayat.disabled = false;
-        wilayatsData[gov].forEach(w => {
-          const opt = document.createElement('option');
-          opt.value = w;
-          opt.textContent = w;
-          wilayat.appendChild(opt);
-        });
-      } else {
-        wilayat.disabled = true;
-      }
-    });
-
-    document.getElementById('join-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (MAX_MEMBERS - currentRecordCount <= 0) {
-        showMessage('عذراً، لقد اكتمل العدد. لا يمكن قبول المزيد.', 'error');
-        return;
-      }
-
-      const btn = document.getElementById('submit-btn');
-      const text = document.getElementById('button-text');
-      const spinner = document.getElementById('loading-spinner');
-      
-      btn.disabled = true;
-      text.classList.add('hidden');
-      spinner.classList.remove('hidden');
-
-      const data = {
-        id: Date.now().toString(),
-        name: document.getElementById('name').value,
-        governorate: document.getElementById('governorate').value,
-        wilayat: document.getElementById('wilayat').value,
-        school: document.getElementById('school').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        submitted_at: new Date().toISOString()
-      };
-
-      try {
-        const response = await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          body: JSON.stringify({ action: 'create', ...data })
-        });
-
-        const result = await response.json();
-
-        if (result.status === 'success') {
-          document.getElementById('join-form').reset();
-          document.getElementById('wilayat').disabled = true;
-          showMessage('تم إرسال طلبك بنجاح! 🎉 سيتم التواصل معك قريباً.', 'success');
-          await loadAllRecords();
-        } else {
-          showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
-        }
-      } catch (error) {
-        showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
-      }
-
-      btn.disabled = false;
-      text.classList.remove('hidden');
-      spinner.classList.add('hidden');
-    });
-
-    function showMessage(message, type) {
-      const box = document.getElementById('success-message');
-      const text = document.getElementById('success-text');
-      
-      text.textContent = message;
-      box.classList.remove('hidden');
-      box.className = 'mt-8 p-6 rounded-2xl scale-in alert-' + type;
-      
-      setTimeout(() => box.classList.add('hidden'), type === 'error' ? 5000 : 8000);
-    }
-
+    // ============================================
+    // دوال عرض البيانات
+    // ============================================
+    
     function renderApplicationsList() {
       const list = document.getElementById('applications-list');
       const noApps = document.getElementById('no-applications');
@@ -1018,12 +994,7 @@
       count.textContent = allApplications.length;
       
       // تحديث عدادات الفلاتر
-      const newCount = allApplications.filter(app => app.status === 'new').length;
-      const addedCount = allApplications.filter(app => app.status === 'added').length;
-      
-      document.getElementById('count-all').textContent = allApplications.length;
-      document.getElementById('count-new').textContent = newCount;
-      document.getElementById('count-added').textContent = addedCount;
+      updateFilterCounts();
       
       if (allApplications.length === 0) {
         list.innerHTML = '';
@@ -1049,6 +1020,9 @@
           <div class="text-center py-12">
             <div class="text-5xl mb-4 opacity-50">🔍</div>
             <p class="text-xl font-bold text-gray-400">لا توجد نتائج للفلتر المحدد</p>
+            <button onclick="filterApplications('all')" class="mt-4 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-all">
+              عرض الكل
+            </button>
           </div>
         `;
         return;
@@ -1144,6 +1118,56 @@
       }).join('');
     }
 
+    // ============================================
+    // دوال الإدارة
+    // ============================================
+    
+    window.deleteApplication = async function(id) {
+      const app = allApplications.find(a => a.id === id);
+      if (!app || !confirm(`هل أنت متأكد من حذف طلب: ${app.name}؟`)) return;
+
+      try {
+        console.log('Deleting application ID:', id);
+        
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            action: 'delete', 
+            id: id 
+          })
+        });
+
+        const result = await response.json();
+        console.log('Delete result:', result);
+        
+        if (result.status === 'success') {
+          // تحديث البيانات المحلية
+          allApplications = allApplications.filter(a => a.id !== id);
+          currentRecordCount = allApplications.length;
+          
+          // تحديث localStorage
+          const statuses = JSON.parse(localStorage.getItem('applicationStatuses') || '{}');
+          delete statuses[id];
+          localStorage.setItem('applicationStatuses', JSON.stringify(statuses));
+          
+          // تحديث العروض
+          renderApplicationsList();
+          updateAvailabilityDisplay();
+          
+          showMessage('تم حذف الطلب بنجاح ✅', 'success');
+          
+        } else {
+          showMessage(`فشل في حذف الطلب: ${result.message} ❌`, 'error');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        showMessage('حدث خطأ في عملية الحذف ❌', 'error');
+      }
+    };
+
     function toggleApplicationStatus(id, isAdded) {
       const app = allApplications.find(a => a.id === id);
       if (!app) return;
@@ -1155,7 +1179,24 @@
       statuses[id] = app.status;
       localStorage.setItem('applicationStatuses', JSON.stringify(statuses));
       
+      // تحديث العداد مباشرة
+      updateFilterCounts();
       renderApplicationsList();
+      
+      // إظهار رسالة تأكيد
+      showMessage(
+        isAdded ? `تم تمييز طلب ${app.name} كمضاف ✅` : `تم إزالة تمييز طلب ${app.name}`,
+        isAdded ? 'success' : 'info'
+      );
+    }
+
+    function updateFilterCounts() {
+      const newCount = allApplications.filter(app => app.status === 'new').length;
+      const addedCount = allApplications.filter(app => app.status === 'added').length;
+      
+      document.getElementById('count-all').textContent = allApplications.length;
+      document.getElementById('count-new').textContent = newCount;
+      document.getElementById('count-added').textContent = addedCount;
     }
 
     function filterApplications(filter) {
@@ -1176,31 +1217,97 @@
 
     function toggleShowAddedOnly() {
       hideAdded = document.getElementById('show-added-only').checked;
+      
+      // تغيير نص التسمية
+      const label = document.querySelector('label[for="show-added-only"] span');
+      if (label) {
+        label.textContent = hideAdded ? 'إظهار المضافين' : 'إخفاء المضافين';
+      }
+      
       renderApplicationsList();
     }
 
-    window.deleteApplication = async function(id) {
-      const app = allApplications.find(a => a.id === id);
-      if (!app || !confirm(`حذف طلب: ${app.name}؟`)) return;
+    // ============================================
+    // مستمعي الأحداث
+    // ============================================
+    
+    document.getElementById('governorate').addEventListener('change', function() {
+      const wilayat = document.getElementById('wilayat');
+      const gov = this.value;
+      
+      wilayat.innerHTML = '<option value="">اختر الولاية</option>';
+      
+      if (gov && wilayatsData[gov]) {
+        wilayat.disabled = false;
+        wilayatsData[gov].forEach(w => {
+          const opt = document.createElement('option');
+          opt.value = w;
+          opt.textContent = w;
+          wilayat.appendChild(opt);
+        });
+      } else {
+        wilayat.disabled = true;
+      }
+    });
+
+    document.getElementById('join-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (MAX_MEMBERS - currentRecordCount <= 0) {
+        showMessage('عذراً، لقد اكتمل العدد. لا يمكن قبول المزيد.', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('submit-btn');
+      const text = document.getElementById('button-text');
+      const spinner = document.getElementById('loading-spinner');
+      
+      btn.disabled = true;
+      text.classList.add('hidden');
+      spinner.classList.remove('hidden');
+
+      const data = {
+        id: Date.now().toString(),
+        name: document.getElementById('name').value,
+        governorate: document.getElementById('governorate').value,
+        wilayat: document.getElementById('wilayat').value,
+        school: document.getElementById('school').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        submitted_at: new Date().toISOString()
+      };
 
       try {
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          body: JSON.stringify({ action: 'delete', id })
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ action: 'create', ...data })
         });
 
         const result = await response.json();
+        console.log('Submit result:', result);
+
         if (result.status === 'success') {
+          document.getElementById('join-form').reset();
+          document.getElementById('wilayat').disabled = true;
+          showMessage('تم إرسال طلبك بنجاح! 🎉 سيتم التواصل معك قريباً.', 'success');
           await loadAllRecords();
-          renderApplicationsList();
         } else {
-          alert('❌ حدث خطأ');
+          showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
         }
       } catch (error) {
-        alert('❌ حدث خطأ');
+        console.error('Submit error:', error);
+        showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
       }
-    };
 
+      btn.disabled = false;
+      text.classList.remove('hidden');
+      spinner.classList.add('hidden');
+    });
+
+    // إدارة لوحة التحكم
     document.getElementById('admin-btn').addEventListener('click', () => {
       document.getElementById('admin-login-modal').classList.remove('hidden');
       document.getElementById('admin-password').focus();
@@ -1245,6 +1352,11 @@
       updateAvailabilityDisplay();
     });
 
+    // ============================================
+    // تهيئة التطبيق
+    // ============================================
+    
+    createParticles();
     loadAllRecords();
   </script>
 </body>
