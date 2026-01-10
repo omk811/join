@@ -7,66 +7,63 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0ea5e9;
-      --secondary: #8b5cf6;
-      --accent: #ec4899;
-      --success: #10b981;
-      --dark: #0f172a;
+      --primary: #16a34a;      /* أخضر طبيعي */
+      --primary-dark: #15803d;
+      --secondary: #0891b2;    /* أزرق فيروزي */
+      --accent: #f59e0b;       /* ذهبي دافئ */
+      --success: #22c55e;
+      --danger: #ef4444;
+      --dark: #1e293b;
+      --light: #f8fafc;
     }
 
     * {
-      font-family: 'Cairo', 'Tajawal', sans-serif;
+      font-family: 'Almarai', 'Tajawal', sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
+      background: linear-gradient(to bottom, #e0f2fe, #f0fdf4, #fef3c7);
       min-height: 100vh;
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
+    /* Glass Cards */
     .glass-card {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .glass-dark {
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(30, 41, 59, 0.95);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(71, 85, 105, 0.3);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
+    /* Gradient Text */
     .gradient-text {
-      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      background-size: 200% auto;
-      animation: textGradient 3s linear infinite;
     }
 
-    @keyframes textGradient {
-      to { background-position: 200% center; }
-    }
-
+    /* Animations */
     .floating {
       animation: floating 3s ease-in-out infinite;
     }
 
     @keyframes floating {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+      50% { transform: translateY(-15px); }
     }
 
     .scale-in {
@@ -76,7 +73,7 @@
     @keyframes scaleIn {
       from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.95);
       }
       to {
         opacity: 1;
@@ -91,7 +88,7 @@
     @keyframes slideUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
       }
       to {
         opacity: 1;
@@ -99,168 +96,165 @@
       }
     }
 
-    input:focus, select:focus {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
+    /* Form Elements */
+    .input-elegant {
+      background: white;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
     }
 
-    .btn-gradient {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .input-elegant:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .input-elegant:hover {
+      border-color: #cbd5e1;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      font-weight: 700;
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
     }
 
-    .btn-gradient:hover {
+    .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 10px 30px rgba(22, 163, 74, 0.3);
     }
 
-    .btn-gradient::before {
+    .btn-primary::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
       transition: left 0.5s;
     }
 
-    .btn-gradient:hover::before {
+    .btn-primary:hover::before {
       left: 100%;
     }
 
-    .input-modern {
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid transparent;
+    .btn-secondary {
+      background: white;
+      color: var(--dark);
+      border: 2px solid #e2e8f0;
+      font-weight: 700;
       transition: all 0.3s ease;
     }
 
-    .input-modern:focus {
-      background: white;
-      border-color: #667eea;
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
     }
 
+    /* Icons */
+    .icon-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.3);
+    }
+
+    .icon-sm {
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+    }
+
+    /* Badges */
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.875rem;
+      font-weight: 700;
+      font-size: 0.9rem;
     }
 
     .badge-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
-    }
-
-    .badge-success {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
     }
 
     .badge-warning {
       background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: white;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
     }
 
+    .badge-danger {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    /* Cards */
     .card-hover {
       transition: all 0.3s ease;
-      cursor: pointer;
     }
 
     .card-hover:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      transform: translateY(-8px);
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.06);
     }
 
+    /* Alert Boxes */
+    .alert-info {
+      background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+      border-right: 4px solid var(--secondary);
+      color: #075985;
+    }
+
+    .alert-warning {
+      background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+      border-right: 4px solid var(--accent);
+      color: #92400e;
+    }
+
+    .alert-danger {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border-right: 4px solid var(--danger);
+      color: #991b1b;
+    }
+
+    .alert-success {
+      background: linear-gradient(135deg, #d1fae5 0%, #bbf7d0 100%);
+      border-right: 4px solid var(--success);
+      color: #065f46;
+    }
+
+    /* Wave Animation */
     .wave-animation {
       animation: wave 2s ease-in-out infinite;
     }
 
     @keyframes wave {
       0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(20deg); }
-      75% { transform: rotate(-20deg); }
+      25% { transform: rotate(15deg); }
+      75% { transform: rotate(-15deg); }
     }
 
-    .shimmer {
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      background-size: 200% 100%;
-      animation: shimmer 2s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    .icon-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-    }
-
-    .progress-ring {
-      transform: rotate(-90deg);
-    }
-
-    .progress-ring-circle {
-      stroke-dasharray: 440;
-      stroke-dashoffset: 440;
-      transition: stroke-dashoffset 0.5s;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      body {
-        background-size: 600% 600%;
-      }
-      
-      .glass-card {
-        backdrop-filter: blur(10px);
-      }
-    }
-
-    /* Dark mode for admin dashboard */
-    .dark-theme {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    }
-
-    .dark-theme .glass-card {
-      background: rgba(30, 41, 59, 0.85);
-      border-color: rgba(148, 163, 184, 0.1);
-    }
-
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-    }
-
-    /* Loading spinner */
+    /* Spinner */
     .spinner {
       border: 3px solid rgba(255, 255, 255, 0.3);
       border-top: 3px solid white;
@@ -275,7 +269,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Particle background effect */
+    /* Particles */
     .particles {
       position: fixed;
       top: 0;
@@ -284,33 +278,140 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
+      opacity: 0.4;
     }
 
     .particle {
       position: absolute;
-      width: 4px;
-      height: 4px;
-      background: white;
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
       border-radius: 50%;
-      opacity: 0.6;
-      animation: float 10s infinite;
+      opacity: 0.3;
+      animation: float 15s infinite;
     }
 
     @keyframes float {
-      0%, 100% {
-        transform: translateY(0) translateX(0);
+      0% {
+        transform: translateY(100vh) translateX(0) scale(0);
         opacity: 0;
       }
       10% {
-        opacity: 0.6;
+        opacity: 0.3;
       }
       90% {
-        opacity: 0.6;
+        opacity: 0.3;
       }
       100% {
-        transform: translateY(-100vh) translateX(50px);
+        transform: translateY(-100vh) translateX(100px) scale(1);
         opacity: 0;
       }
+    }
+
+    /* Dark Theme for Admin */
+    .dark-theme {
+      background: linear-gradient(to bottom, #0f172a, #1e293b, #334155);
+    }
+
+    .dark-theme .glass-card {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: rgba(71, 85, 105, 0.3);
+    }
+
+    /* Stats Cards */
+    .stat-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .icon-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+      }
+    }
+
+    /* Form Label */
+    .form-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-label .emoji {
+      font-size: 1.25rem;
+    }
+
+    /* Application Card in Admin */
+    .app-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .app-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.1);
+    }
+
+    .dark-theme .app-card {
+      background: rgba(51, 65, 85, 0.5);
+      border-color: rgba(71, 85, 105, 0.3);
+    }
+
+    .dark-theme .app-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.2);
+    }
+
+    /* Avatar */
+    .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
     }
   </style>
 </head>
@@ -318,89 +419,90 @@
   <!-- Particles Background -->
   <div class="particles" id="particles"></div>
 
-  <main class="relative z-10 min-h-screen py-6 px-4 sm:py-12 sm:px-6 lg:px-8">
+  <main class="relative z-10 min-h-screen py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
     <div class="max-w-4xl mx-auto">
       
-      <!-- Header with floating logo -->
+      <!-- Header -->
       <header class="text-center mb-12 scale-in">
         <div class="relative inline-block mb-6">
-          <div class="icon-circle floating mx-auto text-5xl">
+          <div class="icon-circle floating mx-auto">
             📚
           </div>
           <div class="absolute -top-2 -right-2">
-            <span class="flex h-6 w-6">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-6 w-6 bg-emerald-500 items-center justify-center text-white text-xs font-bold">✓</span>
+            <span class="flex h-7 w-7">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-7 w-7 bg-green-500 items-center justify-center text-white text-sm font-bold shadow-lg">✓</span>
             </span>
           </div>
         </div>
         
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 gradient-text">
-          مجتمع اللغة العربية
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 text-gray-800">
+          مجتمع 
+          <span class="gradient-text">اللغة العربية</span>
         </h1>
         <div class="badge badge-primary inline-flex mb-4">
           <span>🎯</span>
           <span>الصف الخامس</span>
         </div>
-        <p class="text-xl sm:text-2xl text-white font-semibold drop-shadow-lg">
-          انضم إلى مجتمعنا التعليمي المميز على الواتساب
+        <p class="text-xl sm:text-2xl text-gray-700 font-bold">
+          انضم إلى مجتمعنا التعليمي المميز 🌟
         </p>
       </header>
 
-      <!-- Alert Message (Full) -->
-      <div id="full-message" class="hidden glass-dark rounded-3xl p-8 mb-8 scale-in text-center text-white">
+      <!-- Full Message -->
+      <div id="full-message" class="hidden glass-card rounded-3xl p-10 mb-8 scale-in text-center alert-danger">
         <div class="text-6xl mb-4 wave-animation">⚠️</div>
-        <h2 class="text-3xl font-bold mb-4">عذراً، لقد اكتمل العدد</h2>
-        <p class="text-xl mb-3">تم الوصول إلى الحد الأقصى من الأعضاء</p>
-        <div class="badge badge-warning inline-flex">
+        <h2 class="text-3xl font-black mb-4">عذراً، لقد اكتمل العدد</h2>
+        <p class="text-xl mb-3 font-semibold">تم الوصول إلى الحد الأقصى من الأعضاء</p>
+        <div class="badge badge-danger inline-flex">
           <span>👥</span>
           <span>1888 عضو</span>
         </div>
-        <p class="text-lg mt-4 opacity-80">نأسف لعدم قدرتنا على قبول المزيد من الطلبات حالياً</p>
+        <p class="text-lg mt-4 opacity-90">نأسف لعدم قدرتنا على قبول المزيد من الطلبات حالياً</p>
       </div>
 
       <!-- Info Card -->
-      <div id="info-card" class="glass-card rounded-3xl p-6 sm:p-8 mb-8 slide-up">
+      <div id="info-card" class="glass-card rounded-3xl p-6 sm:p-8 mb-8 slide-up alert-info">
         <div class="flex items-start gap-4">
-          <div class="icon-circle flex-shrink-0">
+          <div class="icon-circle icon-sm flex-shrink-0">
             ℹ️
           </div>
           <div>
-            <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h2 class="text-2xl font-black mb-3 text-cyan-900">
               مجتمع خاص للطلاب وأولياء الأمور
             </h2>
-            <p class="text-gray-700 text-lg leading-relaxed">
+            <p class="text-cyan-800 text-lg leading-relaxed font-semibold">
               سيتم إرسال رابط الانضمام إلى البريد الإلكتروني المسجل. يرجى التأكد من صحة البيانات المدخلة.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- Main Form Card -->
+      <!-- Form Card -->
       <div id="form-card" class="glass-card rounded-3xl p-6 sm:p-10 slide-up" style="animation-delay: 0.1s">
         <form id="join-form" class="space-y-6">
           
-          <!-- Name Field -->
-          <div class="space-y-2">
-            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
-              <span>👤</span>
+          <!-- Name -->
+          <div>
+            <label class="form-label">
+              <span class="emoji">👤</span>
               <span>الاسم الكامل</span>
               <span class="text-red-500">*</span>
             </label>
             <input type="text" id="name" required
-              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              class="input-elegant w-full px-6 py-4 rounded-2xl text-lg focus:outline-none"
               placeholder="أدخل الاسم الكامل">
           </div>
 
-          <!-- Governorate Field -->
-          <div class="space-y-2">
-            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
-              <span>🗺️</span>
+          <!-- Governorate -->
+          <div>
+            <label class="form-label">
+              <span class="emoji">🗺️</span>
               <span>المحافظة</span>
               <span class="text-red-500">*</span>
             </label>
             <select id="governorate" required
-              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all cursor-pointer">
+              class="input-elegant w-full px-6 py-4 rounded-2xl text-lg focus:outline-none cursor-pointer">
               <option value="">اختر المحافظة</option>
               <option value="مسقط">مسقط</option>
               <option value="ظفار">ظفار</option>
@@ -416,72 +518,72 @@
             </select>
           </div>
 
-          <!-- Wilayat Field -->
-          <div class="space-y-2">
-            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
-              <span>📍</span>
+          <!-- Wilayat -->
+          <div>
+            <label class="form-label">
+              <span class="emoji">📍</span>
               <span>الولاية</span>
               <span class="text-red-500">*</span>
             </label>
             <select id="wilayat" required disabled
-              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+              class="input-elegant w-full px-6 py-4 rounded-2xl text-lg focus:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
               <option value="">اختر المحافظة أولاً</option>
             </select>
           </div>
 
-          <!-- School Field -->
-          <div class="space-y-2">
-            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
-              <span>🏫</span>
+          <!-- School -->
+          <div>
+            <label class="form-label">
+              <span class="emoji">🏫</span>
               <span>المدرسة</span>
               <span class="text-red-500">*</span>
             </label>
             <input type="text" id="school" required
-              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              class="input-elegant w-full px-6 py-4 rounded-2xl text-lg focus:outline-none"
               placeholder="أدخل اسم المدرسة">
-            <div class="mt-3 p-4 bg-gradient-to-r from-red-50 to-orange-50 border-r-4 border-red-500 rounded-xl">
-              <p class="text-red-700 font-semibold flex items-center gap-2">
+            <div class="mt-3 p-4 alert-warning rounded-2xl">
+              <p class="font-bold flex items-center gap-2">
                 <span class="text-xl">⚠️</span>
                 <span>تنويه: لا نستقبل طلاب من مدرسة سعد بن معاذ للتعليم الأساسي</span>
               </p>
             </div>
           </div>
 
-          <!-- Email Field -->
-          <div class="space-y-2">
-            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
-              <span>📧</span>
+          <!-- Email -->
+          <div>
+            <label class="form-label">
+              <span class="emoji">📧</span>
               <span>البريد الإلكتروني</span>
               <span class="text-red-500">*</span>
             </label>
             <input type="email" id="email" required
-              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              class="input-elegant w-full px-6 py-4 rounded-2xl text-lg focus:outline-none"
               placeholder="example@email.com" dir="ltr" style="text-align: left;">
-            <p class="text-sm text-gray-600 flex items-center gap-2">
+            <p class="text-sm text-gray-600 mt-2 flex items-center gap-2 font-semibold">
               <span>💡</span>
               <span>سيتم إرسال رابط الانضمام إلى هذا البريد</span>
             </p>
           </div>
 
-          <!-- Phone Field -->
-          <div class="space-y-2">
-            <label class="flex items-center gap-2 text-lg font-bold text-gray-800">
-              <span>📱</span>
+          <!-- Phone -->
+          <div>
+            <label class="form-label">
+              <span class="emoji">📱</span>
               <span>رقم الهاتف</span>
               <span class="text-red-500">*</span>
             </label>
             <input type="tel" id="phone" required pattern="^[0-9]{8}$"
-              class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none transition-all"
+              class="input-elegant w-full px-6 py-4 rounded-2xl text-lg focus:outline-none"
               placeholder="XXXXXXXX" maxlength="8" dir="ltr" style="text-align: left;">
-            <p class="text-sm text-gray-600 flex items-center gap-2">
+            <p class="text-sm text-gray-600 mt-2 flex items-center gap-2 font-semibold">
               <span>💡</span>
               <span>مثال: 91234567</span>
             </p>
           </div>
 
-          <!-- Submit Button -->
+          <!-- Submit -->
           <button type="submit" id="submit-btn"
-            class="btn-gradient w-full py-5 px-8 rounded-2xl text-white font-bold text-xl shadow-2xl transition-all">
+            class="btn-primary w-full py-5 px-8 rounded-2xl text-xl shadow-xl">
             <span id="button-text" class="flex items-center justify-center gap-3">
               <span>✨</span>
               <span>إرسال الطلب</span>
@@ -494,7 +596,7 @@
         </form>
 
         <!-- Success Message -->
-        <div id="success-message" class="hidden mt-8 p-6 rounded-2xl border-r-4 scale-in">
+        <div id="success-message" class="hidden mt-8 p-6 rounded-2xl scale-in">
           <div class="flex items-center gap-4">
             <div class="text-4xl">✅</div>
             <p id="success-text" class="font-bold text-lg"></p>
@@ -503,17 +605,17 @@
       </div>
 
       <!-- Footer -->
-      <footer id="main-footer" class="text-center mt-10 text-white slide-up" style="animation-delay: 0.2s">
+      <footer id="main-footer" class="text-center mt-10 slide-up" style="animation-delay: 0.2s">
         <div class="glass-card rounded-3xl p-6 inline-block">
-          <p class="text-lg mb-4">
+          <p class="text-lg mb-4 text-gray-700 font-semibold">
             للاستفسارات، يرجى 
             <a href="https://omk811.github.io/info/index.html" target="_blank" 
-              class="font-bold underline hover:no-underline transition-all bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              class="font-black underline hover:no-underline transition-all text-green-600 hover:text-green-700">
               التواصل مع إدارة المجتمع
             </a>
           </p>
           <button id="admin-btn" 
-            class="badge badge-primary opacity-70 hover:opacity-100 transition-all cursor-pointer">
+            class="badge badge-primary opacity-80 hover:opacity-100 transition-all cursor-pointer">
             <span>🔐</span>
             <span>لوحة التحكم</span>
           </button>
@@ -521,33 +623,31 @@
       </footer>
 
       <!-- Admin Login Modal -->
-      <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
         <div class="glass-card rounded-3xl p-8 max-w-md w-full scale-in">
           <div class="text-center mb-6">
             <div class="icon-circle mx-auto mb-4">🔐</div>
-            <h2 class="text-3xl font-bold gradient-text">لوحة التحكم</h2>
+            <h2 class="text-3xl font-black gradient-text">لوحة التحكم</h2>
           </div>
           
           <form id="admin-login-form" class="space-y-6">
             <div>
-              <label class="block font-bold mb-2 text-gray-800">الرمز السري</label>
+              <label class="form-label">الرمز السري</label>
               <input type="password" id="admin-password"
-                class="input-modern w-full px-6 py-4 rounded-2xl text-lg focus:outline-none"
+                class="input-elegant w-full px-6 py-4 rounded-2xl text-lg focus:outline-none"
                 placeholder="أدخل الرمز السري" dir="ltr" style="text-align: left;">
             </div>
             
-            <div id="login-error" class="hidden p-4 bg-red-50 border-r-4 border-red-500 text-red-700 rounded-xl flex items-center gap-3">
+            <div id="login-error" class="hidden p-4 alert-danger rounded-2xl flex items-center gap-3">
               <span class="text-2xl">❌</span>
-              <span class="font-semibold">الرمز السري غير صحيح</span>
+              <span class="font-bold">الرمز السري غير صحيح</span>
             </div>
             
             <div class="flex gap-3">
-              <button type="submit" 
-                class="flex-1 btn-gradient py-4 rounded-2xl text-white font-bold text-lg">
+              <button type="submit" class="flex-1 btn-primary py-4 rounded-2xl text-lg">
                 دخول
               </button>
-              <button type="button" id="cancel-login-btn"
-                class="flex-1 py-4 rounded-2xl font-bold text-lg bg-gray-200 hover:bg-gray-300 transition-all">
+              <button type="button" id="cancel-login-btn" class="flex-1 btn-secondary py-4 rounded-2xl text-lg">
                 إلغاء
               </button>
             </div>
@@ -560,45 +660,48 @@
         <div class="glass-dark rounded-3xl p-6 sm:p-10 mb-8 text-white">
           <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
             <div>
-              <h2 class="text-3xl sm:text-4xl font-bold mb-2 gradient-text">لوحة التحكم</h2>
-              <p class="text-gray-300">إدارة الطلبات المستلمة</p>
+              <h2 class="text-3xl sm:text-4xl font-black mb-2">
+                📊 <span class="gradient-text">لوحة التحكم</span>
+              </h2>
+              <p class="text-gray-300 font-semibold">إدارة الطلبات المستلمة</p>
             </div>
             <button id="logout-btn" 
-              class="px-6 py-3 bg-red-500 hover:bg-red-600 rounded-2xl font-bold transition-all shadow-lg hover:shadow-xl">
-              🚪 تسجيل الخروج
+              class="px-6 py-3 bg-red-500 hover:bg-red-600 rounded-2xl font-bold transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
+              <span>🚪</span>
+              <span>تسجيل الخروج</span>
             </button>
           </div>
           
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-            <div class="glass-card rounded-2xl p-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+            <div class="stat-card">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-600 font-semibold mb-1">عدد الطلبات</p>
-                  <p class="text-4xl font-black gradient-text" id="total-count">0</p>
+                  <p class="text-gray-600 font-bold mb-2">📊 عدد الطلبات</p>
+                  <p class="text-5xl font-black gradient-text" id="total-count">0</p>
                 </div>
-                <div class="icon-circle">📊</div>
+                <div class="icon-circle icon-sm">📊</div>
               </div>
             </div>
             
-            <div class="glass-card rounded-2xl p-6">
+            <div class="stat-card">
               <div class="flex items-center justify-between">
                 <div>
-                  <p class="text-gray-600 font-semibold mb-1">الأماكن المتبقية</p>
-                  <p class="text-4xl font-black gradient-text" id="admin-remaining-spots">1888</p>
+                  <p class="text-gray-600 font-bold mb-2">🎯 الأماكن المتبقية</p>
+                  <p class="text-5xl font-black gradient-text" id="admin-remaining-spots">1888</p>
                 </div>
-                <div class="icon-circle">🎯</div>
+                <div class="icon-circle icon-sm">🎯</div>
               </div>
             </div>
           </div>
           
           <div id="applications-list" class="space-y-4">
-            <!-- Applications will be loaded here -->
+            <!-- Applications -->
           </div>
           
           <div id="no-applications" class="hidden text-center py-16">
             <div class="text-6xl mb-4 opacity-50">📭</div>
             <p class="text-2xl font-bold text-gray-400 mb-2">لا توجد طلبات بعد</p>
-            <p class="text-gray-500">سيتم عرض جميع الطلبات هنا عندما يقوم الطلاب بالتسجيل</p>
+            <p class="text-gray-500 font-semibold">سيتم عرض جميع الطلبات هنا</p>
           </div>
         </div>
       </div>
@@ -607,18 +710,18 @@
   </main>
 
   <script>
-    // Create particles
+    // Particles
     function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = window.innerWidth < 768 ? 20 : 50;
+      const container = document.getElementById('particles');
+      const count = window.innerWidth < 768 ? 15 : 30;
       
-      for (let i = 0; i < particleCount; i++) {
+      for (let i = 0; i < count; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 10 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        particlesContainer.appendChild(particle);
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        container.appendChild(particle);
       }
     }
     createParticles();
@@ -626,13 +729,12 @@
     // ⚠️ ضع رابط Google Apps Script هنا
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxLqcf-aYQpqJ9x3iN-RstvPuL8JF_BRxRgao8OQjpd2qaKYIsE8XIw59594HCAQiH/exec';
     
-    const MAX_MEMBERS = 1870;
+    const MAX_MEMBERS = 1888;
     const ADMIN_PASSWORD = "aysha123";
     
     let currentRecordCount = 0;
     let allApplications = [];
 
-    // Wilayats data
     const wilayatsData = {
       "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
       "ظفار": ["صلالة", "طاقة", "مرباط", "ثمريت", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات"],
@@ -658,72 +760,66 @@
           updateAvailabilityDisplay();
         }
       } catch (error) {
-        console.error('Error loading records:', error);
+        console.error('Error:', error);
       }
     }
 
     function updateAvailabilityDisplay() {
-      const remainingSpots = MAX_MEMBERS - currentRecordCount;
-      const fullMessage = document.getElementById('full-message');
-      const infoCard = document.getElementById('info-card');
-      const formCard = document.getElementById('form-card');
+      const remaining = MAX_MEMBERS - currentRecordCount;
+      const full = document.getElementById('full-message');
+      const info = document.getElementById('info-card');
+      const form = document.getElementById('form-card');
       
-      if (remainingSpots <= 0) {
-        formCard.classList.add('hidden');
-        infoCard.classList.add('hidden');
-        fullMessage.classList.remove('hidden');
+      if (remaining <= 0) {
+        form.classList.add('hidden');
+        info.classList.add('hidden');
+        full.classList.remove('hidden');
       } else {
-        formCard.classList.remove('hidden');
-        infoCard.classList.remove('hidden');
-        fullMessage.classList.add('hidden');
+        form.classList.remove('hidden');
+        info.classList.remove('hidden');
+        full.classList.add('hidden');
       }
       
-      const adminRemaining = document.getElementById('admin-remaining-spots');
-      if (adminRemaining) {
-        adminRemaining.textContent = remainingSpots;
-      }
+      const adminSpots = document.getElementById('admin-remaining-spots');
+      if (adminSpots) adminSpots.textContent = remaining;
     }
 
     document.getElementById('governorate').addEventListener('change', function() {
-      const wilayatSelect = document.getElementById('wilayat');
-      const selectedGovernorate = this.value;
+      const wilayat = document.getElementById('wilayat');
+      const gov = this.value;
       
-      wilayatSelect.innerHTML = '<option value="">اختر الولاية</option>';
+      wilayat.innerHTML = '<option value="">اختر الولاية</option>';
       
-      if (selectedGovernorate && wilayatsData[selectedGovernorate]) {
-        wilayatSelect.disabled = false;
-        
-        wilayatsData[selectedGovernorate].forEach(wilayat => {
-          const option = document.createElement('option');
-          option.value = wilayat;
-          option.textContent = wilayat;
-          wilayatSelect.appendChild(option);
+      if (gov && wilayatsData[gov]) {
+        wilayat.disabled = false;
+        wilayatsData[gov].forEach(w => {
+          const opt = document.createElement('option');
+          opt.value = w;
+          opt.textContent = w;
+          wilayat.appendChild(opt);
         });
       } else {
-        wilayatSelect.disabled = true;
-        wilayatSelect.innerHTML = '<option value="">اختر المحافظة أولاً</option>';
+        wilayat.disabled = true;
       }
     });
 
     document.getElementById('join-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const remainingSpots = MAX_MEMBERS - currentRecordCount;
-
-      if (remainingSpots <= 0) {
-        showMessage('عذراً، لقد اكتمل العدد (1888 عضو). لا يمكن قبول المزيد من الطلبات.', 'error');
+      if (MAX_MEMBERS - currentRecordCount <= 0) {
+        showMessage('عذراً، لقد اكتمل العدد. لا يمكن قبول المزيد.', 'error');
         return;
       }
 
-      const submitBtn = document.getElementById('submit-btn');
-      const buttonText = document.getElementById('button-text');
-      const loadingSpinner = document.getElementById('loading-spinner');
+      const btn = document.getElementById('submit-btn');
+      const text = document.getElementById('button-text');
+      const spinner = document.getElementById('loading-spinner');
       
-      submitBtn.disabled = true;
-      buttonText.classList.add('hidden');
-      loadingSpinner.classList.remove('hidden');
+      btn.disabled = true;
+      text.classList.add('hidden');
+      spinner.classList.remove('hidden');
 
-      const formData = {
+      const data = {
         id: Date.now().toString(),
         name: document.getElementById('name').value,
         governorate: document.getElementById('governorate').value,
@@ -737,7 +833,7 @@
       try {
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          body: JSON.stringify({ action: 'create', ...formData })
+          body: JSON.stringify({ action: 'create', ...data })
         });
 
         const result = await response.json();
@@ -745,68 +841,52 @@
         if (result.status === 'success') {
           document.getElementById('join-form').reset();
           document.getElementById('wilayat').disabled = true;
-          document.getElementById('wilayat').innerHTML = '<option value="">اختر المحافظة أولاً</option>';
-          
-          showMessage('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً عبر البريد الإلكتروني. 🎉', 'success');
-          
+          showMessage('تم إرسال طلبك بنجاح! 🎉 سيتم التواصل معك قريباً.', 'success');
           await loadAllRecords();
         } else {
-          showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى. ❌', 'error');
+          showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
         }
       } catch (error) {
-        console.error('Error:', error);
-        showMessage('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى. ❌', 'error');
+        showMessage('حدث خطأ. يرجى المحاولة مرة أخرى. ❌', 'error');
       }
 
-      submitBtn.disabled = false;
-      buttonText.classList.remove('hidden');
-      loadingSpinner.classList.add('hidden');
+      btn.disabled = false;
+      text.classList.remove('hidden');
+      spinner.classList.add('hidden');
     });
 
     function showMessage(message, type) {
-      const successMessage = document.getElementById('success-message');
-      const successText = document.getElementById('success-text');
+      const box = document.getElementById('success-message');
+      const text = document.getElementById('success-text');
       
-      successText.textContent = message;
-      successMessage.classList.remove('hidden');
+      text.textContent = message;
+      box.classList.remove('hidden');
+      box.className = 'mt-8 p-6 rounded-2xl scale-in alert-' + type;
       
-      if (type === 'error') {
-        successMessage.style.background = 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)';
-        successMessage.style.borderRightColor = '#ef4444';
-        successMessage.style.color = '#991b1b';
-      } else {
-        successMessage.style.background = 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)';
-        successMessage.style.borderRightColor = '#10b981';
-        successMessage.style.color = '#064e3b';
-      }
-      
-      setTimeout(() => {
-        successMessage.classList.add('hidden');
-      }, type === 'error' ? 5000 : 8000);
+      setTimeout(() => box.classList.add('hidden'), type === 'error' ? 5000 : 8000);
     }
 
     function renderApplicationsList() {
-      const listContainer = document.getElementById('applications-list');
-      const noAppsMessage = document.getElementById('no-applications');
-      const totalCount = document.getElementById('total-count');
+      const list = document.getElementById('applications-list');
+      const noApps = document.getElementById('no-applications');
+      const count = document.getElementById('total-count');
       
-      totalCount.textContent = allApplications.length;
+      count.textContent = allApplications.length;
       
       if (allApplications.length === 0) {
-        listContainer.innerHTML = '';
-        noAppsMessage.classList.remove('hidden');
+        list.innerHTML = '';
+        noApps.classList.remove('hidden');
         return;
       }
       
-      noAppsMessage.classList.add('hidden');
+      noApps.classList.add('hidden');
       
-      const sortedApps = [...allApplications].sort((a, b) => {
-        return new Date(b.submitted_at) - new Date(a.submitted_at);
-      });
+      const sorted = [...allApplications].sort((a, b) => 
+        new Date(b.submitted_at) - new Date(a.submitted_at)
+      );
       
-      listContainer.innerHTML = sortedApps.map((app, index) => {
-        const submittedDate = new Date(app.submitted_at);
-        const formattedDate = submittedDate.toLocaleDateString('ar-SA', {
+      list.innerHTML = sorted.map((app, i) => {
+        const date = new Date(app.submitted_at).toLocaleDateString('ar-SA', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
@@ -815,58 +895,56 @@
         });
         
         return `
-          <div class="glass-card rounded-2xl p-6 hover:shadow-2xl transition-all card-hover scale-in" style="animation-delay: ${index * 0.05}s">
+          <div class="app-card scale-in" style="animation-delay: ${i * 0.05}s">
             <div class="flex justify-between items-start mb-4 gap-4 flex-wrap">
               <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg">
-                  ${app.name.charAt(0)}
-                </div>
+                <div class="avatar">${app.name.charAt(0)}</div>
                 <div>
-                  <h3 class="text-xl font-bold text-gray-800">${app.name}</h3>
-                  <p class="text-sm text-gray-500">${formattedDate}</p>
+                  <h3 class="text-xl font-black text-gray-800 dark:text-white">${app.name}</h3>
+                  <p class="text-sm text-gray-500 font-semibold">${date}</p>
                 </div>
               </div>
               <button onclick="deleteApplication('${app.id}')" 
-                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
+                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-bold rounded-xl transition-all shadow-lg flex items-center gap-2">
                 <span>🗑️</span>
                 <span>حذف</span>
               </button>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
               <div class="flex items-center gap-2">
                 <span class="text-xl">📍</span>
                 <div>
-                  <p class="text-xs text-gray-500">المحافظة</p>
-                  <p class="font-semibold">${app.governorate}</p>
+                  <p class="text-xs text-gray-500 font-semibold">المحافظة</p>
+                  <p class="font-black">${app.governorate}</p>
                 </div>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-xl">📍</span>
                 <div>
-                  <p class="text-xs text-gray-500">الولاية</p>
-                  <p class="font-semibold">${app.wilayat}</p>
+                  <p class="text-xs text-gray-500 font-semibold">الولاية</p>
+                  <p class="font-black">${app.wilayat}</p>
                 </div>
               </div>
               <div class="flex items-center gap-2 sm:col-span-2">
                 <span class="text-xl">🏫</span>
                 <div>
-                  <p class="text-xs text-gray-500">المدرسة</p>
-                  <p class="font-semibold">${app.school}</p>
+                  <p class="text-xs text-gray-500 font-semibold">المدرسة</p>
+                  <p class="font-black">${app.school}</p>
                 </div>
               </div>
               <div class="flex items-center gap-2 sm:col-span-2">
                 <span class="text-xl">📧</span>
                 <div>
-                  <p class="text-xs text-gray-500">البريد الإلكتروني</p>
-                  <a href="mailto:${app.email}" class="font-semibold text-purple-600 hover:underline" dir="ltr">${app.email}</a>
+                  <p class="text-xs text-gray-500 font-semibold">البريد</p>
+                  <a href="mailto:${app.email}" class="font-black text-green-600 hover:underline" dir="ltr">${app.email}</a>
                 </div>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-xl">📱</span>
                 <div>
-                  <p class="text-xs text-gray-500">رقم الهاتف</p>
-                  <a href="tel:${app.phone}" class="font-semibold text-purple-600 hover:underline" dir="ltr">${app.phone}</a>
+                  <p class="text-xs text-gray-500 font-semibold">الهاتف</p>
+                  <a href="tel:${app.phone}" class="font-black text-green-600 hover:underline" dir="ltr">${app.phone}</a>
                 </div>
               </div>
             </div>
@@ -875,31 +953,25 @@
       }).join('');
     }
 
-    window.deleteApplication = async function(recordId) {
-      const app = allApplications.find(a => a.id === recordId);
-      if (!app) return;
-      
-      if (!confirm(`هل أنت متأكد من حذف طلب: ${app.name}؟`)) {
-        return;
-      }
+    window.deleteApplication = async function(id) {
+      const app = allApplications.find(a => a.id === id);
+      if (!app || !confirm(`حذف طلب: ${app.name}؟`)) return;
 
       try {
         const response = await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
-          body: JSON.stringify({ action: 'delete', id: recordId })
+          body: JSON.stringify({ action: 'delete', id })
         });
 
         const result = await response.json();
-
         if (result.status === 'success') {
           await loadAllRecords();
           renderApplicationsList();
         } else {
-          alert('❌ حدث خطأ أثناء الحذف');
+          alert('❌ حدث خطأ');
         }
       } catch (error) {
-        console.error('Error:', error);
-        alert('❌ حدث خطأ أثناء الحذف');
+        alert('❌ حدث خطأ');
       }
     };
 
@@ -916,9 +988,9 @@
 
     document.getElementById('admin-login-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      const password = document.getElementById('admin-password').value;
+      const pass = document.getElementById('admin-password').value;
       
-      if (password === ADMIN_PASSWORD) {
+      if (pass === ADMIN_PASSWORD) {
         document.getElementById('admin-login-modal').classList.add('hidden');
         document.getElementById('admin-password').value = '';
         document.getElementById('login-error').classList.add('hidden');
