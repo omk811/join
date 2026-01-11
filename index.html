@@ -29,7 +29,7 @@
     
     .input-field { 
       width: 100%; 
-      padding: 1rem 1rem 1rem 1rem; 
+      padding: 1rem; 
       border: 2px solid #e5e7eb; 
       border-radius: 1rem; 
       transition: all 0.3s ease;
@@ -76,6 +76,16 @@
     .animate-slide-in {
       animation: slideIn 0.5s ease-out;
     }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    .shake {
+      animation: shake 0.5s;
+    }
   </style>
 </head>
 <body class="antialiased">
@@ -109,7 +119,6 @@
           <p class="text-gray-600 text-sm mt-2">املأ البيانات التالية للانضمام إلى المجتمع</p>
         </div>
 
-        <!-- الاسم -->
         <div>
           <label for="name" class="block text-sm font-bold text-gray-700 mb-1.5">
             👤 الاسم الثلاثي <span class="text-red-500">*</span>
@@ -125,10 +134,8 @@
             placeholder="مثال: أحمد محمد سالم"
             autocomplete="name"
           >
-          <p class="text-xs text-gray-500 mt-1">يرجى إدخال الاسم الثلاثي كاملاً</p>
         </div>
 
-        <!-- البريد الإلكتروني -->
         <div>
           <label for="email" class="block text-sm font-bold text-gray-700 mb-1.5">
             📧 البريد الإلكتروني <span class="text-red-500">*</span>
@@ -142,10 +149,8 @@
             placeholder="مثال: name@example.com"
             autocomplete="email"
           >
-          <p class="text-xs text-gray-500 mt-1">سيتم إرسال رابط الانضمام على هذا البريد</p>
         </div>
 
-        <!-- رقم الهاتف -->
         <div>
           <label for="phone" class="block text-sm font-bold text-gray-700 mb-1.5">
             📱 رقم الهاتف <span class="text-red-500">*</span>
@@ -162,10 +167,8 @@
             placeholder="مثال: 99123456"
             autocomplete="tel"
           >
-          <p class="text-xs text-gray-500 mt-1">أدخل 8 أرقام فقط (بدون الصفر الأول)</p>
         </div>
 
-        <!-- المحافظة (اختياري) -->
         <div>
           <label for="governorate" class="block text-sm font-bold text-gray-700 mb-1.5">
             🏛️ المحافظة
@@ -186,7 +189,6 @@
           </select>
         </div>
 
-        <!-- الولاية (اختياري) -->
         <div>
           <label for="wilayat" class="block text-sm font-bold text-gray-700 mb-1.5">
             📍 الولاية
@@ -201,7 +203,6 @@
           >
         </div>
 
-        <!-- المدرسة (اختياري) -->
         <div>
           <label for="school" class="block text-sm font-bold text-gray-700 mb-1.5">
             🏫 المدرسة
@@ -216,7 +217,6 @@
           >
         </div>
 
-        <!-- زر الإرسال -->
         <button 
           type="submit" 
           id="submit-btn" 
@@ -225,7 +225,6 @@
           ✅ إرسال طلب الانضمام
         </button>
 
-        <!-- رسالة الحالة -->
         <div id="form-status" class="hidden p-4 rounded-xl text-center font-bold"></div>
       </form>
     </div>
@@ -242,7 +241,7 @@
 
     <!-- لوحة المشرفين -->
     <footer class="mt-10 text-center">
-      <button onclick="openSimpleAdmin()" class="btn bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-full text-sm">
+      <button onclick="showAdminLogin()" class="btn bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-full text-sm">
         🔐 دخول المشرفين
       </button>
     </footer>
@@ -250,15 +249,60 @@
   </div>
 </main>
 
-<!-- لوحة المشرفين -->
-<div id="simple-admin" class="hidden fixed inset-0 bg-slate-900 p-4 z-50 overflow-auto">
+<!-- نافذة تسجيل دخول المشرفين -->
+<div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="glass-card rounded-2xl p-8 max-w-md w-full animate-slide-in">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">🔐 تسجيل دخول المشرفين</h2>
+    
+    <form id="admin-login-form" class="space-y-4">
+      <div>
+        <label for="admin-password" class="block text-sm font-bold text-gray-700 mb-2">
+          🔑 كلمة المرور
+        </label>
+        <input 
+          type="password" 
+          id="admin-password" 
+          required 
+          class="input-field" 
+          placeholder="أدخل كلمة المرور"
+          autocomplete="current-password"
+        >
+      </div>
+      
+      <div id="login-error" class="hidden bg-red-100 text-red-700 p-3 rounded-lg text-sm text-center font-bold"></div>
+      
+      <div class="flex gap-3">
+        <button 
+          type="submit" 
+          id="login-btn"
+          class="btn bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-bold flex-1"
+        >
+          ✅ دخول
+        </button>
+        <button 
+          type="button" 
+          onclick="hideAdminLogin()"
+          class="btn bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-bold flex-1"
+        >
+          ✕ إلغاء
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- لوحة المشرفين (محمية) -->
+<div id="admin-panel" class="hidden fixed inset-0 bg-slate-900 p-4 z-50 overflow-auto">
   <div class="max-w-5xl mx-auto">
     
     <!-- رأس اللوحة -->
     <div class="flex justify-between items-center mb-6 bg-slate-800 p-4 rounded-xl">
-      <h2 class="text-2xl font-bold text-white">🎛️ لوحة التحكم</h2>
-      <button onclick="closeSimpleAdmin()" class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-        ✕ إغلاق
+      <div>
+        <h2 class="text-2xl font-bold text-white">🎛️ لوحة التحكم</h2>
+        <p class="text-gray-400 text-sm mt-1">مرحباً بك في لوحة المشرفين</p>
+      </div>
+      <button onclick="logoutAdmin()" class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+        🚪 تسجيل الخروج
       </button>
     </div>
     
@@ -271,7 +315,7 @@
         <button onclick="adminTestConnection()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full mb-2">
           اختبار السكربيت
         </button>
-        <button onclick="testGetAll()" class="btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full mb-2">
+        <button onclick="loadAllRecords()" class="btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full mb-2">
           جلب جميع البيانات
         </button>
         <div id="admin-test-result" class="text-white text-sm mt-2 p-2 bg-slate-700 rounded-lg min-h-[60px]"></div>
@@ -298,7 +342,7 @@
     <div class="bg-slate-800 p-4 rounded-xl mb-6">
       <div class="flex justify-between items-center mb-3">
         <h3 class="text-white font-bold text-lg">📋 سجل الطلبات</h3>
-        <button onclick="testGetAll()" class="btn bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm">
+        <button onclick="loadAllRecords()" class="btn bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm">
           🔄 تحديث
         </button>
       </div>
@@ -318,10 +362,11 @@
 // ============================================
 // إعدادات الاتصال
 // ============================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZs_7nv92tZudspBN1CS7so0fzp2Egfvatj9OO266YnLqGpYfn6efH1GLCrjIPF98E/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBPFWhdR1r1T78ozhHem-rBg3L0zRU7XRTqZ8zZbVMZzGacPadTeS6S-PBf0d7DhFX/exec';
 
 // متغيرات عامة
 let isSubmitting = false;
+let adminPassword = null; // يتم تخزين كلمة المرور بعد تسجيل الدخول
 
 // ============================================
 // دالة اختبار الاتصال
@@ -332,11 +377,8 @@ async function testScript() {
   
   try {
     console.log('🔍 بدء اختبار الاتصال...');
-    console.log('🔗 رابط السكربيت:', SCRIPT_URL);
     
     const url = `${SCRIPT_URL}?action=test&t=${Date.now()}`;
-    console.log('📤 الرابط الكامل:', url);
-    
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -345,7 +387,6 @@ async function testScript() {
     });
     
     console.log('📡 حالة الاستجابة:', response.status);
-    console.log('📡 نوع المحتوى:', response.headers.get('content-type'));
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -360,7 +401,6 @@ async function testScript() {
         <p><strong>الحالة:</strong> ${data.status}</p>
         <p><strong>الرسالة:</strong> ${data.message}</p>
         <p><strong>الإصدار:</strong> ${data.version || 'غير معروف'}</p>
-        <p><strong>الوقت:</strong> ${new Date(data.timestamp).toLocaleString('ar-SA')}</p>
       </div>
     `;
     
@@ -371,17 +411,8 @@ async function testScript() {
     
     resultDiv.innerHTML = `
       <div class="text-red-600 font-bold text-lg mb-2">❌ فشل الاتصال!</div>
-      <div class="text-gray-700 space-y-2 text-sm">
+      <div class="text-gray-700 text-sm">
         <p><strong>الخطأ:</strong> ${error.message}</p>
-        <div class="bg-yellow-50 p-3 rounded-lg mt-3">
-          <p class="font-bold mb-2">تحقق من:</p>
-          <ol class="list-decimal pr-4 space-y-1">
-            <li>تأكد أن السكربيت منشور كـ "Anyone, even anonymous"</li>
-            <li>تحقق من صحة رابط السكربيت</li>
-            <li>تأكد من نشر آخر نسخة من السكربيت</li>
-            <li>افتح Console (F12) لرؤية المزيد من التفاصيل</li>
-          </ol>
-        </div>
       </div>
     `;
     
@@ -396,7 +427,6 @@ document.getElementById('join-form').addEventListener('submit', async function(e
   e.preventDefault();
   
   if (isSubmitting) {
-    console.log('⚠️ يتم بالفعل إرسال طلب');
     return;
   }
   
@@ -404,13 +434,11 @@ document.getElementById('join-form').addEventListener('submit', async function(e
   const formStatus = document.getElementById('form-status');
   const originalText = submitBtn.textContent;
   
-  // تعطيل الزر وتغيير النص
   isSubmitting = true;
   submitBtn.textContent = '⏳ جاري الإرسال...';
   submitBtn.disabled = true;
   formStatus.classList.add('hidden');
   
-  // جمع البيانات
   const formData = {
     action: 'create',
     name: document.getElementById('name').value.trim(),
@@ -433,8 +461,6 @@ document.getElementById('join-form').addEventListener('submit', async function(e
       body: JSON.stringify(formData)
     });
     
-    console.log('📡 حالة الاستجابة:', response.status);
-    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -443,13 +469,9 @@ document.getElementById('join-form').addEventListener('submit', async function(e
     console.log('📥 الاستجابة:', result);
     
     if (result.status === 'success') {
-      // إخفاء النموذج وإظهار رسالة النجاح
       document.getElementById('form-container').classList.add('hidden');
       document.getElementById('success-message').classList.remove('hidden');
-      
-      console.log('✅ تم الإرسال بنجاح');
     } else {
-      // عرض رسالة خطأ
       formStatus.innerHTML = `❌ ${result.message}`;
       formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
       formStatus.classList.remove('hidden');
@@ -457,11 +479,9 @@ document.getElementById('join-form').addEventListener('submit', async function(e
     
   } catch (error) {
     console.error('❌ خطأ الإرسال:', error);
-    
-    formStatus.innerHTML = `❌ فشل الاتصال بالخادم: ${error.message}<br><small>تحقق من الكونسول (F12) للمزيد من التفاصيل</small>`;
+    formStatus.innerHTML = `❌ فشل الاتصال بالخادم`;
     formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
     formStatus.classList.remove('hidden');
-    
   } finally {
     isSubmitting = false;
     submitBtn.textContent = originalText;
@@ -480,22 +500,85 @@ function resetForm() {
 }
 
 // ============================================
-// دالات لوحة المشرفين
+// نافذة تسجيل دخول المشرفين
 // ============================================
-function openSimpleAdmin() {
-  document.getElementById('simple-admin').classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-  updateDebugInfo();
+function showAdminLogin() {
+  document.getElementById('admin-login-modal').classList.remove('hidden');
+  document.getElementById('admin-password').value = '';
+  document.getElementById('login-error').classList.add('hidden');
+  document.getElementById('admin-password').focus();
 }
 
-function closeSimpleAdmin() {
-  document.getElementById('simple-admin').classList.add('hidden');
-  document.body.style.overflow = 'auto';
+function hideAdminLogin() {
+  document.getElementById('admin-login-modal').classList.add('hidden');
+}
+
+// معالجة تسجيل دخول المشرف
+document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const password = document.getElementById('admin-password').value;
+  const loginBtn = document.getElementById('login-btn');
+  const errorDiv = document.getElementById('login-error');
+  const loginForm = document.getElementById('admin-login-form');
+  
+  loginBtn.textContent = '⏳ جاري التحقق...';
+  loginBtn.disabled = true;
+  errorDiv.classList.add('hidden');
+  
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=adminLogin&password=${encodeURIComponent(password)}&t=${Date.now()}`);
+    const data = await response.json();
+    
+    console.log('🔐 استجابة تسجيل الدخول:', data);
+    
+    if (data.status === 'success' && data.authenticated) {
+      // تسجيل دخول ناجح
+      adminPassword = password;
+      hideAdminLogin();
+      openAdminPanel();
+    } else {
+      // كلمة مرور خاطئة
+      errorDiv.textContent = '❌ كلمة مرور خاطئة';
+      errorDiv.classList.remove('hidden');
+      loginForm.classList.add('shake');
+      setTimeout(() => loginForm.classList.remove('shake'), 500);
+      document.getElementById('admin-password').value = '';
+      document.getElementById('admin-password').focus();
+    }
+    
+  } catch (error) {
+    console.error('❌ خطأ في تسجيل الدخول:', error);
+    errorDiv.textContent = '❌ خطأ في الاتصال بالخادم';
+    errorDiv.classList.remove('hidden');
+  } finally {
+    loginBtn.textContent = '✅ دخول';
+    loginBtn.disabled = false;
+  }
+});
+
+// ============================================
+// لوحة المشرفين
+// ============================================
+function openAdminPanel() {
+  document.getElementById('admin-panel').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  updateDebugInfo();
+  // جلب البيانات تلقائياً
+  setTimeout(loadAllRecords, 500);
+}
+
+function logoutAdmin() {
+  if (confirm('هل تريد تسجيل الخروج؟')) {
+    adminPassword = null;
+    document.getElementById('admin-panel').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  }
 }
 
 async function adminTestConnection() {
   const resultDiv = document.getElementById('admin-test-result');
-  resultDiv.innerHTML = '<div class="text-blue-500 animate-pulse">⏳ جاري الاختبار...</div>';
+  resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse">⏳ جاري الاختبار...</div>';
   
   try {
     const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`);
@@ -514,7 +597,12 @@ async function adminTestConnection() {
   }
 }
 
-async function testGetAll() {
+async function loadAllRecords() {
+  if (!adminPassword) {
+    alert('يجب تسجيل الدخول أولاً');
+    return;
+  }
+  
   const resultDiv = document.getElementById('admin-test-result');
   const statsTotal = document.getElementById('total-count');
   const statsRemaining = document.getElementById('remaining-count');
@@ -522,13 +610,19 @@ async function testGetAll() {
   resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse">⏳ جاري جلب البيانات...</div>';
   
   try {
-    const response = await fetch(`${SCRIPT_URL}?action=getAll&t=${Date.now()}`);
+    const url = `${SCRIPT_URL}?action=getAll&password=${encodeURIComponent(adminPassword)}&t=${Date.now()}`;
+    const response = await fetch(url);
     const data = await response.json();
     
     console.log('📊 بيانات GET:', data);
     
+    if (data.code === 'UNAUTHORIZED') {
+      alert('❌ كلمة المرور غير صحيحة. سيتم تسجيل الخروج.');
+      logoutAdmin();
+      return;
+    }
+    
     if (data.status === 'success') {
-      // تحديث الإحصائيات
       statsTotal.textContent = data.count || 0;
       statsRemaining.textContent = data.remaining || 0;
       
@@ -537,7 +631,6 @@ async function testGetAll() {
         <div class="text-gray-300 text-xs mt-1">آخر تحديث: ${new Date(data.lastUpdated).toLocaleString('ar-SA')}</div>
       `;
       
-      // عرض الطلبات
       displayRecords(data.data || []);
     } else {
       resultDiv.innerHTML = `
@@ -631,8 +724,7 @@ function updateDebugInfo() {
       <div>🔗 رابط السكربيت: ${SCRIPT_URL}</div>
       <div>🕒 وقت التحميل: ${new Date().toLocaleString('ar-SA')}</div>
       <div>🌐 الموقع: ${window.location.href}</div>
-      <div>📱 المتصفح: ${navigator.userAgent}</div>
-      <div>🖥️ الشاشة: ${window.innerWidth}x${window.innerHeight}</div>
+      <div>🔐 حالة الجلسة: ${adminPassword ? 'مسجل الدخول' : 'غير مسجل'}</div>
     </div>
   `;
 }
@@ -643,20 +735,16 @@ function updateDebugInfo() {
 document.addEventListener('DOMContentLoaded', function() {
   console.log('🚀 الصفحة جاهزة');
   console.log('🔗 رابط السكربيت:', SCRIPT_URL);
-  console.log('⏰ الوقت:', new Date().toLocaleString('ar-SA'));
   
-  // اختبار اتصال تلقائي بعد ثانية
   setTimeout(() => {
     testScript();
   }, 1000);
   
-  // منع إعادة إرسال النموذج عند تحديث الصفحة
   if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
   }
 });
 
-// منع الإرسال المتكرر
 window.addEventListener('beforeunload', function() {
   if (isSubmitting) {
     return 'يتم حالياً إرسال البيانات، هل تريد المغادرة؟';
