@@ -334,7 +334,7 @@
     // إعدادات النظام والثوابت
     // ============================================
     const CONFIG = {
-      SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbz8wxFnGTb0HIdz6EuszPR153VyPDZPgfH-NvAwr4xxzo4jmdr5wo51vRf79mS_tL-F/exec',
+      SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyWRPAEdZQzFqmAcHDl7S93cGkbyFlcYH-ELOiJg7oUOmVvPjxlcGXzdsYFL-Lz8jUd/exec',
       MAX_MEMBERS: 1888,
       // الرمز السري المشفر: aysha123
       ADMIN_HASH: '28f509c79618a42df443cb148b4f677e3063e9a9e79aa37fca812b5b0ce1cade' 
@@ -434,22 +434,26 @@
       btnText.classList.add('hidden');
       spinner.classList.remove('hidden');
 
-      // تجهيز البيانات
-      const formData = new FormData();
-      formData.append('action', 'add');
-      formData.append('id', Date.now().toString());
-      formData.append('name', document.getElementById('name').value);
-      formData.append('governorate', document.getElementById('governorate').value);
-      formData.append('wilayat', document.getElementById('wilayat').value);
-      formData.append('school', document.getElementById('school').value);
-      formData.append('email', document.getElementById('email').value);
-      formData.append('phone', document.getElementById('phone').value);
-      formData.append('submitted_at', new Date().toISOString());
+      // تجهيز البيانات كـ JSON (مهم جداً!)
+      const data = {
+        action: 'create',
+        id: Date.now().toString(),
+        name: document.getElementById('name').value,
+        governorate: document.getElementById('governorate').value,
+        wilayat: document.getElementById('wilayat').value,
+        school: document.getElementById('school').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        submitted_at: new Date().toISOString()
+      };
 
       try {
         const response = await fetch(CONFIG.SCRIPT_URL, {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(data)
         });
         
         const result = await response.json();
@@ -458,11 +462,11 @@
           document.getElementById('success-modal').classList.remove('hidden');
           document.getElementById('form-container').classList.add('hidden');
         } else {
-          throw new Error('Server returned error');
+          throw new Error(result.message || 'حدث خطأ في الخادم');
         }
       } catch (error) {
-        alert('حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.');
-        console.error(error);
+        alert('حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.\n\nالتفاصيل: ' + error.message);
+        console.error('خطأ الإرسال:', error);
         submitBtn.disabled = false;
         btnText.classList.remove('hidden');
         spinner.classList.add('hidden');
@@ -635,10 +639,6 @@
 
     // التشغيل الأولي
     initParticles();
-    
-    // التحقق المبدئي من العدد (محاكاة - يمكن ربطها بـ API لاحقاً)
-    // هنا نفترض أن العدد لم يكتمل عند التحميل الأولي
-    // إذا كنت تريد جلب العدد من السيرفر، يجب إضافته في دالة init
   </script>
 </body>
 </html>
