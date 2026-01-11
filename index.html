@@ -4,841 +4,311 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مجتمع اللغة العربية - الصف الخامس</title>
-  <meta name="description" content="نموذج تسجيل الانضمام لمجتمع اللغة العربية للصف الخامس">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
   
   <style>
-    :root {
-      --primary: #10b981;
-      --primary-dark: #059669;
-      --secondary: #0ea5e9;
-      --accent: #f59e0b;
-      --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
-    }
-
-    * { font-family: 'Almarai', 'Tajawal', sans-serif; -webkit-tap-highlight-color: transparent; }
-    
-    body {
-      background: var(--bg-gradient);
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: #1f2937;
-    }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
-    }
-
-    .dark-glass {
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-
-    .floating-icon { animation: float 6s ease-in-out infinite; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-
-    .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-    .input-group { position: relative; transition: all 0.3s ease; }
-    .input-field {
-      width: 100%;
-      padding: 1rem 1rem 1rem 3rem;
-      background: #ffffff;
-      border: 2px solid #e5e7eb;
-      border-radius: 1rem;
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-    .input-field:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
-      outline: none;
-    }
-    .input-icon {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.25rem;
-      color: #9ca3af;
-      pointer-events: none;
-    }
-
-    .btn-main {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-main:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4);
-    }
-    .btn-main:active:not(:disabled) { transform: scale(0.98); }
-    .btn-main:disabled { opacity: 0.7; cursor: not-allowed; filter: grayscale(1); }
-
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: var(--primary);
-      opacity: 0.1;
-      pointer-events: none;
-      will-change: transform;
-    }
-
-    .status-badge { @apply px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1; }
-    .status-new { @apply bg-amber-100 text-amber-800 border border-amber-200; }
-    .status-added { @apply bg-green-100 text-green-800 border border-green-200; }
-    
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    * { font-family: 'Almarai', 'Tajawal', sans-serif; }
+    body { background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); min-height: 100vh; }
+    .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.6); }
+    .input-field { width: 100%; padding: 1rem 1rem 1rem 3rem; border: 2px solid #e5e7eb; border-radius: 1rem; }
+    .input-field:focus { border-color: #10b981; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); outline: none; }
   </style>
 </head>
-<body class="antialiased selection:bg-green-200 selection:text-green-900">
+<body class="antialiased">
 
-  <div id="particles-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+<main class="min-h-screen py-6 px-4 flex justify-center">
+  <div class="w-full max-w-3xl">
+    
+    <header class="text-center mb-10">
+      <h1 class="text-4xl font-black text-gray-800 mb-2">مجتمع اللغة العربية</h1>
+      <p class="text-lg text-gray-600">بيئة تعليمية تفاعلية</p>
+    </header>
 
-  <main class="relative z-10 min-h-screen py-6 px-4 sm:px-6 lg:px-8 flex justify-center">
-    <div class="w-full max-w-3xl">
-      
-      <header class="text-center mb-10 fade-in-up" style="animation-delay: 0s;">
-        <div class="relative inline-block mb-4">
-          <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-blue-500 rounded-2xl rotate-3 shadow-xl flex items-center justify-center text-4xl text-white floating-icon mx-auto">
-            📚
-          </div>
-          <div class="absolute -bottom-2 -right-2 bg-white p-1 rounded-full shadow-md">
-             <span class="flex h-6 w-6 relative">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-6 w-6 bg-green-500 items-center justify-center text-white text-xs font-bold">✓</span>
-            </span>
-          </div>
-        </div>
-        
-        <h1 class="text-4xl sm:text-5xl font-black text-gray-800 mb-2 tracking-tight">
-          مجتمع <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600">اللغة العربية</span>
-        </h1>
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/60 backdrop-blur rounded-full border border-white/50 shadow-sm text-sm font-bold text-gray-600 mb-4">
-          <span>🎯</span> الصف الخامس
-        </div>
-        <p class="text-lg text-gray-600 font-medium max-w-md mx-auto">
-          بيئة تعليمية تفاعلية للطلاب المتميزين وأولياء الأمور
-        </p>
-      </header>
-
-      <div id="full-message" class="hidden glass-card rounded-2xl p-8 mb-6 text-center border-r-4 border-red-500 fade-in-up">
-        <div class="text-5xl mb-4">🚫</div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">عذراً، التسجيل مغلق</h2>
-        <p class="text-gray-600">تم الوصول للعدد المسموح به (<span id="max-limit-display">1888</span>) عضو.</p>
-      </div>
-
-      <div id="form-container" class="fade-in-up" style="animation-delay: 0.1s;">
-        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 mb-6 flex items-start gap-3">
-          <div class="text-2xl">💡</div>
-          <div>
-            <h3 class="font-bold text-blue-900 text-sm mb-1">تنبيه هام</h3>
-            <p class="text-blue-800 text-sm leading-relaxed">
-              يرجى التأكد من صحة <strong>البريد الإلكتروني</strong>، حيث سيتم إرسال رابط الانضمام إليه تلقائياً.
-            </p>
-          </div>
-        </div>
-
-        <form id="join-form" class="glass-card rounded-3xl p-6 sm:p-8 space-y-5 shadow-2xl">
-          
-          <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1.5">الاسم الثلاثي للطالب <span class="text-red-500">*</span></label>
-            <div class="input-group">
-              <input type="text" id="name" required class="input-field" placeholder="اكتب الاسم هنا...">
-              <span class="input-icon">👤</span>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1.5">المحافظة <span class="text-red-500">*</span></label>
-              <div class="input-group">
-                <select id="governorate" required class="input-field cursor-pointer appearance-none bg-white">
-                  <option value="">اختر...</option>
-                  <option value="مسقط">مسقط</option>
-                  <option value="ظفار">ظفار</option>
-                  <option value="مسندم">مسندم</option>
-                  <option value="البريمي">البريمي</option>
-                  <option value="الداخلية">الداخلية</option>
-                  <option value="شمال الباطنة">شمال الباطنة</option>
-                  <option value="جنوب الباطنة">جنوب الباطنة</option>
-                  <option value="جنوب الشرقية">جنوب الشرقية</option>
-                  <option value="شمال الشرقية">شمال الشرقية</option>
-                  <option value="الظاهرة">الظاهرة</option>
-                  <option value="الوسطى">الوسطى</option>
-                </select>
-                <span class="input-icon">🗺️</span>
-                <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-bold text-gray-700 mb-1.5">الولاية <span class="text-red-500">*</span></label>
-              <div class="input-group">
-                <select id="wilayat" required disabled class="input-field cursor-pointer disabled:bg-gray-50 disabled:text-gray-400">
-                  <option value="">اختر المحافظة أولاً</option>
-                </select>
-                <span class="input-icon">📍</span>
-                 <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1.5">المدرسة <span class="text-red-500">*</span></label>
-            <div class="input-group">
-              <input type="text" id="school" required class="input-field" placeholder="اسم المدرسة">
-              <span class="input-icon">🏫</span>
-            </div>
-             <p class="text-xs text-amber-600 mt-1.5 font-bold flex items-center gap-1">
-              <span>⚠️</span>
-              تنويه: لا نستقبل طلاب من مدرسة سعد بن معاذ
-            </p>
-          </div>
-
-          <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1.5">البريد الإلكتروني <span class="text-red-500">*</span></label>
-            <div class="input-group">
-              <input type="email" id="email" required class="input-field" placeholder="name@example.com" dir="ltr" style="text-align: left; padding-left: 1rem; padding-right: 3rem;">
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">@</span>
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1.5">رقم الهاتف (واتساب) <span class="text-red-500">*</span></label>
-            <div class="input-group">
-              <input type="tel" id="phone" required pattern="[0-9]{8}" maxlength="8" class="input-field font-mono tracking-widest" placeholder="9XXXXXXX" dir="ltr" style="text-align: left; padding-left: 1rem; padding-right: 3rem;">
-              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">📞</span>
-            </div>
-          </div>
-
-          <button type="submit" id="submit-btn" class="btn-main w-full py-4 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2 mt-4">
-            <span id="btn-text">إرسال طلب الانضمام ✨</span>
-            <svg id="loading-spinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </button>
-        </form>
-      </div>
-
-      <div id="success-modal" class="hidden fixed inset-0 flex items-center justify-center z-50 p-4 bg-black/40 backdrop-blur-sm">
-        <div class="glass-card rounded-3xl p-8 max-w-sm w-full text-center transform scale-100 transition-all">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 text-green-600">🎉</div>
-          <h3 class="text-2xl font-bold text-gray-800 mb-2">تم الإرسال بنجاح!</h3>
-          <p class="text-gray-600 mb-6" id="success-text">شكراً لانضمامك إلينا.</p>
-          <button onclick="location.reload()" class="btn-main w-full py-3 rounded-xl font-bold">حسناً</button>
-        </div>
-      </div>
-
-      <footer class="mt-10 text-center fade-in-up" style="animation-delay: 0.2s;">
-        <button id="admin-trigger" class="text-xs font-bold text-gray-400 hover:text-green-600 transition-colors bg-white/50 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20 flex items-center gap-2 mx-auto">
-          <span>🔐</span>
-          <span>دخول المشرفين</span>
-          <span id="session-indicator" class="hidden w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-        </button>
-        <div class="mt-4 text-sm text-gray-500 font-medium">
-          جميع الحقوق محفوظة &copy; 2024
-        </div>
-      </footer>
-
+    <!-- زر الاختبار السريع -->
+    <div class="mb-6">
+      <button onclick="testScript()" class="bg-blue-500 text-white px-6 py-3 rounded-xl font-bold mb-4">
+        🔧 اختبار الاتصال بالسكربيت
+      </button>
+      <div id="test-result" class="glass-card p-4 rounded-xl text-sm"></div>
     </div>
-  </main>
 
-  <div id="admin-login-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm p-4">
-    <div class="glass-card rounded-2xl p-8 w-full max-w-md">
-      <div class="text-center mb-6">
-        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-4">
-          🔒
+    <!-- نموذج مبسط للاختبار -->
+    <div id="form-container">
+      <form id="join-form" class="glass-card rounded-3xl p-6 space-y-5">
+        
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-1.5">الاسم الثلاثي</label>
+          <input type="text" id="name" required class="input-field" placeholder="اكتب الاسم هنا...">
         </div>
-        <h2 class="text-2xl font-bold text-gray-800">دخول المشرفين</h2>
-        <p class="text-sm text-gray-500 mt-1">أدخل رمز التحقق الآمن</p>
-      </div>
-      <form id="admin-auth-form" class="space-y-4">
-        <div class="input-group">
-          <input type="password" id="admin-pass-input" class="input-field text-center text-lg tracking-widest" placeholder="••••••••" autofocus maxlength="20">
-          <span class="input-icon">🔐</span>
+
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-1.5">البريد الإلكتروني</label>
+          <input type="email" id="email" required class="input-field" placeholder="name@example.com">
         </div>
-        <div id="login-error" class="hidden text-red-500 text-sm font-bold text-center bg-red-50 p-2 rounded-lg border border-red-200"></div>
-        <div class="flex gap-3">
-          <button type="submit" class="btn-main flex-1 py-3 rounded-xl font-bold flex items-center justify-center gap-2">
-            <span>دخول</span>
-            <svg id="login-spinner" class="hidden animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-          </button>
-          <button type="button" onclick="toggleAdminModal(false)" class="flex-1 py-3 rounded-xl font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition">
-            إلغاء
-          </button>
+
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-1.5">رقم الهاتف</label>
+          <input type="tel" id="phone" required pattern="[0-9]{8}" class="input-field" placeholder="9XXXXXXX">
         </div>
-        <div class="text-xs text-gray-400 text-center mt-4">
-          <p>الوصول مقصور على المشرفين المصرح لهم فقط</p>
-          <p class="mt-1">الجلسة تنتهي بعد 24 ساعة</p>
-        </div>
+
+        <button type="submit" id="submit-btn" class="bg-green-500 text-white w-full py-4 rounded-xl font-bold text-lg">
+          إرسال طلب الانضمام
+        </button>
       </form>
     </div>
+
+    <!-- لوحة التحكم المبسطة -->
+    <footer class="mt-10 text-center">
+      <button onclick="openSimpleAdmin()" class="bg-gray-800 text-white px-4 py-2 rounded-full">
+        🔐 دخول المشرفين
+      </button>
+    </footer>
+
   </div>
+</main>
 
-  <div id="admin-dashboard" class="hidden fixed inset-0 z-[60] bg-slate-900 overflow-y-auto">
-    <div class="max-w-6xl mx-auto p-4 sm:p-6">
+<!-- لوحة المشرفين المبسطة -->
+<div id="simple-admin" class="hidden fixed inset-0 bg-slate-900 p-4 z-50 overflow-auto">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-white">لوحة التحكم</h2>
+      <button onclick="closeSimpleAdmin()" class="bg-red-500 text-white px-4 py-2 rounded-lg">✕ إغلاق</button>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-slate-800 p-4 rounded-xl">
+        <h3 class="text-white font-bold mb-2">اختبار الاتصال</h3>
+        <button onclick="testGetAll()" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full mb-2">
+          جلب البيانات
+        </button>
+        <div id="getall-result" class="text-white text-sm mt-2"></div>
+      </div>
       
-      <div class="flex flex-wrap justify-between items-center gap-4 mb-8 bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-        <div>
-          <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-            <span>📊</span> لوحة البيانات
-          </h2>
-          <p class="text-slate-400 text-sm">إدارة طلبات الطلاب</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <div class="text-right hidden sm:block">
-            <div class="text-xs text-slate-400">العدد الكلي</div>
-            <div class="text-xl font-bold text-green-400" id="total-stats">0</div>
-          </div>
-          <button onclick="loadAdminDashboard()" class="px-4 py-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-white border border-blue-500/20 transition">
-            🔄 تحديث
-          </button>
-          <button onclick="logoutAdmin()" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded-xl font-bold transition border border-red-500/20">
-            خروج
-          </button>
-        </div>
+      <div class="bg-slate-800 p-4 rounded-xl">
+        <h3 class="text-white font-bold mb-2">سجل الطلبات</h3>
+        <div id="records-list" class="text-white text-sm"></div>
       </div>
-
-      <div class="flex flex-wrap gap-3 mb-6">
-        <button onclick="filterApps('all')" class="px-4 py-2 rounded-lg bg-slate-800 text-white hover:bg-slate-700 border border-slate-700 transition focus:ring-2 ring-green-500 active-filter" id="btn-filter-all">الكل</button>
-        <button onclick="filterApps('new')" class="px-4 py-2 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 transition" id="btn-filter-new">جديد (0)</button>
-        <button onclick="filterApps('added')" class="px-4 py-2 rounded-lg bg-slate-800 text-green-400 hover:bg-slate-700 border border-slate-700 transition" id="btn-filter-added">تمت الإضافة</button>
-        
-        <label class="mr-auto flex items-center gap-2 cursor-pointer select-none text-slate-300">
-          <input type="checkbox" onchange="toggleHideAdded(this)" class="w-5 h-5 rounded accent-green-500">
-          إخفاء المضافين
-        </label>
-      </div>
-
-      <div id="applications-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        </div>
-      
-      <div id="admin-loader" class="text-center py-20 text-slate-500 hidden">
-        <div class="animate-spin text-4xl mb-4 inline-block">⏳</div>
-        <p>جاري جلب البيانات...</p>
-      </div>
-
+    </div>
+    
+    <div class="mt-6 bg-slate-800 p-4 rounded-xl">
+      <h3 class="text-white font-bold mb-2">تصحيح الأخطاء</h3>
+      <div id="debug-info" class="text-yellow-300 text-sm font-mono"></div>
     </div>
   </div>
+</div>
 
-  <script>
-    // ============================================
-    // إعدادات النظام والثوابت
-    // ============================================
-    const CONFIG = {
-      SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwBPFWhdR1r1T78ozhHem-rBg3L0zRU7XRTqZ8zZbVMZzGacPadTeS6S-PBf0d7DhFX/exec',
-      MAX_MEMBERS: 1888
-    };
+<script>
+// ============================================
+// إعدادات الاتصال
+// ============================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBPFWhdR1r1T78ozhHem-rBg3L0zRU7XRTqZ8zZbVMZzGacPadTeS6S-PBf0d7DhFX/exec';
 
-    // بيانات الولايات
-    const WILAYATS = {
-      "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
-      "ظفار": ["صلالة", "طاقة", "مرباط", "ثمريت", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات"],
-      "مسندم": ["خصب", "بخاء", "دبا", "مدحاء"],
-      "البريمي": ["البريمي", "محضة", "السنينة"],
-      "الداخلية": ["نزوى", "سمائل", "بهلاء", "أدم", "الحمراء", "منح", "إزكي", "بدبد"],
-      "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
-      "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء", "المصنعة"],
-      "جنوب الشرقية": ["صور", "الكامل والوافي", "جعلان بني بو حسن", "جعلان بني بو علي", "مصيرة"],
-      "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
-      "الظاهرة": ["عبري", "ينقل", "ضنك"],
-      "الوسطى": ["هيما", "محوت", "الدقم", "الجازر"]
-    };
+// ============================================
+// دالة اختبار الاتصال
+// ============================================
+async function testScript() {
+  const resultDiv = document.getElementById('test-result');
+  resultDiv.innerHTML = '<div class="text-blue-500">⏳ جاري اختبار الاتصال...</div>';
+  
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`);
+    const data = await response.json();
+    
+    resultDiv.innerHTML = `
+      <div class="text-green-600 font-bold">✅ اتصال ناجح!</div>
+      <div class="text-gray-600 mt-2">
+        <p>الحالة: ${data.status}</p>
+        <p>الرسالة: ${data.message}</p>
+        <p>الوقت: ${data.timestamp}</p>
+      </div>
+    `;
+    
+    console.log('📡 اختبار الاتصال:', data);
+    return true;
+    
+  } catch (error) {
+    resultDiv.innerHTML = `
+      <div class="text-red-600 font-bold">❌ فشل الاتصال!</div>
+      <div class="text-gray-600 mt-2">
+        <p>الخطأ: ${error.message}</p>
+        <p>تحقق من:</p>
+        <ol class="list-decimal pr-4 mt-2">
+          <li>تأكد أن السكربيت منشور كـ "Anyone, even anonymous"</li>
+          <li>تحقق من الرابط في المتصفح</li>
+          <li>افتح Console (F12) لرؤية التفاصيل</li>
+        </ol>
+      </div>
+    `;
+    
+    console.error('❌ خطأ الاتصال:', error);
+    return false;
+  }
+}
 
-    // حالة التطبيق
-    let appState = {
-      records: [],
-      filter: 'all',
-      hideAdded: false,
-      statuses: JSON.parse(localStorage.getItem('app_statuses') || '{}'),
-      adminToken: localStorage.getItem('admin_token') || null,
-      tokenExpiry: localStorage.getItem('token_expiry') || 0
-    };
-
-    // ============================================
-    // دوال عامة
-    // ============================================
-    function initParticles() {
-      const container = document.getElementById('particles-container');
-      const count = window.innerWidth < 640 ? 10 : 25;
-      
-      for(let i=0; i<count; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const size = Math.random() * 6 + 2;
-        p.style.width = size + 'px';
-        p.style.height = size + 'px';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.top = Math.random() * 100 + '%';
-        
-        p.animate([
-          { transform: 'translate(0, 0)' },
-          { transform: `translate(${Math.random()*100 - 50}px, ${Math.random()*100 - 50}px)` }
-        ], {
-          duration: Math.random() * 10000 + 10000,
-          iterations: Infinity,
-          direction: 'alternate',
-          easing: 'ease-in-out'
-        });
-        
-        container.appendChild(p);
-      }
-    }
-
-    // ============================================
-    // نظام التحقق الآمن
-    // ============================================
-    function isTokenValid() {
-      const now = Date.now();
-      const expiry = parseInt(appState.tokenExpiry) || 0;
-      
-      if (appState.adminToken && now < expiry) {
-        return true;
-      }
-      
-      if (appState.adminToken && now >= expiry) {
-        logoutAdmin();
-        alert('انتهت جلسة الدخول، يرجى إعادة التسجيل');
-      }
-      
-      return false;
-    }
-
-    async function loginAdminServer(password) {
-      try {
-        const response = await fetch(`${CONFIG.SCRIPT_URL}?action=adminLogin&password=${encodeURIComponent(password)}`);
-        const data = await response.json();
-        
-        if (data.status === 'success') {
-          appState.adminToken = data.token;
-          appState.tokenExpiry = Date.now() + (data.expiresIn || (24 * 60 * 60 * 1000));
-          
-          localStorage.setItem('admin_token', data.token);
-          localStorage.setItem('token_expiry', appState.tokenExpiry.toString());
-          
-          return { success: true, token: data.token };
-        } else {
-          return { success: false, message: data.message };
-        }
-      } catch (error) {
-        console.error('خطأ في تسجيل الدخول:', error);
-        return { 
-          success: false, 
-          message: 'فشل الاتصال بالخادم' 
-        };
-      }
-    }
-
-    function toggleAdminModal(show) {
-      const modal = document.getElementById('admin-login-modal');
-      modal.classList.toggle('hidden', !show);
-      
-      if (show) {
-        document.getElementById('admin-pass-input').value = '';
-        document.getElementById('login-error').classList.add('hidden');
-        document.getElementById('admin-pass-input').focus();
-      }
-    }
-
-    // ============================================
-    // منطق النموذج الرئيسي
-    // ============================================
-    document.getElementById('governorate').addEventListener('change', function(e) {
-      const wSelect = document.getElementById('wilayat');
-      const val = e.target.value;
-      
-      wSelect.innerHTML = '<option value="">اختر الولاية</option>';
-      
-      if(val && WILAYATS[val]) {
-        wSelect.disabled = false;
-        WILAYATS[val].forEach(w => {
-          const opt = document.createElement('option');
-          opt.value = w;
-          opt.text = w;
-          wSelect.appendChild(opt);
-        });
-      } else {
-        wSelect.disabled = true;
-        wSelect.innerHTML = '<option value="">اختر المحافظة أولاً</option>';
-      }
+// ============================================
+// معالجة نموذج التسجيل
+// ============================================
+document.getElementById('join-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const submitBtn = document.getElementById('submit-btn');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = '⏳ جاري الإرسال...';
+  submitBtn.disabled = true;
+  
+  const data = {
+    action: 'create',
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    governorate: 'مسقط',
+    wilayat: 'السيب',
+    school: 'مدرسة الاختبار',
+    submitted_at: new Date().toISOString()
+  };
+  
+  console.log('📤 البيانات المرسلة:', data);
+  
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(data)
     });
-
-    document.getElementById('join-form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('submit-btn');
-      const btnText = document.getElementById('btn-text');
-      const spinner = document.getElementById('loading-spinner');
-      
-      submitBtn.disabled = true;
-      btnText.classList.add('hidden');
-      spinner.classList.remove('hidden');
-
-      const data = {
-        action: 'create',
-        id: Date.now().toString(),
-        name: document.getElementById('name').value,
-        governorate: document.getElementById('governorate').value,
-        wilayat: document.getElementById('wilayat').value,
-        school: document.getElementById('school').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        submitted_at: new Date().toISOString()
-      };
-
-      try {
-        const response = await fetch(CONFIG.SCRIPT_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        
-        if (result.status === 'success') {
-          document.getElementById('success-modal').classList.remove('hidden');
-          document.getElementById('form-container').classList.add('hidden');
-        } else {
-          throw new Error(result.message || 'حدث خطأ في الخادم');
-        }
-      } catch (error) {
-        alert('حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.\n\nالتفاصيل: ' + error.message);
-        console.error('خطأ الإرسال:', error);
-        submitBtn.disabled = false;
-        btnText.classList.remove('hidden');
-        spinner.classList.add('hidden');
-      }
-    });
-
-    // ============================================
-    // لوحة التحكم
-    // ============================================
-    document.getElementById('admin-auth-form').onsubmit = async (e) => {
-      e.preventDefault();
-      const password = document.getElementById('admin-pass-input').value;
-      const errorDiv = document.getElementById('login-error');
-      const spinner = document.getElementById('login-spinner');
-      
-      errorDiv.classList.add('hidden');
-      
-      const submitBtn = e.target.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<span>جاري التحقق...</span>';
-      submitBtn.disabled = true;
-      
-      try {
-        const result = await loginAdminServer(password);
-        
-        if (result.success) {
-          toggleAdminModal(false);
-          loadAdminDashboard();
-          
-          setTimeout(() => {
-            if (isTokenValid()) {
-              alert('تنبيه: جلسة الدخول ستنتهي خلال 5 دقائق');
-            }
-          }, 55 * 60 * 1000);
-        } else {
-          errorDiv.textContent = result.message || 'بيانات الدخول غير صحيحة';
-          errorDiv.classList.remove('hidden');
-          document.getElementById('admin-pass-input').value = '';
-          document.getElementById('admin-pass-input').focus();
-        }
-      } catch (error) {
-        errorDiv.textContent = 'خطأ في الاتصال بالخادم';
-        errorDiv.classList.remove('hidden');
-      } finally {
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-      }
-    };
-
-    async function loadAdminDashboard() {
-      if (!isTokenValid()) {
-        toggleAdminModal(true);
-        return;
-      }
-      
-      const dashboard = document.getElementById('admin-dashboard');
-      const loader = document.getElementById('admin-loader');
-      
-      dashboard.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      loader.classList.remove('hidden');
-
-      try {
-        const timestamp = new Date().getTime();
-        const res = await fetch(`${CONFIG.SCRIPT_URL}?action=getAll&token=${appState.adminToken}&t=${timestamp}`);
-        
-        if (!res.ok) {
-          throw new Error(`فشل الاتصال: ${res.status}`);
-        }
-        
-        const json = await res.json();
-        
-        if(json.status === 'success') {
-          let dataArray = json.data || [];
-          
-          if (!Array.isArray(dataArray)) {
-            throw new Error('البيانات ليست مصفوفة');
-          }
-          
-          appState.records = dataArray.map(app => ({
-            ...app,
-            status: appState.statuses[app.id] || 'new'
-          })).reverse();
-          
-          console.log('✅ تم تحميل', appState.records.length, 'طلب');
-          renderApplications();
-        } else if (json.requiresAuth) {
-          logoutAdmin();
-          toggleAdminModal(true);
-        } else {
-          throw new Error(json.message || 'فشل في جلب البيانات');
-        }
-      } catch (e) {
-        console.error('❌ خطأ في جلب البيانات:', e);
-        document.getElementById('applications-grid').innerHTML = `
-          <div class="col-span-full text-center py-10 text-red-400">
-            <div class="text-4xl mb-4">❌</div>
-            <p class="text-xl font-bold mb-2">فشل تحميل البيانات</p>
-            <p class="text-sm text-slate-400">${e.message}</p>
-            <button onclick="loadAdminDashboard()" class="mt-4 px-6 py-2 bg-slate-700 rounded-lg hover:bg-slate-600">
-              إعادة المحاولة
-            </button>
-          </div>
-        `;
-      } finally {
-        loader.classList.add('hidden');
-      }
+    
+    const result = await response.json();
+    console.log('📥 الاستجابة:', result);
+    
+    if (result.status === 'success') {
+      alert('🎉 تم الإرسال بنجاح!');
+      document.getElementById('join-form').reset();
+    } else {
+      alert(`❌ خطأ: ${result.message}`);
     }
+    
+  } catch (error) {
+    console.error('❌ خطأ الإرسال:', error);
+    alert('❌ فشل الاتصال بالخادم، تحقق من الكونسول (F12)');
+  } finally {
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+});
 
-    function logoutAdmin() {
-      appState.adminToken = null;
-      appState.tokenExpiry = 0;
-      localStorage.removeItem('admin_token');
-      localStorage.removeItem('token_expiry');
-      document.getElementById('admin-dashboard').classList.add('hidden');
-      document.body.style.overflow = 'auto';
-      updateSessionIndicator();
+// ============================================
+// دالات لوحة المشرفين المبسطة
+// ============================================
+function openSimpleAdmin() {
+  document.getElementById('simple-admin').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSimpleAdmin() {
+  document.getElementById('simple-admin').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+}
+
+async function testGetAll() {
+  const resultDiv = document.getElementById('getall-result');
+  resultDiv.innerHTML = '<div class="text-blue-500">⏳ جاري جلب البيانات...</div>';
+  
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=getAll&t=${Date.now()}`);
+    const data = await response.json();
+    
+    console.log('📊 بيانات GET:', data);
+    
+    if (data.status === 'success') {
+      resultDiv.innerHTML = `
+        <div class="text-green-600 font-bold">✅ تم جلب ${data.count || 0} طلب</div>
+        <div class="text-gray-300 mt-2">
+          <p>المتبقي: ${data.remaining || 0}</p>
+          <p>آخر تحديث: ${data.lastUpdated || 'غير معروف'}</p>
+        </div>
+      `;
+      
+      // عرض الطلبات
+      displayRecords(data.data || []);
+    } else {
+      resultDiv.innerHTML = `
+        <div class="text-red-600 font-bold">❌ فشل جلب البيانات</div>
+        <div class="text-gray-300">${data.message}</div>
+      `;
     }
+    
+  } catch (error) {
+    resultDiv.innerHTML = `
+      <div class="text-red-600 font-bold">❌ خطأ في الاتصال</div>
+      <div class="text-gray-300">${error.message}</div>
+    `;
+    console.error('❌ خطأ GET:', error);
+  }
+}
 
-    // ============================================
-    // عرض الطلبات
-    // ============================================
-    function renderApplications() {
-      const grid = document.getElementById('applications-grid');
-      grid.innerHTML = '';
-      
-      let visibleCount = 0;
-      let newCount = 0;
+function displayRecords(records) {
+  const recordsList = document.getElementById('records-list');
+  
+  if (!records || records.length === 0) {
+    recordsList.innerHTML = '<div class="text-gray-400">لا توجد طلبات</div>';
+    return;
+  }
+  
+  let html = '<div class="space-y-2">';
+  records.slice(0, 10).forEach(record => {
+    html += `
+      <div class="bg-slate-700 p-3 rounded-lg">
+        <div class="font-bold">${record.name || 'غير معروف'}</div>
+        <div class="text-xs text-gray-300">${record.email || 'لا يوجد بريد'}</div>
+        <div class="text-xs text-gray-400">${record.phone || 'لا يوجد رقم'}</div>
+      </div>
+    `;
+  });
+  
+  if (records.length > 10) {
+    html += `<div class="text-center text-gray-400">و ${records.length - 10} طلب إضافي</div>`;
+  }
+  
+  html += '</div>';
+  recordsList.innerHTML = html;
+}
 
-      appState.records.forEach((app) => {
-        if (!app || !app.id) return;
-        
-        const status = appState.statuses[app.id] || 'new';
-        if(status === 'new') newCount++;
-        
-        if (appState.hideAdded && status === 'added') return;
-        if (appState.filter !== 'all' && appState.filter !== status) return;
+// ============================================
+// اختبار مباشر عند التحميل
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🚀 الصفحة جاهزة');
+  console.log('🔗 رابط السكربيت:', SCRIPT_URL);
+  
+  // اختبار اتصال تلقائي
+  setTimeout(testScript, 1000);
+  
+  // إضافة معلومات تصحيح
+  document.getElementById('debug-info').innerHTML = `
+    <div>🔗 رابط السكربيت: ${SCRIPT_URL}</div>
+    <div>🕒 وقت التحميل: ${new Date().toLocaleTimeString()}</div>
+    <div>🌐 الموقع: ${window.location.href}</div>
+  `;
+});
 
-        visibleCount++;
-        
-        const card = document.createElement('div');
-        card.className = `bg-slate-800 rounded-2xl p-5 border ${status === 'new' ? 'border-amber-500/50' : 'border-slate-700'} relative group hover:border-slate-500 transition-colors`;
-        
-        const name = app.name || 'غير معروف';
-        const email = app.email || '-';
-        
-        card.innerHTML = `
-          <div class="flex justify-between items-start mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${status === 'new' ? 'bg-amber-500 text-white' : 'bg-green-500 text-white'}">
-                ${name.charAt(0)}
-              </div>
-              <div>
-                <h4 class="font-bold text-white text-lg">${name}</h4>
-                <p class="text-xs text-slate-400">${app.governorate || '-'} - ${app.wilayat || '-'}</p>
-              </div>
-            </div>
-            <div class="flex flex-col items-end gap-2">
-              <span class="status-badge ${status === 'new' ? 'status-new' : 'status-added'}">
-                ${status === 'new' ? '🆕 جديد' : '✅ تم'}
-              </span>
-              <button onclick="deleteApplication('${app.id}')" class="text-xs text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 px-2 py-1 rounded-lg transition" title="حذف">
-                🗑️ حذف
-              </button>
-            </div>
-          </div>
-          
-          <div class="space-y-2 text-sm text-slate-300 mb-4 bg-slate-900/50 p-3 rounded-xl">
-            <div class="flex items-center gap-2">
-              <span>🏫</span> <span class="truncate">${app.school || '-'}</span>
-            </div>
-            <div class="flex items-center gap-2 cursor-pointer hover:text-white" onclick="copyToClipboard('${email}')" title="نسخ">
-              <span>📧</span> <span class="truncate font-mono">${email}</span>
-            </div>
-            <div class="flex items-center gap-2 cursor-pointer hover:text-white" onclick="copyToClipboard('${app.phone || ''}')">
-              <span>📱</span> <span class="font-mono">${app.phone || '-'}</span>
-            </div>
-          </div>
+// ============================================
+// دالة اختبار بديلة باستخدام JSONP
+// ============================================
+function testWithJsonp() {
+  const script = document.createElement('script');
+  script.src = `${SCRIPT_URL}?action=test&callback=handleJsonpResponse`;
+  document.head.appendChild(script);
+}
 
-          <div class="flex items-center justify-between mt-2 pt-3 border-t border-slate-700/50">
-            <label class="flex items-center gap-2 cursor-pointer text-sm text-white select-none">
-              <input type="checkbox" ${status === 'added' ? 'checked' : ''} 
-                onchange="updateStatus('${app.id}', this.checked)" 
-                class="w-5 h-5 rounded accent-green-500 bg-slate-700 border-none cursor-pointer">
-              <span>تمت الإضافة</span>
-            </label>
-            <span class="text-xs text-slate-500 font-mono">${app.submitted_at ? new Date(app.submitted_at).toLocaleDateString('en-GB') : '-'}</span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
+window.handleJsonpResponse = function(data) {
+  console.log('📡 استجابة JSONP:', data);
+  alert(`JSONP Response: ${JSON.stringify(data)}`);
+  document.getElementById('test-result').innerHTML = 
+    `<div class="text-green-600">JSONP: ${data.message}</div>`;
+};
+</script>
 
-      document.getElementById('total-stats').innerText = appState.records.length;
-      document.getElementById('btn-filter-new').innerText = `جديد (${newCount})`;
-      
-      ['all', 'new', 'added'].forEach(f => {
-        const btn = document.getElementById(`btn-filter-${f}`);
-        if(appState.filter === f) {
-          btn.classList.add('ring-2', 'ring-green-500', 'bg-slate-700');
-        } else {
-          btn.classList.remove('ring-2', 'ring-green-500', 'bg-slate-700');
-        }
-      });
-      
-      if(visibleCount === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500 text-lg">لا توجد طلبات مطابقة للعرض 📭</div>`;
-      }
-    }
-
-    // ============================================
-    // دوال مساعدة للوحة التحكم
-    // ============================================
-    window.filterApps = (type) => {
-      appState.filter = type;
-      renderApplications();
-    };
-
-    window.toggleHideAdded = (checkbox) => {
-      appState.hideAdded = checkbox.checked;
-      renderApplications();
-    };
-
-    window.updateStatus = (id, isAdded) => {
-      appState.statuses[id] = isAdded ? 'added' : 'new';
-      localStorage.setItem('app_statuses', JSON.stringify(appState.statuses));
-      renderApplications();
-    };
-
-    window.copyToClipboard = (text) => {
-      navigator.clipboard.writeText(text)
-        .then(() => {
-          alert('تم نسخ النص: ' + text);
-        })
-        .catch(err => {
-          console.error('فشل النسخ:', err);
-        });
-    };
-
-    window.deleteApplication = async (id) => {
-      if (!confirm('هل أنت متأكد من حذف هذا الطلب؟')) return;
-      
-      try {
-        const response = await fetch(CONFIG.SCRIPT_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            action: 'delete',
-            id: id,
-            token: appState.adminToken
-          })
-        });
-        
-        const data = await response.json();
-        
-        if (data.status === 'success') {
-          appState.records = appState.records.filter(app => app.id !== id);
-          renderApplications();
-          alert('تم حذف الطلب بنجاح');
-        } else if (data.requiresAuth) {
-          logoutAdmin();
-          toggleAdminModal(true);
-        } else {
-          alert('فشل الحذف: ' + data.message);
-        }
-      } catch (error) {
-        console.error('خطأ في الحذف:', error);
-        alert('فشل الاتصال بالخادم');
-      }
-    };
-
-    // ============================================
-    // دوال المؤشر والجلسة
-    // ============================================
-    function updateSessionIndicator() {
-      const indicator = document.getElementById('session-indicator');
-      if (isTokenValid()) {
-        indicator.classList.remove('hidden');
-      } else {
-        indicator.classList.add('hidden');
-      }
-    }
-
-    function initSessionTimer() {
-      setInterval(() => {
-        if (isTokenValid()) {
-          const remaining = Math.floor((parseInt(appState.tokenExpiry) - Date.now()) / 1000 / 60);
-          if (remaining < 5 && remaining > 0) {
-            console.log('تبقى ' + remaining + ' دقائق على انتهاء الجلسة');
-          }
-        }
-      }, 60000);
-    }
-
-    // ============================================
-    // التشغيل الأولي
-    // ============================================
-    document.addEventListener('DOMContentLoaded', function() {
-      initParticles();
-      initSessionTimer();
-      updateSessionIndicator();
-      
-      document.getElementById('admin-trigger').onclick = () => {
-        if (isTokenValid()) {
-          loadAdminDashboard();
-        } else {
-          toggleAdminModal(true);
-        }
-      };
-    });
-  </script>
 </body>
 </html>
