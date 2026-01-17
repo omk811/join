@@ -275,6 +275,27 @@
       cursor: not-allowed;
     }
     
+    /* تنويه الحقل */
+    .field-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #f59e0b;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: #92400e;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    
+    .field-notice-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    
     /* زر الإرسال */
     .submit-btn {
       width: 100%;
@@ -496,7 +517,7 @@
     .test-result {
       margin-top: 1rem;
       padding: 1rem 1.25rem;
-      background: white;
+      background: white;d: white;
       border-radius: 14px;
       min-height: 60px;
       font-size: 0.9rem;
@@ -1222,6 +1243,10 @@
         </label>
         <input type="text" id="school" name="school" class="form-input" 
                placeholder="مثال: مدرسة سعد بن معاذ" maxlength="100">
+        <div class="field-notice">
+          <span class="field-notice-icon">⚠️</span>
+          <span>تنويه: "أعتذر عن استقبال طلبات طلاب مدرسة سعد بن معاذ للتعليم الأساسي."</span>
+        </div>
       </div>
       
       <button type="submit" id="submit-btn" class="submit-btn">
