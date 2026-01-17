@@ -2,120 +2,54 @@
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="مجتمع اللغة العربية للصف الخامس - إشراف الأستاذ خليل البلوشي">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مجتمع اللغة العربية - الصف الخامس</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
   
-  <!-- تحسين السرعة: إزالة Fonts واستخدام النظام -->
   <style>
-    /* نظام الخطوط المحسن */
-    @font-face {
-      font-family: 'SystemArabic';
-      src: local('Segoe UI'), local('Tahoma'), local('Arial');
-    }
-    
-    /* CSS الأساسي */
-    :root {
-      --primary: #10b981;
-      --primary-dark: #059669;
-      --secondary: #3b82f6;
-      --secondary-dark: #2563eb;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --dark: #1f2937;
-      --light: #f9fafb;
-      --glass: rgba(255, 255, 255, 0.92);
-      --glass-border: rgba(255, 255, 255, 0.2);
-    }
-    
-    * {
+    * { 
+      font-family: 'Almarai', 'Tajawal', sans-serif; 
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'SystemArabic', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     
-    body {
-      background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
-      min-height: 100vh;
-      background-attachment: fixed;
+    body { 
+      background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); 
+      min-height: 100vh; 
     }
     
-    /* أنماط الزجاجية المحسنة */
-    .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid var(--glass-border);
-      box-shadow: 
-        0 4px 6px -1px rgba(0, 0, 0, 0.05),
-        0 10px 15px -3px rgba(0, 0, 0, 0.07),
-        0 20px 25px -5px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    .glass-card { 
+      background: rgba(255, 255, 255, 0.85); 
+      backdrop-filter: blur(12px); 
+      border: 1px solid rgba(255, 255, 255, 0.6); 
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     }
     
-    /* أنماط الإدخال */
-    .input-field {
-      width: 100%;
-      padding: 0.875rem 1rem;
-      border: 2px solid #e5e7eb;
-      border-radius: 0.75rem;
-      transition: all 0.2s ease;
+    .input-field { 
+      width: 100%; 
+      padding: 1rem; 
+      border: 2px solid #e5e7eb; 
+      border-radius: 1rem; 
+      transition: all 0.3s ease;
       font-size: 1rem;
-      background: white;
     }
     
-    .input-field:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-      outline: none;
+    .input-field:focus { 
+      border-color: #10b981; 
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); 
+      outline: none; 
     }
     
-    .input-field:disabled {
-      background: #f3f4f6;
-      cursor: not-allowed;
-    }
-    
-    /* أنماط الأزرار */
     .btn {
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
       cursor: pointer;
-      user-select: none;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 5px;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.5);
-      opacity: 0;
-      border-radius: 100%;
-      transform: scale(1, 1) translate(-50%);
-      transform-origin: 50% 50%;
-    }
-    
-    .btn:active::after {
-      animation: ripple 0.6s ease-out;
-    }
-    
-    @keyframes ripple {
-      0% {
-        transform: scale(0, 0);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(20, 20);
-        opacity: 0;
-      }
     }
     
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
     
     .btn:active {
@@ -123,12 +57,11 @@
     }
     
     .btn:disabled {
-      opacity: 0.5;
+      opacity: 0.6;
       cursor: not-allowed;
-      transform: none !important;
+      transform: none;
     }
     
-    /* Animations */
     @keyframes slideIn {
       from {
         opacity: 0;
@@ -140,136 +73,54 @@
       }
     }
     
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .animate-slide-in {
+      animation: slideIn 0.5s ease-out;
     }
-    
+
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
       20%, 40%, 60%, 80% { transform: translateX(5px); }
     }
-    
-    .animate-slide-in {
-      animation: slideIn 0.3s ease-out;
-    }
-    
-    .animate-fade-in {
-      animation: fadeIn 0.3s ease-out;
-    }
-    
+
     .shake {
       animation: shake 0.5s;
     }
-    
-    /* تحسينات التحميل */
-    .skeleton {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: loading 1.5s infinite;
-      border-radius: 0.5rem;
-    }
-    
-    @keyframes loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    
-    /* تحسينات التمرير */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: #a1a1a1;
-    }
-    
-    /* تأخير تحميل الصور */
-    .lazy {
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .lazy.loaded {
-      opacity: 1;
-    }
   </style>
-  
-  <!-- تحميل Tailwind بشكل غير متزامن -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#10b981',
-            secondary: '#3b82f6'
-          }
-        }
-      },
-      corePlugins: {
-        preflight: false, // لمنع التعارض مع الأنماط المخصصة
-      }
-    }
-  </script>
 </head>
 <body class="antialiased">
 
-<!-- شريط التحميل -->
-<div id="loading-bar" class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-blue-500 z-50" style="transform: translateX(-100%);"></div>
-
 <main class="min-h-screen py-6 px-4 flex justify-center">
-  <div class="w-full max-w-4xl">
+  <div class="w-full max-w-3xl">
     
     <!-- العنوان الرئيسي -->
-    <header class="text-center mb-8 animate-slide-in">
-      <div class="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded-full mb-3">
-        <span class="text-lg">✨</span>
-        <span class="font-bold">مرحباً بكم</span>
+    <header class="text-center mb-10 animate-slide-in">
+      <div class="inline-block bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded-full mb-4">
+        ✨ مرحباً بكم
       </div>
-      <h1 class="text-3xl md:text-4xl font-black text-gray-800 mb-2">مجتمع اللغة العربية</h1>
-      <p class="text-gray-600">إشراف : الأستاذ خليل البلوشي</p>
+      <h1 class="text-4xl md:text-5xl font-black text-gray-800 mb-2">مجتمع اللغة العربية</h1>
+      <p class="text-lg text-gray-600">إشراف : الأستاذ خليل البلوشي </p>
     </header>
 
-    <!-- اختبار الاتصال السريع -->
+    <!-- زر الاختبار السريع -->
     <div class="mb-6 animate-slide-in">
-      <div class="flex flex-wrap gap-2 mb-3">
-        <button onclick="testScript()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl font-bold">
-          🔧 اختبار الاتصال
-        </button>
-        <button onclick="showAdminLogin()" class="btn bg-gray-800 hover:bg-gray-900 text-white px-5 py-2.5 rounded-xl font-bold">
-          🔐 دخول المشرفين
-        </button>
-      </div>
-      <div id="test-result" class="glass-card p-4 rounded-xl text-sm min-h-[80px]">
-        <div class="text-gray-500 text-center py-4">⚡ اضغط على "اختبار الاتصال" للبدء</div>
-      </div>
+      <button onclick="testScript()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-bold w-full md:w-auto">
+        🔧 اختبار الاتصال بالسكربيت
+      </button>
+      <div id="test-result" class="glass-card p-4 rounded-xl text-sm mt-4 min-h-[80px]"></div>
     </div>
 
     <!-- نموذج التسجيل -->
     <div id="form-container" class="animate-slide-in">
-      <form id="join-form" class="glass-card rounded-2xl p-6 space-y-4">
+      <form id="join-form" class="glass-card rounded-3xl p-6 md:p-8 space-y-5">
         
-        <div class="text-center mb-2">
-          <h2 class="text-xl font-bold text-gray-800">📝 نموذج الانضمام</h2>
-          <p class="text-gray-600 text-sm mt-1">املأ البيانات للانضمام إلى المجتمع</p>
+        <div class="text-center mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">📝 نموذج الانضمام</h2>
+          <p class="text-gray-600 text-sm mt-2">املأ البيانات التالية للانضمام إلى المجتمع</p>
         </div>
 
-        <!-- الاسم -->
         <div>
-          <label for="name" class="block text-sm font-bold text-gray-700 mb-1">
+          <label for="name" class="block text-sm font-bold text-gray-700 mb-1.5">
             👤 الاسم الثلاثي <span class="text-red-500">*</span>
           </label>
           <input 
@@ -285,9 +136,8 @@
           >
         </div>
 
-        <!-- البريد الإلكتروني -->
         <div>
-          <label for="email" class="block text-sm font-bold text-gray-700 mb-1">
+          <label for="email" class="block text-sm font-bold text-gray-700 mb-1.5">
             📧 البريد الإلكتروني <span class="text-red-500">*</span>
           </label>
           <input 
@@ -298,68 +148,100 @@
             class="input-field" 
             placeholder="مثال: name@example.com"
             autocomplete="email"
-            inputmode="email"
           >
         </div>
 
-        <!-- رقم الهاتف -->
         <div>
-          <label for="phone" class="block text-sm font-bold text-gray-700 mb-1">
+          <label for="phone" class="block text-sm font-bold text-gray-700 mb-1.5">
             📱 رقم الهاتف <span class="text-red-500">*</span>
           </label>
-          <div class="relative">
-            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">+968</div>
-            <input 
-              type="tel" 
-              id="phone" 
-              name="phone"
-              required 
-              pattern="[0-9]{8}" 
-              minlength="8"
-              maxlength="8"
-              class="input-field pl-16" 
-              placeholder="99123456"
-              autocomplete="tel"
-              inputmode="numeric"
-            >
-          </div>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone"
+            required 
+            pattern="[0-9]{8}" 
+            minlength="8"
+            maxlength="8"
+            class="input-field" 
+            placeholder="مثال: 99123456"
+            autocomplete="tel"
+          >
         </div>
 
-        <!-- المحافظة والولاية -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label for="governorate" class="block text-sm font-bold text-gray-700 mb-1">
-              🏛️ المحافظة
-            </label>
-            <select id="governorate" name="governorate" class="input-field">
-              <option value="">اختر المحافظة...</option>
-              <option value="مسقط">مسقط</option>
-              <option value="ظفار">ظفار</option>
-              <option value="مسندم">مسندم</option>
-              <option value="البريمي">البريمي</option>
-              <option value="الداخلية">الداخلية</option>
-              <option value="شمال الباطنة">شمال الباطنة</option>
-              <option value="جنوب الباطنة">جنوب الباطنة</option>
-              <option value="جنوب الشرقية">جنوب الشرقية</option>
-              <option value="شمال الشرقية">شمال الشرقية</option>
-              <option value="الظاهرة">الظاهرة</option>
-              <option value="الوسطى">الوسطى</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="wilayat" class="block text-sm font-bold text-gray-700 mb-1">
-              📍 الولاية
-            </label>
-            <select id="wilayat" name="wilayat" class="input-field" disabled>
-              <option value="">اختر الولاية...</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- المدرسة -->
         <div>
-          <label for="school" class="block text-sm font-bold text-gray-700 mb-1">
+          <label for="governorate" class="block text-sm font-bold text-gray-700 mb-1.5">
+            🏛️ المحافظة
+          </label>
+          <select id="governorate" name="governorate" class="input-field">
+            <option value="">اختر المحافظة...</option>
+            <option value="مسقط">مسقط</option>
+            <option value="ظفار">ظفار</option>
+            <option value="مسندم">مسندم</option>
+            <option value="البريمي">البريمي</option>
+            <option value="الداخلية">الداخلية</option>
+            <option value="شمال الباطنة">شمال الباطنة</option>
+            <option value="جنوب الباطنة">جنوب الباطنة</option>
+            <option value="جنوب الشرقية">جنوب الشرقية</option>
+            <option value="شمال الشرقية">شمال الشرقية</option>
+            <option value="الظاهرة">الظاهرة</option>
+            <option value="الوسطى">الوسطى</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="wilayat" class="block text-sm font-bold text-gray-700 mb-1.5">
+            📍 الولاية
+          </label>
+         <select id="wilayat" name="wilayat" class="input-field" disabled>
+  <option value="">اختر الولاية...</option>
+</select>
+        </div>
+<script>
+// ============================================
+// المحافظات والولايات - سلطنة عمان
+// ============================================
+const OMAN_WILAYAT = {
+  "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
+  "ظفار": ["صلالة", "طاقة", "مرباط", "سدح", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات", "ثمريت"],
+  "مسندم": ["خصب", "دبا", "بخا", "مدحاء"],
+  "البريمي": ["البريمي", "محضة", "السنينة"],
+  "الداخلية": ["نزوى", "بهلاء", "منح", "الحمراء", "إزكي", "سمائل", "أدم"],
+  "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
+  "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء"],
+  "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
+  "جنوب الشرقية": ["صور", "جعلان بني بوعلي", "جعلان بني بوحسن", "الكامل والوافي", "مصيرة"],
+  "الظاهرة": ["عبري", "ينقل", "ضنك"],
+  "الوسطى": ["هيما", "الدقم", "محوت", "الجازر"]
+};
+
+// ============================================
+// ربط المحافظة بالولاية
+// ============================================
+const governorateSelect = document.getElementById("governorate");
+const wilayatSelect = document.getElementById("wilayat");
+
+governorateSelect.addEventListener("change", function () {
+  const selectedGov = this.value;
+
+  // إعادة ضبط
+  wilayatSelect.innerHTML = '<option value="">اختر الولاية...</option>';
+  wilayatSelect.disabled = true;
+
+  if (!selectedGov || !OMAN_WILAYAT[selectedGov]) return;
+
+  OMAN_WILAYAT[selectedGov].forEach(wilaya => {
+    const option = document.createElement("option");
+    option.value = wilaya;
+    option.textContent = wilaya;
+    wilayatSelect.appendChild(option);
+  });
+
+  wilayatSelect.disabled = false;
+});
+</script>
+        <div>
+          <label for="school" class="block text-sm font-bold text-gray-700 mb-1.5">
             🏫 المدرسة
           </label>
           <input 
@@ -372,11 +254,10 @@
           >
         </div>
 
-        <!-- زر الإرسال -->
         <button 
           type="submit" 
           id="submit-btn" 
-          class="btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white w-full py-3 rounded-xl font-bold text-lg shadow-lg mt-2"
+          class="btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg"
         >
           ✅ إرسال طلب الانضمام
         </button>
@@ -386,22 +267,29 @@
     </div>
 
     <!-- رسالة النجاح -->
-    <div id="success-message" class="hidden glass-card rounded-2xl p-6 text-center animate-slide-in">
-      <div class="text-5xl mb-4">🎉</div>
-      <h2 class="text-2xl font-bold text-green-600 mb-2">تم الإرسال بنجاح!</h2>
-      <p class="text-gray-600 mb-4">شكراً لك! سيتم التواصل معك قريباً.</p>
-      <button onclick="resetForm()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl font-bold">
+    <div id="success-message" class="hidden glass-card rounded-3xl p-8 text-center animate-slide-in">
+      <div class="text-6xl mb-4">🎉</div>
+      <h2 class="text-3xl font-bold text-green-600 mb-2">تم الإرسال بنجاح!</h2>
+      <p class="text-gray-600 mb-6">شكراً لك! سيتم التواصل معك قريباً.</p>
+      <button onclick="resetForm()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-bold">
         📝 إرسال طلب آخر
       </button>
     </div>
+
+    <!-- لوحة المشرفين -->
+    <footer class="mt-10 text-center">
+      <button onclick="showAdminLogin()" class="btn bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-full text-sm">
+        🔐 دخول المشرفين
+      </button>
+    </footer>
 
   </div>
 </main>
 
 <!-- نافذة تسجيل دخول المشرفين -->
-<div id="admin-login-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-fade-in">
-  <div class="glass-card rounded-xl p-6 max-w-md w-full animate-slide-in">
-    <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">🔐 تسجيل دخول المشرفين</h2>
+<div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="glass-card rounded-2xl p-8 max-w-md w-full animate-slide-in">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">🔐 تسجيل دخول المشرفين</h2>
     
     <form id="admin-login-form" class="space-y-4">
       <div>
@@ -420,18 +308,18 @@
       
       <div id="login-error" class="hidden bg-red-100 text-red-700 p-3 rounded-lg text-sm text-center font-bold"></div>
       
-      <div class="flex gap-2">
+      <div class="flex gap-3">
         <button 
           type="submit" 
           id="login-btn"
-          class="btn bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-xl font-bold flex-1"
+          class="btn bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-bold flex-1"
         >
           ✅ دخول
         </button>
         <button 
           type="button" 
           onclick="hideAdminLogin()"
-          class="btn bg-gray-500 hover:bg-gray-600 text-white px-5 py-2.5 rounded-xl font-bold flex-1"
+          class="btn bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-bold flex-1"
         >
           ✕ إلغاء
         </button>
@@ -440,704 +328,466 @@
   </div>
 </div>
 
-<!-- لوحة المشرفين -->
-<div id="admin-panel" class="hidden fixed inset-0 bg-gray-900 p-4 z-50 overflow-auto">
-  <div class="max-w-7xl mx-auto">
+<!-- لوحة المشرفين (محمية) -->
+<div id="admin-panel" class="hidden fixed inset-0 bg-slate-900 p-4 z-50 overflow-auto">
+  <div class="max-w-5xl mx-auto">
     
     <!-- رأس اللوحة -->
-    <header class="glass-card rounded-xl p-4 mb-4">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <h1 class="text-xl font-bold text-white">🎛️ لوحة التحكم</h1>
-          <p class="text-gray-400 text-sm">مرحباً بك في لوحة المشرفين</p>
-        </div>
-        <div class="flex gap-2">
-          <button onclick="exportData()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm">
-            📥 تصدير البيانات
-          </button>
-          <button onclick="logoutAdmin()" class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
-            🚪 تسجيل الخروج
-          </button>
-        </div>
+    <div class="flex justify-between items-center mb-6 bg-slate-800 p-4 rounded-xl">
+      <div>
+        <h2 class="text-2xl font-bold text-white">🎛️ لوحة التحكم</h2>
+        <p class="text-gray-400 text-sm mt-1">مرحباً بك في لوحة المشرفين</p>
       </div>
-    </header>
-
+      <button onclick="logoutAdmin()" class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
+        🚪 تسجيل الخروج
+      </button>
+    </div>
+    
     <!-- أدوات التحكم -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
       
       <!-- اختبار الاتصال -->
-      <div class="glass-card p-4 rounded-xl">
-        <h3 class="text-white font-bold mb-3">🔧 اختبار الاتصال</h3>
-        <div class="space-y-2">
-          <button onclick="adminTestConnection()" class="btn bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded-lg">
-            اختبار السكربيت
-          </button>
-          <button onclick="loadAllRecords()" class="btn bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-lg">
-            جلب جميع البيانات
-          </button>
-        </div>
-        <div id="admin-test-result" class="text-white text-sm mt-3 p-3 bg-gray-800 rounded-lg min-h-[60px]"></div>
+      <div class="bg-slate-800 p-4 rounded-xl">
+        <h3 class="text-white font-bold mb-3 text-lg">🔧 اختبار الاتصال</h3>
+        <button onclick="adminTestConnection()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full mb-2">
+          اختبار السكربيت
+        </button>
+        <button onclick="loadAllRecords()" class="btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full mb-2">
+          جلب جميع البيانات
+        </button>
+        <div id="admin-test-result" class="text-white text-sm mt-2 p-2 bg-slate-700 rounded-lg min-h-[60px]"></div>
       </div>
       
-      <!-- الإحصائيات -->
-      <div class="glass-card p-4 rounded-xl">
-        <h3 class="text-white font-bold mb-3">📊 الإحصائيات</h3>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bg-gray-800 p-4 rounded-lg text-center">
-            <div class="text-sm text-gray-400 mb-1">عدد الطلبات</div>
-            <div id="total-count" class="text-2xl font-bold text-white">0</div>
+      <!-- إحصائيات -->
+      <div class="bg-slate-800 p-4 rounded-xl">
+        <h3 class="text-white font-bold mb-3 text-lg">📊 الإحصائيات</h3>
+        <div id="stats-container" class="space-y-2">
+          <div class="bg-slate-700 p-3 rounded-lg text-white">
+            <div class="text-sm text-gray-400">عدد الطلبات</div>
+            <div id="total-count" class="text-2xl font-bold">-</div>
           </div>
-          <div class="bg-gray-800 p-4 rounded-lg text-center">
-            <div class="text-sm text-gray-400 mb-1">المتبقي</div>
-            <div id="remaining-count" class="text-2xl font-bold text-white">0</div>
+          <div class="bg-slate-700 p-3 rounded-lg text-white">
+            <div class="text-sm text-gray-400">المتبقي</div>
+            <div id="remaining-count" class="text-2xl font-bold">-</div>
           </div>
-          <div class="bg-gray-800 p-4 rounded-lg text-center">
-            <div class="text-sm text-gray-400 mb-1">اليوم</div>
-            <div id="today-count" class="text-2xl font-bold text-white">0</div>
-          </div>
-          <div class="bg-gray-800 p-4 rounded-lg text-center">
-            <div class="text-sm text-gray-400 mb-1">الأسبوع</div>
-            <div id="week-count" class="text-2xl font-bold text-white">0</div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- البحث والتصفية -->
-      <div class="glass-card p-4 rounded-xl">
-        <h3 class="text-white font-bold mb-3">🔍 البحث والتصفية</h3>
-        <div class="space-y-2">
-          <input 
-            type="text" 
-            id="search-input" 
-            placeholder="ابحث بالاسم أو البريد..."
-            class="input-field bg-gray-800 border-gray-700 text-white"
-            onkeyup="filterRecords()"
-          >
-          <select id="filter-governorate" class="input-field bg-gray-800 border-gray-700 text-white" onchange="filterRecords()">
-            <option value="">جميع المحافظات</option>
-            <option value="مسقط">مسقط</option>
-            <option value="ظفار">ظفار</option>
-            <option value="مسندم">مسندم</option>
-            <option value="البريمي">البريمي</option>
-            <option value="الداخلية">الداخلية</option>
-            <option value="شمال الباطنة">شمال الباطنة</option>
-            <option value="جنوب الباطنة">جنوب الباطنة</option>
-            <option value="جنوب الشرقية">جنوب الشرقية</option>
-            <option value="شمال الشرقية">شمال الشرقية</option>
-            <option value="الظاهرة">الظاهرة</option>
-            <option value="الوسطى">الوسطى</option>
-          </select>
-          <button onclick="clearFilters()" class="btn bg-gray-700 hover:bg-gray-600 text-white w-full py-2 rounded-lg">
-            🗑️ مسح الفلاتر
-          </button>
         </div>
       </div>
       
     </div>
-
+    
     <!-- قائمة الطلبات -->
-    <div class="glass-card rounded-xl p-4 mb-4">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4">
-        <h2 class="text-lg font-bold text-white">📋 سجل الطلبات</h2>
-        <div class="flex gap-2">
-          <button onclick="loadAllRecords()" class="btn bg-purple-500 hover:bg-purple-600 text-white px-3 py-1.5 rounded-lg text-sm">
-            🔄 تحديث البيانات
-          </button>
-          <button onclick="toggleView()" id="toggle-view-btn" class="btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-1.5 rounded-lg text-sm">
-            👁️ عرض الجدول
-          </button>
-        </div>
-      </div>
-      
-      <!-- عرض البطاقات -->
-      <div id="cards-view" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        <div id="records-list" class="space-y-3"></div>
-      </div>
-      
-      <!-- عرض الجدول -->
-      <div id="table-view" class="hidden overflow-x-auto">
-        <table class="w-full text-sm text-white">
-          <thead class="bg-gray-800">
-            <tr>
-              <th class="p-3 text-right">#</th>
-              <th class="p-3 text-right">الاسم</th>
-              <th class="p-3 text-right">البريد الإلكتروني</th>
-              <th class="p-3 text-right">رقم الهاتف</th>
-              <th class="p-3 text-right">المحافظة</th>
-              <th class="p-3 text-right">الولاية</th>
-              <th class="p-3 text-right">المدرسة</th>
-              <th class="p-3 text-right">تاريخ التسجيل</th>
-            </tr>
-          </thead>
-          <tbody id="table-body" class="divide-y divide-gray-700"></tbody>
-        </table>
-      </div>
-      
-      <!-- ترقيم الصفحات -->
-      <div id="pagination" class="mt-4 flex justify-center gap-2 hidden">
-        <button onclick="changePage(-1)" class="btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-lg text-sm">
-          السابق
-        </button>
-        <span id="page-info" class="text-white px-3 py-1"></span>
-        <button onclick="changePage(1)" class="btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-lg text-sm">
-          التالي
+    <div class="bg-slate-800 p-4 rounded-xl mb-6">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-white font-bold text-lg">📋 سجل الطلبات</h3>
+        <button onclick="loadAllRecords()" class="btn bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm">
+          🔄 تحديث
         </button>
       </div>
+      <div id="records-list" class="text-white text-sm max-h-96 overflow-y-auto"></div>
     </div>
-
+    
     <!-- معلومات التصحيح -->
-    <div class="glass-card rounded-xl p-4">
-      <h3 class="text-white font-bold mb-3">🐛 معلومات التصحيح</h3>
-      <div id="debug-info" class="text-yellow-300 text-xs bg-gray-800 p-3 rounded-lg overflow-x-auto whitespace-pre"></div>
+    <div class="bg-slate-800 p-4 rounded-xl">
+      <h3 class="text-white font-bold mb-3 text-lg">🐛 معلومات التصحيح</h3>
+      <div id="debug-info" class="text-yellow-300 text-xs font-mono bg-slate-900 p-3 rounded-lg overflow-x-auto"></div>
     </div>
-
+    
   </div>
 </div>
 
 <script>
 // ============================================
-// إعدادات الاتصال - بدون تغيير
+// إعدادات الاتصال
 // ============================================
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRU0C6bbgpnbXNAwC_fVgXfWxs_dFezEmsK0vQSJLfw1vlrjKDKIdyWU4K9ziddzf6/exec';
 
 // متغيرات عامة
 let isSubmitting = false;
-let adminPassword = null;
-let allRecords = [];
-let filteredRecords = [];
-let currentPage = 1;
-const recordsPerPage = 12;
-let isTableView = false;
+let adminPassword = null; // يتم تخزين كلمة المرور بعد تسجيل الدخول
 
 // ============================================
-// تحسينات الأداء
+// دالة اختبار الاتصال
 // ============================================
-
-// التخزين المؤقت
-const cache = {
-    test: null,
-    records: null,
-    timestamp: null
-};
-
-// تخزين محلي للبيانات
-function saveToLocalStorage(key, data) {
-    try {
-        const item = {
-            data: data,
-            timestamp: Date.now()
-        };
-        localStorage.setItem(key, JSON.stringify(item));
-    } catch (e) {
-        console.warn('❌ فشل حفظ البيانات محلياً:', e);
-    }
-}
-
-function loadFromLocalStorage(key, maxAge = 5 * 60 * 1000) {
-    try {
-        const item = localStorage.getItem(key);
-        if (!item) return null;
-        
-        const parsed = JSON.parse(item);
-        if (Date.now() - parsed.timestamp > maxAge) {
-            localStorage.removeItem(key);
-            return null;
-        }
-        
-        return parsed.data;
-    } catch (e) {
-        console.warn('❌ فشل تحميل البيانات المحلية:', e);
-        return null;
-    }
-}
-
-// ============================================
-// دوال المحافظات والولايات - بدون تغيير
-// ============================================
-const OMAN_WILAYAT = {
-  "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
-  "ظفار": ["صلالة", "طاقة", "مرباط", "سدح", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات", "ثمريت"],
-  "مسندم": ["خصب", "دبا", "بخا", "مدحاء"],
-  "البريمي": ["البريمي", "محضة", "السنينة"],
-  "الداخلية": ["نزوى", "بهلاء", "منح", "الحمراء", "إزكي", "سمائل", "أدم"],
-  "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
-  "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء"],
-  "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
-  "جنوب الشرقية": ["صور", "جعلان بني بوعلي", "جعلان بني بوحسن", "الكامل والوافي", "مصيرة"],
-  "الظاهرة": ["عبري", "ينقل", "ضنك"],
-  "الوسطى": ["هيما", "الدقم", "محوت", "الجازر"]
-};
-
-// ربط المحافظة بالولاية
-document.getElementById("governorate").addEventListener("change", function() {
-  const selectedGov = this.value;
-  const wilayatSelect = document.getElementById("wilayat");
-
-  wilayatSelect.innerHTML = '<option value="">اختر الولاية...</option>';
-  wilayatSelect.disabled = true;
-
-  if (!selectedGov || !OMAN_WILAYAT[selectedGov]) return;
-
-  OMAN_WILAYAT[selectedGov].forEach(wilaya => {
-    const option = document.createElement("option");
-    option.value = wilaya;
-    option.textContent = wilaya;
-    wilayatSelect.appendChild(option);
-  });
-
-  wilayatSelect.disabled = false;
-});
-
-// ============================================
-// دوال الاتصال المحسنة
-// ============================================
-
-// شريط التحميل المتحرك
-function showLoading() {
-    const loadingBar = document.getElementById('loading-bar');
-    loadingBar.style.transition = 'transform 0.3s ease';
-    loadingBar.style.transform = 'translateX(0)';
-}
-
-function hideLoading() {
-    const loadingBar = document.getElementById('loading-bar');
-    loadingBar.style.transform = 'translateX(-100%)';
-}
-
-// دالة اختبار الاتصال المحسنة
 async function testScript() {
-    const resultDiv = document.getElementById('test-result');
-    resultDiv.innerHTML = '<div class="flex items-center justify-center gap-2 text-blue-500"><div class="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>جاري اختبار الاتصال...</div>';
+  const resultDiv = document.getElementById('test-result');
+  resultDiv.innerHTML = '<div class="text-blue-500 animate-pulse">⏳ جاري اختبار الاتصال...</div>';
+  
+  try {
+    console.log('🔍 بدء اختبار الاتصال...');
     
-    try {
-        showLoading();
-        
-        // التحقق من التخزين المؤقت
-        if (cache.test && Date.now() - cache.timestamp < 60000) {
-            const data = cache.test;
-            displayTestResult(data, true);
-            hideLoading();
-            return true;
-        }
-
-        const url = `${SCRIPT_URL}?action=test&t=${Date.now()}`;
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 10000);
-
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' },
-            signal: controller.signal
-        });
-
-        clearTimeout(timeout);
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        // التخزين المؤقت
-        cache.test = data;
-        cache.timestamp = Date.now();
-        
-        displayTestResult(data);
-        hideLoading();
-        return true;
-
-    } catch (error) {
-        console.error('❌ خطأ الاتصال:', error);
-        
-        resultDiv.innerHTML = `
-            <div class="text-red-600 font-bold mb-1">❌ فشل الاتصال!</div>
-            <div class="text-gray-600 text-sm">
-                <p><strong>الخطأ:</strong> ${error.name === 'AbortError' ? 'انتهى وقت الاتصال' : error.message}</p>
-                <p class="mt-2 text-xs">⏱️ تحقق من اتصال الإنترنت وحاول مرة أخرى</p>
-            </div>
-        `;
-        
-        hideLoading();
-        return false;
+    const url = `${SCRIPT_URL}?action=test&t=${Date.now()}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    
+    console.log('📡 حالة الاستجابة:', response.status);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-}
-
-function displayTestResult(data, fromCache = false) {
-    const resultDiv = document.getElementById('test-result');
-    const cacheBadge = fromCache ? '<span class="bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded mr-2">من الذاكرة</span>' : '';
+    
+    const data = await response.json();
+    console.log('✅ البيانات المستلمة:', data);
     
     resultDiv.innerHTML = `
-        <div class="flex items-center gap-2 mb-2">
-            <div class="text-green-600 font-bold">✅ اتصال ناجح!</div>
-            ${cacheBadge}
-        </div>
-        <div class="text-gray-700 space-y-1 text-sm">
-            <p><strong>الحالة:</strong> ${data.status}</p>
-            <p><strong>الرسالة:</strong> ${data.message}</p>
-            ${data.version ? `<p><strong>الإصدار:</strong> ${data.version}</p>` : ''}
-            <p class="text-xs text-gray-500 mt-2">🕒 ${new Date().toLocaleTimeString('ar-SA')}</p>
-        </div>
+      <div class="text-green-600 font-bold text-lg mb-2">✅ اتصال ناجح!</div>
+      <div class="text-gray-700 space-y-1 text-sm">
+        <p><strong>الحالة:</strong> ${data.status}</p>
+        <p><strong>الرسالة:</strong> ${data.message}</p>
+        <p><strong>الإصدار:</strong> ${data.version || 'غير معروف'}</p>
+      </div>
     `;
-}
-
-// ============================================
-// معالجة نموذج التسجيل المحسنة
-// ============================================
-document.getElementById('join-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    if (isSubmitting) return;
-    
-    const submitBtn = document.getElementById('submit-btn');
-    const formStatus = document.getElementById('form-status');
-    const originalText = submitBtn.textContent;
-    
-    isSubmitting = true;
-    submitBtn.textContent = '⏳ جاري الإرسال...';
-    submitBtn.disabled = true;
-    formStatus.classList.add('hidden');
-    
-    // تحقق من المدخلات
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    
-    if (!validateForm(name, email, phone)) {
-        isSubmitting = false;
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-        return;
-    }
-    
-    const formData = {
-        action: 'create',
-        name: name,
-        email: email,
-        phone: phone,
-        governorate: document.getElementById('governorate').value || 'غير محدد',
-        wilayat: document.getElementById('wilayat').value.trim() || 'غير محدد',
-        school: document.getElementById('school').value.trim() || 'غير محدد',
-        submitted_at: new Date().toISOString()
-    };
-    
-    try {
-        showLoading();
-        
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain;charset=utf-8'
-            },
-            body: JSON.stringify(formData)
-        });
-        
-        const result = await response.json();
-        
-        if (result.status === 'success') {
-            document.getElementById('form-container').classList.add('hidden');
-            document.getElementById('success-message').classList.remove('hidden');
-            
-            // إشعار نجاح
-            showNotification('تم إرسال طلب الانضمام بنجاح!', 'success');
-            
-            // تحديث التخزين المؤقت
-            cache.records = null;
-            cache.timestamp = null;
-            
-        } else {
-            formStatus.innerHTML = `❌ ${result.message}`;
-            formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
-            formStatus.classList.remove('hidden');
-            formStatus.classList.add('shake');
-            setTimeout(() => formStatus.classList.remove('shake'), 500);
-            
-            showNotification(result.message, 'error');
-        }
-        
-    } catch (error) {
-        console.error('❌ خطأ الإرسال:', error);
-        formStatus.innerHTML = '❌ فشل الاتصال بالخادم';
-        formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
-        formStatus.classList.remove('hidden');
-        
-        showNotification('فشل الاتصال بالخادم', 'error');
-    } finally {
-        hideLoading();
-        isSubmitting = false;
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
-
-function validateForm(name, email, phone) {
-    const errors = [];
-    
-    if (name.length < 3) {
-        errors.push('الاسم يجب أن يكون 3 أحرف على الأقل');
-        document.getElementById('name').classList.add('shake');
-    }
-    
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        errors.push('البريد الإلكتروني غير صالح');
-        document.getElementById('email').classList.add('shake');
-    }
-    
-    if (!/^[0-9]{8}$/.test(phone)) {
-        errors.push('رقم الهاتف يجب أن يكون 8 أرقام');
-        document.getElementById('phone').classList.add('shake');
-    }
-    
-    if (errors.length > 0) {
-        showNotification(errors.join('<br>'), 'error');
-        setTimeout(() => {
-            document.querySelectorAll('.shake').forEach(el => el.classList.remove('shake'));
-        }, 500);
-        return false;
-    }
     
     return true;
+    
+  } catch (error) {
+    console.error('❌ خطأ الاتصال:', error);
+    
+    resultDiv.innerHTML = `
+      <div class="text-red-600 font-bold text-lg mb-2">❌ فشل الاتصال!</div>
+      <div class="text-gray-700 text-sm">
+        <p><strong>الخطأ:</strong> ${error.message}</p>
+      </div>
+    `;
+    
+    return false;
+  }
 }
 
 // ============================================
-// نظام الإشعارات
+// معالجة نموذج التسجيل
 // ============================================
-function showNotification(message, type = 'info') {
-    const types = {
-        success: { bg: 'bg-green-500', icon: '✅' },
-        error: { bg: 'bg-red-500', icon: '❌' },
-        info: { bg: 'bg-blue-500', icon: 'ℹ️' },
-        warning: { bg: 'bg-yellow-500', icon: '⚠️' }
-    };
+document.getElementById('join-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  if (isSubmitting) {
+    return;
+  }
+  
+  const submitBtn = document.getElementById('submit-btn');
+  const formStatus = document.getElementById('form-status');
+  const originalText = submitBtn.textContent;
+  
+  isSubmitting = true;
+  submitBtn.textContent = '⏳ جاري الإرسال...';
+  submitBtn.disabled = true;
+  formStatus.classList.add('hidden');
+  
+  const formData = {
+    action: 'create',
+    name: document.getElementById('name').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    governorate: document.getElementById('governorate').value || 'غير محدد',
+    wilayat: document.getElementById('wilayat').value.trim() || 'غير محدد',
+    school: document.getElementById('school').value.trim() || 'غير محدد',
+    submitted_at: new Date().toISOString()
+  };
+  
+  console.log('📤 البيانات المرسلة:', formData);
+  
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(formData)
+    });
     
-    const notif = document.createElement('div');
-    notif.className = `fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-96 ${types[type].bg} text-white p-4 rounded-xl shadow-lg z-[100] animate-slide-in`;
-    notif.innerHTML = `
-        <div class="flex items-center gap-3">
-            <div class="text-xl">${types[type].icon}</div>
-            <div class="flex-1">${message}</div>
-            <button onclick="this.parentElement.parentElement.remove()" class="text-xl hover:opacity-70">&times;</button>
-        </div>
-    `;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     
-    document.body.appendChild(notif);
+    const result = await response.json();
+    console.log('📥 الاستجابة:', result);
     
-    setTimeout(() => {
-        if (notif.parentElement) {
-            notif.style.opacity = '0';
-            notif.style.transition = 'opacity 0.3s';
-            setTimeout(() => notif.remove(), 300);
-        }
-    }, 5000);
-}
+    if (result.status === 'success') {
+      document.getElementById('form-container').classList.add('hidden');
+      document.getElementById('success-message').classList.remove('hidden');
+    } else {
+      formStatus.innerHTML = `❌ ${result.message}`;
+      formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
+      formStatus.classList.remove('hidden');
+    }
+    
+  } catch (error) {
+    console.error('❌ خطأ الإرسال:', error);
+    formStatus.innerHTML = `❌ فشل الاتصال بالخادم`;
+    formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
+    formStatus.classList.remove('hidden');
+  } finally {
+    isSubmitting = false;
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+});
 
 // ============================================
 // إعادة تعيين النموذج
 // ============================================
 function resetForm() {
-    document.getElementById('join-form').reset();
-    document.getElementById('wilayat').disabled = true;
-    document.getElementById('wilayat').innerHTML = '<option value="">اختر الولاية...</option>';
-    document.getElementById('form-container').classList.remove('hidden');
-    document.getElementById('success-message').classList.add('hidden');
-    document.getElementById('form-status').classList.add('hidden');
+  document.getElementById('join-form').reset();
+  document.getElementById('form-container').classList.remove('hidden');
+  document.getElementById('success-message').classList.add('hidden');
+  document.getElementById('form-status').classList.add('hidden');
 }
 
 // ============================================
-// نظام تسجيل دخول المشرفين المحسن
+// نافذة تسجيل دخول المشرفين
 // ============================================
 function showAdminLogin() {
-    document.getElementById('admin-login-modal').classList.remove('hidden');
-    document.getElementById('admin-password').value = '';
-    document.getElementById('login-error').classList.add('hidden');
-    document.getElementById('admin-password').focus();
+  document.getElementById('admin-login-modal').classList.remove('hidden');
+  document.getElementById('admin-password').value = '';
+  document.getElementById('login-error').classList.add('hidden');
+  document.getElementById('admin-password').focus();
 }
 
 function hideAdminLogin() {
-    document.getElementById('admin-login-modal').classList.add('hidden');
+  document.getElementById('admin-login-modal').classList.add('hidden');
 }
 
+// معالجة تسجيل دخول المشرف
 document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
+  e.preventDefault();
+  
+  const password = document.getElementById('admin-password').value;
+  const loginBtn = document.getElementById('login-btn');
+  const errorDiv = document.getElementById('login-error');
+  const loginForm = document.getElementById('admin-login-form');
+  
+  loginBtn.textContent = '⏳ جاري التحقق...';
+  loginBtn.disabled = true;
+  errorDiv.classList.add('hidden');
+  
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=adminLogin&password=${encodeURIComponent(password)}&t=${Date.now()}`);
+    const data = await response.json();
     
-    const password = document.getElementById('admin-password').value;
-    const loginBtn = document.getElementById('login-btn');
-    const errorDiv = document.getElementById('login-error');
+    console.log('🔐 استجابة تسجيل الدخول:', data);
     
-    loginBtn.textContent = '⏳ جاري التحقق...';
-    loginBtn.disabled = true;
-    errorDiv.classList.add('hidden');
-    
-    try {
-        showLoading();
-        
-        const response = await fetch(`${SCRIPT_URL}?action=adminLogin&password=${encodeURIComponent(password)}&t=${Date.now()}`);
-        const data = await response.json();
-        
-        if (data.status === 'success' && data.authenticated) {
-            adminPassword = password;
-            hideAdminLogin();
-            openAdminPanel();
-            showNotification('تم تسجيل الدخول بنجاح!', 'success');
-        } else {
-            errorDiv.textContent = '❌ كلمة مرور خاطئة';
-            errorDiv.classList.remove('hidden');
-            this.classList.add('shake');
-            setTimeout(() => this.classList.remove('shake'), 500);
-            document.getElementById('admin-password').value = '';
-            document.getElementById('admin-password').focus();
-            showNotification('كلمة المرور غير صحيحة', 'error');
-        }
-        
-    } catch (error) {
-        console.error('❌ خطأ في تسجيل الدخول:', error);
-        errorDiv.textContent = '❌ خطأ في الاتصال بالخادم';
-        errorDiv.classList.remove('hidden');
-        showNotification('فشل الاتصال بالخادم', 'error');
-    } finally {
-        hideLoading();
-        loginBtn.textContent = '✅ دخول';
-        loginBtn.disabled = false;
+    if (data.status === 'success' && data.authenticated) {
+      // تسجيل دخول ناجح
+      adminPassword = password;
+      hideAdminLogin();
+      openAdminPanel();
+    } else {
+      // كلمة مرور خاطئة
+      errorDiv.textContent = '❌ كلمة مرور خاطئة';
+      errorDiv.classList.remove('hidden');
+      loginForm.classList.add('shake');
+      setTimeout(() => loginForm.classList.remove('shake'), 500);
+      document.getElementById('admin-password').value = '';
+      document.getElementById('admin-password').focus();
     }
+    
+  } catch (error) {
+    console.error('❌ خطأ في تسجيل الدخول:', error);
+    errorDiv.textContent = '❌ خطأ في الاتصال بالخادم';
+    errorDiv.classList.remove('hidden');
+  } finally {
+    loginBtn.textContent = '✅ دخول';
+    loginBtn.disabled = false;
+  }
 });
 
 // ============================================
-// لوحة التحكم المحسنة
+// لوحة المشرفين
 // ============================================
 function openAdminPanel() {
-    document.getElementById('admin-panel').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    updateDebugInfo();
-    
-    // تحميل البيانات المحلية أولاً
-    const cachedRecords = loadFromLocalStorage('admin_records');
-    if (cachedRecords) {
-        allRecords = cachedRecords;
-        filteredRecords = [...allRecords];
-        displayStats();
-        displayRecords();
-        showNotification('تم تحميل البيانات من الذاكرة المؤقتة', 'info');
-    }
-    
-    // ثم تحديث من السيرفر
-    setTimeout(loadAllRecords, 1000);
+  document.getElementById('admin-panel').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  updateDebugInfo();
+  // جلب البيانات تلقائياً
+  setTimeout(loadAllRecords, 500);
 }
 
 function logoutAdmin() {
-    if (confirm('هل تريد تسجيل الخروج؟')) {
-        adminPassword = null;
-        document.getElementById('admin-panel').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-        showNotification('تم تسجيل الخروج', 'info');
-    }
+  if (confirm('هل تريد تسجيل الخروج؟')) {
+    adminPassword = null;
+    document.getElementById('admin-panel').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  }
 }
 
 async function adminTestConnection() {
-    const resultDiv = document.getElementById('admin-test-result');
-    resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse flex items-center gap-2"><div class="w-3 h-3 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>جاري الاختبار...</div>';
+  const resultDiv = document.getElementById('admin-test-result');
+  resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse">⏳ جاري الاختبار...</div>';
+  
+  try {
+    const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`);
+    const data = await response.json();
     
-    try {
-        showLoading();
-        const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`);
-        const data = await response.json();
-        
-        resultDiv.innerHTML = `
-            <div class="text-green-400 font-bold mb-1">✅ متصل بنجاح</div>
-            <div class="text-gray-300 text-sm">${data.message}</div>
-        `;
-        
-    } catch (error) {
-        resultDiv.innerHTML = `
-            <div class="text-red-400 font-bold mb-1">❌ خطأ في الاتصال</div>
-            <div class="text-gray-300 text-sm">${error.message}</div>
-        `;
-    } finally {
-        hideLoading();
-    }
+    resultDiv.innerHTML = `
+      <div class="text-green-400 font-bold">✅ متصل</div>
+      <div class="text-gray-300 text-xs mt-1">${data.message}</div>
+    `;
+    
+  } catch (error) {
+    resultDiv.innerHTML = `
+      <div class="text-red-400 font-bold">❌ خطأ</div>
+      <div class="text-gray-300 text-xs mt-1">${error.message}</div>
+    `;
+  }
 }
 
 async function loadAllRecords() {
-    if (!adminPassword) {
-        showNotification('يجب تسجيل الدخول أولاً', 'error');
-        return;
+  if (!adminPassword) {
+    alert('يجب تسجيل الدخول أولاً');
+    return;
+  }
+  
+  const resultDiv = document.getElementById('admin-test-result');
+  const statsTotal = document.getElementById('total-count');
+  const statsRemaining = document.getElementById('remaining-count');
+  
+  resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse">⏳ جاري جلب البيانات...</div>';
+  
+  try {
+    const url = `${SCRIPT_URL}?action=getAll&password=${encodeURIComponent(adminPassword)}&t=${Date.now()}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    console.log('📊 بيانات GET:', data);
+    
+    if (data.code === 'UNAUTHORIZED') {
+      alert('❌ كلمة المرور غير صحيحة. سيتم تسجيل الخروج.');
+      logoutAdmin();
+      return;
     }
     
-    const resultDiv = document.getElementById('admin-test-result');
-    resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse flex items-center gap-2"><div class="w-3 h-3 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>جاري جلب البيانات...</div>';
-    
-    try {
-        showLoading();
-        
-        const url = `${SCRIPT_URL}?action=getAll&password=${encodeURIComponent(adminPassword)}&t=${Date.now()}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (data.code === 'UNAUTHORIZED') {
-            showNotification('كلمة المرور غير صحيحة، سيتم تسجيل الخروج', 'error');
-            setTimeout(logoutAdmin, 2000);
-            return;
-        }
-        
-        if (data.status === 'success') {
-            allRecords = data.data || [];
-            filteredRecords = [...allRecords];
-            
-            // حفظ محلي
-            saveToLocalStorage('admin_records', allRecords);
-            
-            displayStats();
-            displayRecords();
-            
-            resultDiv.innerHTML = `
-                <div class="text-green-400 font-bold mb-1">✅ تم جلب ${allRecords.length} طلب</div>
-                <div class="text-gray-300 text-sm">آخر تحديث: ${new Date().toLocaleString('ar-SA')}</div>
-            `;
-            
-            showNotification(`تم تحديث ${allRecords.length} سجل`, 'success');
-        } else {
-            resultDiv.innerHTML = `
-                <div class="text-red-400 font-bold mb-1">❌ فشل جلب البيانات</div>
-                <div class="text-gray-300 text-sm">${data.message}</div>
-            `;
-            displayRecords([]);
-        }
-        
-    } catch (error) {
-        resultDiv.innerHTML = `
-            <div class="text-red-400 font-bold mb-1">❌ خطأ في الاتصال</div>
-            <div class="text-gray-300 text-sm">${error.message}</div>
-        `;
-        console.error('❌ خطأ GET:', error);
-    } finally {
-        hideLoading();
+    if (data.status === 'success') {
+      statsTotal.textContent = data.count || 0;
+      statsRemaining.textContent = data.remaining || 0;
+      
+      resultDiv.innerHTML = `
+        <div class="text-green-400 font-bold">✅ تم جلب ${data.count || 0} طلب</div>
+        <div class="text-gray-300 text-xs mt-1">آخر تحديث: ${new Date(data.lastUpdated).toLocaleString('ar-SA')}</div>
+      `;
+      
+      displayRecords(data.data || []);
+    } else {
+      resultDiv.innerHTML = `
+        <div class="text-red-400 font-bold">❌ فشل جلب البيانات</div>
+        <div class="text-gray-300 text-xs">${data.message}</div>
+      `;
+      displayRecords([]);
     }
+    
+  } catch (error) {
+    resultDiv.innerHTML = `
+      <div class="text-red-400 font-bold">❌ خطأ في الاتصال</div>
+      <div class="text-gray-300 text-xs">${error.message}</div>
+    `;
+    console.error('❌ خطأ GET:', error);
+    displayRecords([]);
+  }
+}
+
+function displayRecords(records) {
+  const recordsList = document.getElementById('records-list');
+  
+  if (!records || records.length === 0) {
+    recordsList.innerHTML = `
+      <div class="text-center text-gray-400 py-8">
+        <div class="text-4xl mb-2">📭</div>
+        <p>لا توجد طلبات حتى الآن</p>
+      </div>
+    `;
+    return;
+  }
+  
+  let html = '<div class="space-y-3">';
+  
+  records.forEach((record, index) => {
+    html += `
+      <div class="bg-slate-700 p-4 rounded-lg hover:bg-slate-600 transition-colors">
+        <div class="flex justify-between items-start mb-2">
+          <div class="font-bold text-lg">${record['الاسم'] || record.name || 'غير معروف'}</div>
+          <div class="text-xs text-gray-400">#${index + 1}</div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+          <div class="text-gray-300">
+            <span class="text-gray-400">📧</span> ${record['البريد الإلكتروني'] || record.email || 'لا يوجد'}
+          </div>
+          <div class="text-gray-300">
+            <span class="text-gray-400">📱</span> ${record['رقم الهاتف'] || record.phone || 'لا يوجد'}
+          </div>
+          <div class="text-gray-300">
+            <span class="text-gray-400">🏛️</span> ${record['المحافظة'] || record.governorate || 'غير محدد'}
+          </div>
+          <div class="text-gray-300">
+            <span class="text-gray-400">📍</span> ${record['الولاية'] || record.wilayat || 'غير محدد'}
+          </div>
+          <div class="text-gray-300 md:col-span-2">
+            <span class="text-gray-400">🏫</span> ${record['المدرسة'] || record.school || 'غير محدد'}
+          </div>
+          <div class="text-gray-400 text-xs md:col-span-2">
+            <span class="text-gray-500">⏰</span> ${formatDate(record['تاريخ التسجيل'] || record.submitted_at)}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+  
+  html += '</div>';
+  recordsList.innerHTML = html;
+}
+
+function formatDate(dateString) {
+  if (!dateString) return 'غير معروف';
+  
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleString('ar-SA', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  } catch (error) {
+    return dateString;
+  }
+}
+
+function updateDebugInfo() {
+  const debugDiv = document.getElementById('debug-info');
+  debugDiv.innerHTML = `
+    <div class="space-y-1">
+      <div>🔗 رابط السكربيت: ${SCRIPT_URL}</div>
+      <div>🕒 وقت التحميل: ${new Date().toLocaleString('ar-SA')}</div>
+      <div>🌐 الموقع: ${window.location.href}</div>
+      <div>🔐 حالة الجلسة: ${adminPassword ? 'مسجل الدخول' : 'غير مسجل'}</div>
+    </div>
+  `;
 }
 
 // ============================================
-// إحصائيات متقدمة
+// اختبار تلقائي عند التحميل
 // ============================================
-function displayStats() {
-    document.getElementById('total-count').textContent = allRecords.length;
-    
-    // حساب اليوم
-    const today = new Date().toLocaleDateString('en-CA');
-    const todayCount = allRecords.filter(record => {
-        const recordDate = new Date(record['تاريخ التسجيل'] || record.submitted_at).toLocaleDateString('en-CA');
-        return recordDate === today;
-    }).length;
-    document.getElementById('today-count').textContent = todayCount;
-    
-    // حساب الأسبوع
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    const weekCount = allRecords.filter(record => {
-        const recordDate = new Date(record['تاريخ التسجيل'] || record.submitted_at);
-        return recordDate >= oneWeekAgo;
-    }).length;
-    document.getElementById('week-count').textContent = weekCount;
-    
-    // حساب المتبقي (يمكن تخصيصه حسب احتياجاتك)
-    document.getElementById('remaining-count').textContent = Math.max(0, 100 - allRecords.length);
-}
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🚀 الصفحة جاهزة');
+  console.log('🔗 رابط السكربيت:', SCRIPT_URL);
+  
+  setTimeout(() => {
+    testScript();
+  }, 1876);
+  
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+});
 
-// ============================================
-###
+window.addEventListener('beforeunload', function() {
+  if (isSubmitting) {
+    return 'يتم حالياً إرسال البيانات، هل تريد المغادرة؟';
+  }
+});
+</script>
+
+</body>
+</html>
