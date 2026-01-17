@@ -1,205 +1,1410 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="scroll-smooth">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مجتمع اللغة العربية - الصف الخامس</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    * { 
-      font-family: 'Almarai', 'Tajawal', sans-serif; 
+    :root {
+      --primary: #0d9488;
+      --primary-light: #14b8a6;
+      --primary-dark: #0f766e;
+      --secondary: #f59e0b;
+      --accent: #6366f1;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --bg-light: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: rgba(255,255,255,0.1);
+      --glass: rgba(255,255,255,0.03);
+      --success: #10b981;
+      --error: #ef4444;
+    }
+    
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     
-    body { 
-      background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); 
-      min-height: 100vh; 
+    body {
+      font-family: 'Readex Pro', 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 50%, #e0f2fe 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     
-    .glass-card { 
-      background: rgba(255, 255, 255, 0.85); 
-      backdrop-filter: blur(12px); 
-      border: 1px solid rgba(255, 255, 255, 0.6); 
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    /* الخلفية المتحركة */
+    .bg-pattern {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(13, 148, 136, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
     }
     
-    .input-field { 
-      width: 100%; 
-      padding: 1rem; 
-      border: 2px solid #e5e7eb; 
-      border-radius: 1rem; 
-      transition: all 0.3s ease;
+    .floating-shapes {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    .shape:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      background: var(--primary);
+      top: -100px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+    
+    .shape:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background: var(--accent);
+      bottom: -50px;
+      left: -50px;
+      animation-delay: -5s;
+    }
+    
+    .shape:nth-child(3) {
+      width: 200px;
+      height: 200px;
+      background: var(--secondary);
+      top: 50%;
+      left: 50%;
+      animation-delay: -10s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(30px, -30px) rotate(5deg) scale(1.05); }
+      50% { transform: translate(-20px, 20px) rotate(-5deg) scale(0.95); }
+      75% { transform: translate(20px, 10px) rotate(3deg) scale(1.02); }
+    }
+    
+    /* الحاوية الرئيسية */
+    .main-container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* الهيدر */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
+    }
+    
+    .badge-icon {
+      font-size: 1.1rem;
+    }
+    
+    .main-title {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--text-dark) 0%, var(--primary-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+    
+    /* بطاقة النموذج */
+    .form-card {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 28px;
+      padding: 2.5rem;
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.02),
+        0 12px 24px rgba(0, 0, 0, 0.04),
+        0 24px 48px rgba(0, 0, 0, 0.04);
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    
+    .form-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 2rem;
+    }
+    
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    /* حقول الإدخال */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    
+    .form-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.6rem;
+    }
+    
+    .label-icon {
       font-size: 1rem;
     }
     
-    .input-field:focus { 
-      border-color: #10b981; 
-      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); 
-      outline: none; 
+    .required {
+      color: var(--error);
+      font-size: 0.9rem;
     }
     
-    .btn {
+    .form-input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      background: #f8fafc;
+      color: var(--text-dark);
       transition: all 0.3s ease;
+      outline: none;
+    }
+    
+    .form-input::placeholder {
+      color: #94a3b8;
+    }
+    
+    .form-input:hover {
+      border-color: #cbd5e1;
+    }
+    
+    .form-input:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+    }
+    
+    select.form-input {
       cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: left 1rem center;
+      background-size: 1.2rem;
+      padding-left: 3rem;
     }
     
-    .btn:hover {
+    select.form-input:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    /* زر الإرسال */
+    .submit-btn {
+      width: 100%;
+      padding: 1.1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: inherit;
+      color: white;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .submit-btn:hover::before {
+      opacity: 1;
+    }
+    
+    .submit-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 25px rgba(13, 148, 136, 0.35);
     }
     
-    .btn:active {
+    .submit-btn:active {
       transform: translateY(0);
     }
     
-    .btn:disabled {
-      opacity: 0.6;
+    .submit-btn:disabled {
+      opacity: 0.7;
       cursor: not-allowed;
       transform: none;
     }
     
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .submit-btn span {
+      position: relative;
+      z-index: 1;
     }
     
-    .animate-slide-in {
-      animation: slideIn 0.5s ease-out;
+    /* رسالة الحالة */
+    .status-message {
+      display: none;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 1rem;
+      animation: fadeIn 0.3s ease;
     }
-
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .status-message.success {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+    
+    .status-message.error {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    
+    .status-message.show {
+      display: block;
+    }
+    
+    /* رسالة النجاح */
+    .success-view {
+      display: none;
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.02),
+        0 12px 24px rgba(0, 0, 0, 0.04),
+        0 24px 48px rgba(0, 0, 0, 0.04);
+      animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    .success-view.show {
+      display: block;
+    }
+    
+    .success-icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 3rem;
+      animation: bounce 0.6s ease 0.3s;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .success-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--success);
+      margin-bottom: 0.75rem;
+    }
+    
+    .success-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+    
+    .reset-btn {
+      padding: 0.9rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .reset-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+    
+    /* زر التحكم */
+    .admin-trigger {
+      margin-top: 3rem;
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+    
+    .admin-btn {
+      padding: 0.7rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      background: var(--bg-dark);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .admin-btn:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
+    }
+    
+    /* زر الاختبار */
+    .test-section {
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 1.5rem;
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }
+    
+    .test-btn {
+      padding: 0.8rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .test-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+    
+    .test-result {
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      background: white;
+      border-radius: 14px;
+      min-height: 60px;
+      font-size: 0.9rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    
+    /* ===================================== */
+    /* نافذة تسجيل الدخول */
+    /* ===================================== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .modal-overlay.show {
+      display: flex;
+    }
+    
+    .modal-card {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem;
+      animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .modal-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.8rem;
+    }
+    
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    
+    .modal-error {
+      display: none;
+      padding: 0.8rem 1rem;
+      background: #fef2f2;
+      color: #dc2626;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-error.show {
+      display: block;
+      animation: shake 0.4s ease;
+    }
+    
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
     }
-
-    .shake {
-      animation: shake 0.5s;
+    
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    
+    .modal-btn {
+      flex: 1;
+      padding: 0.9rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-btn.primary {
+      color: white;
+      background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+    }
+    
+    .modal-btn.primary:hover {
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    }
+    
+    .modal-btn.secondary {
+      color: var(--text-muted);
+      background: #f1f5f9;
+    }
+    
+    .modal-btn.secondary:hover {
+      background: #e2e8f0;
+    }
+    
+    /* ===================================== */
+    /* لوحة التحكم */
+    /* ===================================== */
+    .admin-panel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg-dark);
+      z-index: 200;
+      overflow: auto;
+    }
+    
+    .admin-panel.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    
+    /* هيدر لوحة التحكم */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-card);
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .admin-header-info h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+    
+    .admin-header-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .logout-btn {
+      padding: 0.7rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      background: linear-gradient(135deg, var(--error) 0%, #dc2626 100%);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    
+    .logout-btn:hover {
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+    }
+    
+    /* شبكة لوحة التحكم */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* بطاقات الإحصائيات */
+    .stat-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+    
+    .stat-card.primary::before {
+      background: var(--primary);
+    }
+    
+    .stat-card.accent::before {
+      background: var(--accent);
+    }
+    
+    .stat-card.warning::before {
+      background: var(--secondary);
+    }
+    
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .stat-card.primary .stat-icon {
+      background: rgba(13, 148, 136, 0.15);
+    }
+    
+    .stat-card.accent .stat-icon {
+      background: rgba(99, 102, 241, 0.15);
+    }
+    
+    .stat-card.warning .stat-icon {
+      background: rgba(245, 158, 11, 0.15);
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: white;
+    }
+    
+    /* بطاقة الأدوات */
+    .tools-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    
+    .tools-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    
+    .tool-btn {
+      padding: 0.7rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    
+    .tool-btn.blue {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+    
+    .tool-btn.green {
+      background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+    }
+    
+    .tool-btn.purple {
+      background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
+    }
+    
+    .tool-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .tools-result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      min-height: 50px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    /* قسم البيانات */
+    .data-section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    
+    .data-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .data-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .refresh-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      color: white;
+      background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .refresh-btn:hover {
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+    }
+    
+    /* البحث والفلترة */
+    .data-controls {
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: white;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    
+    .filter-select {
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: white;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      cursor: pointer;
+      min-width: 150px;
+    }
+    
+    .filter-select option {
+      background: var(--bg-dark);
+    }
+    
+    /* قائمة البيانات */
+    .data-list {
+      padding: 1rem 1.5rem;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .data-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .data-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .data-list::-webkit-scrollbar-thumb {
+      background: var(--text-muted);
+      border-radius: 3px;
+    }
+    
+    /* بطاقة السجل */
+    .record-card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+    
+    .record-card:hover {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: var(--primary);
+      transform: translateX(-4px);
+    }
+    
+    .record-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .record-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: white;
+    }
+    
+    .record-badge {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      background: rgba(13, 148, 136, 0.15);
+      border-radius: 20px;
+    }
+    
+    .record-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .record-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+    }
+    
+    .record-icon {
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+    
+    .record-text {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .record-text.muted {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    
+    /* حالة فارغة */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    
+    .empty-icon {
+      font-size: 4rem;
+      opacity: 0.3;
+      margin-bottom: 1rem;
+    }
+    
+    .empty-text {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+    
+    /* معلومات التصحيح */
+    .debug-section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .debug-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .debug-content {
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      color: #fbbf24;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    
+    /* التحميل */
+    .loading {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary-light);
+    }
+    
+    .loading-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* الاستجابة */
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .record-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .data-controls {
+        flex-direction: column;
+      }
+      
+      .search-box {
+        width: 100%;
+      }
     }
   </style>
 </head>
-<body class="antialiased">
+<body>
 
-<main class="min-h-screen py-6 px-4 flex justify-center">
-  <div class="w-full max-w-3xl">
-    
-    <!-- العنوان الرئيسي -->
-    <header class="text-center mb-10 animate-slide-in">
-      <div class="inline-block bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-2 rounded-full mb-4">
-        ✨ مرحباً بكم
-      </div>
-      <h1 class="text-4xl md:text-5xl font-black text-gray-800 mb-2">مجتمع اللغة العربية</h1>
-      <p class="text-lg text-gray-600">إشراف : الأستاذ خليل البلوشي </p>
-    </header>
+<!-- الخلفية -->
+<div class="bg-pattern"></div>
+<div class="floating-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
 
-    <!-- زر الاختبار السريع -->
-    <div class="mb-6 animate-slide-in">
-      <button onclick="testScript()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-bold w-full md:w-auto">
-        🔧 اختبار الاتصال بالسكربيت
-      </button>
-      <div id="test-result" class="glass-card p-4 rounded-xl text-sm mt-4 min-h-[80px]"></div>
+<!-- المحتوى الرئيسي -->
+<main class="main-container">
+  
+  <!-- الهيدر -->
+  <header class="header">
+    <div class="badge">
+      <span class="badge-icon">✨</span>
+      <span>مرحباً بكم</span>
     </div>
+    <h1 class="main-title">مجتمع اللغة العربية</h1>
+    <p class="subtitle">إشراف: الأستاذ خليل البلوشي</p>
+  </header>
+  
+  <!-- قسم الاختبار -->
+  <div class="test-section">
+    <button onclick="testScript()" class="test-btn">
+      <span>🔧</span>
+      <span>اختبار الاتصال بالسكربيت</span>
+    </button>
+    <div id="test-result" class="test-result"></div>
+  </div>
+  
+  <!-- نموذج التسجيل -->
+  <div id="form-container" class="form-card">
+    <form id="join-form">
+      
+      <div class="form-header">
+        <div class="form-icon">📝</div>
+        <h2 class="form-title">نموذج الانضمام</h2>
+        <p class="form-desc">املأ البيانات التالية للانضمام إلى المجتمع</p>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">👤</span>
+          <span>الاسم الثلاثي</span>
+          <span class="required">*</span>
+        </label>
+        <input type="text" id="name" name="name" required minlength="3" maxlength="100" 
+               class="form-input" placeholder="مثال: أحمد محمد سالم" autocomplete="name">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">📧</span>
+          <span>البريد الإلكتروني</span>
+          <span class="required">*</span>
+        </label>
+        <input type="email" id="email" name="email" required 
+               class="form-input" placeholder="مثال: name@example.com" autocomplete="email">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">📱</span>
+          <span>رقم الهاتف</span>
+          <span class="required">*</span>
+        </label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{8}" 
+               minlength="8" maxlength="8" class="form-input" 
+               placeholder="مثال: 99123456" autocomplete="tel">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">🏛️</span>
+          <span>المحافظة</span>
+          <span class="required">*</span>
+        </label>
+        <select id="governorate" name="governorate" class="form-input" required>
+          <option value="">اختر المحافظة...</option>
+          <option value="مسقط">مسقط</option>
+          <option value="ظفار">ظفار</option>
+          <option value="مسندم">مسندم</option>
+          <option value="البريمي">البريمي</option>
+          <option value="الداخلية">الداخلية</option>
+          <option value="شمال الباطنة">شمال الباطنة</option>
+          <option value="جنوب الباطنة">جنوب الباطنة</option>
+          <option value="جنوب الشرقية">جنوب الشرقية</option>
+          <option value="شمال الشرقية">شمال الشرقية</option>
+          <option value="الظاهرة">الظاهرة</option>
+          <option value="الوسطى">الوسطى</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">📍</span>
+          <span>الولاية</span>
+          <span class="required">*</span>
+        </label>
+        <select id="wilayat" name="wilayat" class="form-input" disabled required>
+          <option value="">اختر الولاية...</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">🏫</span>
+          <span>المدرسة</span>
+        </label>
+        <input type="text" id="school" name="school" class="form-input" 
+               placeholder="مثال: مدرسة سعد بن معاذ" maxlength="100">
+      </div>
+      
+      <button type="submit" id="submit-btn" class="submit-btn">
+        <span>✅ إرسال طلب الانضمام</span>
+      </button>
+      
+      <div id="form-status" class="status-message"></div>
+    </form>
+  </div>
+  
+  <!-- رسالة النجاح -->
+  <div id="success-view" class="success-view">
+    <div class="success-icon">🎉</div>
+    <h2 class="success-title">تم الإرسال بنجاح!</h2>
+    <p class="success-desc">شكراً لك! سيتم التواصل معك قريباً.</p>
+    <button onclick="resetForm()" class="reset-btn">📝 إرسال طلب آخر</button>
+  </div>
+  
+  <!-- زر المشرفين -->
+  <div class="admin-trigger">
+    <button onclick="showAdminLogin()" class="admin-btn">
+      <span>🔐</span>
+      <span>دخول المشرفين</span>
+    </button>
+  </div>
+  
+</main>
 
-    <!-- نموذج التسجيل -->
-    <div id="form-container" class="animate-slide-in">
-      <form id="join-form" class="glass-card rounded-3xl p-6 md:p-8 space-y-5">
-        
-        <div class="text-center mb-4">
-          <h2 class="text-2xl font-bold text-gray-800">📝 نموذج الانضمام</h2>
-          <p class="text-gray-600 text-sm mt-2">املأ البيانات التالية للانضمام إلى المجتمع</p>
-        </div>
+<!-- نافذة تسجيل الدخول -->
+<div id="login-modal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-icon">🔐</div>
+      <h3 class="modal-title">تسجيل دخول المشرفين</h3>
+    </div>
+    
+    <form id="login-form">
+      <div id="login-error" class="modal-error"></div>
+      
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">🔑</span>
+          <span>كلمة المرور</span>
+        </label>
+        <input type="password" id="admin-password" required class="form-input" 
+               placeholder="أدخل كلمة المرور" autocomplete="current-password">
+      </div>
+      
+      <div class="modal-actions">
+        <button type="submit" id="login-btn" class="modal-btn primary">✅ دخول</button>
+        <button type="button" onclick="hideAdminLogin()" class="modal-btn secondary">✕ إلغاء</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-        <div>
-          <label for="name" class="block text-sm font-bold text-gray-700 mb-1.5">
-            👤 الاسم الثلاثي <span class="text-red-500">*</span>
-          </label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name"
-            required 
-            minlength="3"
-            maxlength="100"
-            class="input-field" 
-            placeholder="مثال: أحمد محمد سالم"
-            autocomplete="name"
-          >
+<!-- لوحة التحكم -->
+<div id="admin-panel" class="admin-panel">
+  <div class="admin-container">
+    
+    <!-- هيدر اللوحة -->
+    <div class="admin-header">
+      <div class="admin-header-info">
+        <h2>🎛️ لوحة التحكم</h2>
+        <p>مرحباً بك في لوحة إدارة الطلبات</p>
+      </div>
+      <button onclick="logoutAdmin()" class="logout-btn">
+        <span>🚪</span>
+        <span>تسجيل الخروج</span>
+      </button>
+    </div>
+    
+    <!-- الإحصائيات والأدوات -->
+    <div class="admin-grid">
+      
+      <!-- إجمالي الطلبات -->
+      <div class="stat-card primary">
+        <div class="stat-icon">📊</div>
+        <div class="stat-label">إجمالي الطلبات</div>
+        <div class="stat-value" id="total-count">—</div>
+      </div>
+      
+      <!-- الطلبات المتبقية -->
+      <div class="stat-card accent">
+        <div class="stat-icon">📋</div>
+        <div class="stat-label">الطلبات المتبقية</div>
+        <div class="stat-value" id="remaining-count">—</div>
+      </div>
+      
+      <!-- أدوات التحكم -->
+      <div class="tools-card">
+        <div class="tools-title">
+          <span>🔧</span>
+          <span>أدوات سريعة</span>
         </div>
+        <div class="tools-grid">
+          <button onclick="adminTestConnection()" class="tool-btn blue">
+            <span>📡</span>
+            <span>اختبار الاتصال</span>
+          </button>
+          <button onclick="loadAllRecords()" class="tool-btn green">
+            <span>📥</span>
+            <span>تحديث البيانات</span>
+          </button>
+          <button onclick="exportData()" class="tool-btn purple">
+            <span>📤</span>
+            <span>تصدير CSV</span>
+          </button>
+        </div>
+        <div id="admin-result" class="tools-result"></div>
+      </div>
+      
+    </div>
+    
+    <!-- قسم البيانات -->
+    <div class="data-section">
+      
+      <div class="data-header">
+        <div class="data-title">
+          <span>📋</span>
+          <span>سجل الطلبات</span>
+        </div>
+        <button onclick="loadAllRecords()" class="refresh-btn">
+          <span>🔄</span>
+          <span>تحديث</span>
+        </button>
+      </div>
+      
+      <div class="data-controls">
+        <div class="search-box">
+          <input type="text" id="search-input" class="search-input" 
+                 placeholder="البحث بالاسم أو البريد أو الهاتف..." oninput="filterRecords()">
+          <span class="search-icon">🔍</span>
+        </div>
+        <select id="filter-governorate" class="filter-select" onchange="filterRecords()">
+          <option value="">كل المحافظات</option>
+          <option value="مسقط">مسقط</option>
+          <option value="ظفار">ظفار</option>
+          <option value="مسندم">مسندم</option>
+          <option value="البريمي">البريمي</option>
+          <option value="الداخلية">الداخلية</option>
+          <option value="شمال الباطنة">شمال الباطنة</option>
+          <option value="جنوب الباطنة">جنوب الباطنة</option>
+          <option value="جنوب الشرقية">جنوب الشرقية</option>
+          <option value="شمال الشرقية">شمال الشرقية</option>
+          <option value="الظاهرة">الظاهرة</option>
+          <option value="الوسطى">الوسطى</option>
+        </select>
+      </div>
+      
+      <div id="records-list" class="data-list">
+        <div class="empty-state">
+          <div class="empty-icon">📭</div>
+          <div class="empty-text">اضغط على "تحديث البيانات" لعرض الطلبات</div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- معلومات التصحيح -->
+    <div class="debug-section">
+      <div class="debug-title">
+        <span>🐛</span>
+        <span>معلومات التصحيح</span>
+      </div>
+      <div id="debug-info" class="debug-content"></div>
+    </div>
+    
+  </div>
+</div>
 
-        <div>
-          <label for="email" class="block text-sm font-bold text-gray-700 mb-1.5">
-            📧 البريد الإلكتروني <span class="text-red-500">*</span>
-          </label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email"
-            required 
-            class="input-field" 
-            placeholder="مثال: name@example.com"
-            autocomplete="email"
-          >
-        </div>
-
-        <div>
-          <label for="phone" class="block text-sm font-bold text-gray-700 mb-1.5">
-            📱 رقم الهاتف <span class="text-red-500">*</span>
-          </label>
-          <input 
-            type="tel" 
-            id="phone" 
-            name="phone"
-            required 
-            pattern="[0-9]{8}" 
-            minlength="8"
-            maxlength="8"
-            class="input-field" 
-            placeholder="مثال: 99123456"
-            autocomplete="tel"
-          >
-        </div>
-
-        <div>
-          <label for="governorate" class="block text-sm font-bold text-gray-700 mb-1.5">
-            🏛️ المحافظة
-          </label>
-          <select id="governorate" name="governorate" class="input-field">
-            <option value="">اختر المحافظة...</option>
-            <option value="مسقط">مسقط</option>
-            <option value="ظفار">ظفار</option>
-            <option value="مسندم">مسندم</option>
-            <option value="البريمي">البريمي</option>
-            <option value="الداخلية">الداخلية</option>
-            <option value="شمال الباطنة">شمال الباطنة</option>
-            <option value="جنوب الباطنة">جنوب الباطنة</option>
-            <option value="جنوب الشرقية">جنوب الشرقية</option>
-            <option value="شمال الشرقية">شمال الشرقية</option>
-            <option value="الظاهرة">الظاهرة</option>
-            <option value="الوسطى">الوسطى</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="wilayat" class="block text-sm font-bold text-gray-700 mb-1.5">
-            📍 الولاية
-          </label>
-         <select id="wilayat" name="wilayat" class="input-field" disabled>
-  <option value="">اختر الولاية...</option>
-</select>
-        </div>
 <script>
 // ============================================
-// المحافظات والولايات - سلطنة عمان
+// الإعدادات
+// ============================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRU0C6bbgpnbXNAwC_fVgXfWxs_dFezEmsK0vQSJLfw1vlrjKDKIdyWU4K9ziddzf6/exec';
+
+let isSubmitting = false;
+let adminPassword = null;
+let allRecords = [];
+
+// ============================================
+// المحافظات والولايات
 // ============================================
 const OMAN_WILAYAT = {
   "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
@@ -215,422 +1420,224 @@ const OMAN_WILAYAT = {
   "الوسطى": ["هيما", "الدقم", "محوت", "الجازر"]
 };
 
-// ============================================
 // ربط المحافظة بالولاية
-// ============================================
-const governorateSelect = document.getElementById("governorate");
-const wilayatSelect = document.getElementById("wilayat");
-
-governorateSelect.addEventListener("change", function () {
-  const selectedGov = this.value;
-
-  // إعادة ضبط
+document.getElementById("governorate").addEventListener("change", function() {
+  const wilayatSelect = document.getElementById("wilayat");
   wilayatSelect.innerHTML = '<option value="">اختر الولاية...</option>';
   wilayatSelect.disabled = true;
-
-  if (!selectedGov || !OMAN_WILAYAT[selectedGov]) return;
-
-  OMAN_WILAYAT[selectedGov].forEach(wilaya => {
+  
+  if (!this.value || !OMAN_WILAYAT[this.value]) return;
+  
+  OMAN_WILAYAT[this.value].forEach(wilaya => {
     const option = document.createElement("option");
     option.value = wilaya;
     option.textContent = wilaya;
     wilayatSelect.appendChild(option);
   });
-
+  
   wilayatSelect.disabled = false;
 });
-</script>
-        <div>
-          <label for="school" class="block text-sm font-bold text-gray-700 mb-1.5">
-            🏫 المدرسة
-          </label>
-          <input 
-            type="text" 
-            id="school" 
-            name="school"
-            class="input-field" 
-            placeholder="مثال: مدرسة سعد بن معاذ"
-            maxlength="100"
-          >
-        </div>
-
-        <button 
-          type="submit" 
-          id="submit-btn" 
-          class="btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg"
-        >
-          ✅ إرسال طلب الانضمام
-        </button>
-
-        <div id="form-status" class="hidden p-4 rounded-xl text-center font-bold"></div>
-      </form>
-    </div>
-
-    <!-- رسالة النجاح -->
-    <div id="success-message" class="hidden glass-card rounded-3xl p-8 text-center animate-slide-in">
-      <div class="text-6xl mb-4">🎉</div>
-      <h2 class="text-3xl font-bold text-green-600 mb-2">تم الإرسال بنجاح!</h2>
-      <p class="text-gray-600 mb-6">شكراً لك! سيتم التواصل معك قريباً.</p>
-      <button onclick="resetForm()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-bold">
-        📝 إرسال طلب آخر
-      </button>
-    </div>
-
-    <!-- لوحة المشرفين -->
-    <footer class="mt-10 text-center">
-      <button onclick="showAdminLogin()" class="btn bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-full text-sm">
-        🔐 دخول المشرفين
-      </button>
-    </footer>
-
-  </div>
-</main>
-
-<!-- نافذة تسجيل دخول المشرفين -->
-<div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="glass-card rounded-2xl p-8 max-w-md w-full animate-slide-in">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">🔐 تسجيل دخول المشرفين</h2>
-    
-    <form id="admin-login-form" class="space-y-4">
-      <div>
-        <label for="admin-password" class="block text-sm font-bold text-gray-700 mb-2">
-          🔑 كلمة المرور
-        </label>
-        <input 
-          type="password" 
-          id="admin-password" 
-          required 
-          class="input-field" 
-          placeholder="أدخل كلمة المرور"
-          autocomplete="current-password"
-        >
-      </div>
-      
-      <div id="login-error" class="hidden bg-red-100 text-red-700 p-3 rounded-lg text-sm text-center font-bold"></div>
-      
-      <div class="flex gap-3">
-        <button 
-          type="submit" 
-          id="login-btn"
-          class="btn bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-bold flex-1"
-        >
-          ✅ دخول
-        </button>
-        <button 
-          type="button" 
-          onclick="hideAdminLogin()"
-          class="btn bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-bold flex-1"
-        >
-          ✕ إلغاء
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- لوحة المشرفين (محمية) -->
-<div id="admin-panel" class="hidden fixed inset-0 bg-slate-900 p-4 z-50 overflow-auto">
-  <div class="max-w-5xl mx-auto">
-    
-    <!-- رأس اللوحة -->
-    <div class="flex justify-between items-center mb-6 bg-slate-800 p-4 rounded-xl">
-      <div>
-        <h2 class="text-2xl font-bold text-white">🎛️ لوحة التحكم</h2>
-        <p class="text-gray-400 text-sm mt-1">مرحباً بك في لوحة المشرفين</p>
-      </div>
-      <button onclick="logoutAdmin()" class="btn bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-        🚪 تسجيل الخروج
-      </button>
-    </div>
-    
-    <!-- أدوات التحكم -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-      
-      <!-- اختبار الاتصال -->
-      <div class="bg-slate-800 p-4 rounded-xl">
-        <h3 class="text-white font-bold mb-3 text-lg">🔧 اختبار الاتصال</h3>
-        <button onclick="adminTestConnection()" class="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg w-full mb-2">
-          اختبار السكربيت
-        </button>
-        <button onclick="loadAllRecords()" class="btn bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full mb-2">
-          جلب جميع البيانات
-        </button>
-        <div id="admin-test-result" class="text-white text-sm mt-2 p-2 bg-slate-700 rounded-lg min-h-[60px]"></div>
-      </div>
-      
-      <!-- إحصائيات -->
-      <div class="bg-slate-800 p-4 rounded-xl">
-        <h3 class="text-white font-bold mb-3 text-lg">📊 الإحصائيات</h3>
-        <div id="stats-container" class="space-y-2">
-          <div class="bg-slate-700 p-3 rounded-lg text-white">
-            <div class="text-sm text-gray-400">عدد الطلبات</div>
-            <div id="total-count" class="text-2xl font-bold">-</div>
-          </div>
-          <div class="bg-slate-700 p-3 rounded-lg text-white">
-            <div class="text-sm text-gray-400">المتبقي</div>
-            <div id="remaining-count" class="text-2xl font-bold">-</div>
-          </div>
-        </div>
-      </div>
-      
-    </div>
-    
-    <!-- قائمة الطلبات -->
-    <div class="bg-slate-800 p-4 rounded-xl mb-6">
-      <div class="flex justify-between items-center mb-3">
-        <h3 class="text-white font-bold text-lg">📋 سجل الطلبات</h3>
-        <button onclick="loadAllRecords()" class="btn bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded-lg text-sm">
-          🔄 تحديث
-        </button>
-      </div>
-      <div id="records-list" class="text-white text-sm max-h-96 overflow-y-auto"></div>
-    </div>
-    
-    <!-- معلومات التصحيح -->
-    <div class="bg-slate-800 p-4 rounded-xl">
-      <h3 class="text-white font-bold mb-3 text-lg">🐛 معلومات التصحيح</h3>
-      <div id="debug-info" class="text-yellow-300 text-xs font-mono bg-slate-900 p-3 rounded-lg overflow-x-auto"></div>
-    </div>
-    
-  </div>
-</div>
-
-<script>
-// ============================================
-// إعدادات الاتصال
-// ============================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRU0C6bbgpnbXNAwC_fVgXfWxs_dFezEmsK0vQSJLfw1vlrjKDKIdyWU4K9ziddzf6/exec';
-
-// متغيرات عامة
-let isSubmitting = false;
-let adminPassword = null; // يتم تخزين كلمة المرور بعد تسجيل الدخول
 
 // ============================================
-// دالة اختبار الاتصال
+// اختبار الاتصال
 // ============================================
 async function testScript() {
   const resultDiv = document.getElementById('test-result');
-  resultDiv.innerHTML = '<div class="text-blue-500 animate-pulse">⏳ جاري اختبار الاتصال...</div>';
+  resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري اختبار الاتصال...</span></div>';
   
   try {
-    console.log('🔍 بدء اختبار الاتصال...');
-    
-    const url = `${SCRIPT_URL}?action=test&t=${Date.now()}`;
-    const response = await fetch(url, {
+    const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`, {
       method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers: { 'Accept': 'application/json' }
     });
     
-    console.log('📡 حالة الاستجابة:', response.status);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const data = await response.json();
-    console.log('✅ البيانات المستلمة:', data);
     
     resultDiv.innerHTML = `
-      <div class="text-green-600 font-bold text-lg mb-2">✅ اتصال ناجح!</div>
-      <div class="text-gray-700 space-y-1 text-sm">
-        <p><strong>الحالة:</strong> ${data.status}</p>
-        <p><strong>الرسالة:</strong> ${data.message}</p>
-        <p><strong>الإصدار:</strong> ${data.version || 'غير معروف'}</p>
+      <div style="color: var(--success); font-weight: 700; margin-bottom: 0.5rem;">✅ اتصال ناجح!</div>
+      <div style="color: var(--text-muted); font-size: 0.85rem;">
+        <div>الحالة: ${data.status}</div>
+        <div>الرسالة: ${data.message}</div>
+        <div>الإصدار: ${data.version || 'غير معروف'}</div>
       </div>
     `;
-    
     return true;
     
   } catch (error) {
-    console.error('❌ خطأ الاتصال:', error);
-    
     resultDiv.innerHTML = `
-      <div class="text-red-600 font-bold text-lg mb-2">❌ فشل الاتصال!</div>
-      <div class="text-gray-700 text-sm">
-        <p><strong>الخطأ:</strong> ${error.message}</p>
-      </div>
+      <div style="color: var(--error); font-weight: 700; margin-bottom: 0.5rem;">❌ فشل الاتصال!</div>
+      <div style="color: var(--text-muted); font-size: 0.85rem;">الخطأ: ${error.message}</div>
     `;
-    
     return false;
   }
 }
 
 // ============================================
-// معالجة نموذج التسجيل
+// معالجة النموذج
 // ============================================
 document.getElementById('join-form').addEventListener('submit', async function(e) {
   e.preventDefault();
-  
-  if (isSubmitting) {
-    return;
-  }
+  if (isSubmitting) return;
   
   const submitBtn = document.getElementById('submit-btn');
   const formStatus = document.getElementById('form-status');
-  const originalText = submitBtn.textContent;
+  const originalText = submitBtn.innerHTML;
   
   isSubmitting = true;
-  submitBtn.textContent = '⏳ جاري الإرسال...';
+  submitBtn.innerHTML = '<span class="loading"><div class="loading-spinner"></div><span>جاري الإرسال...</span></span>';
   submitBtn.disabled = true;
-  formStatus.classList.add('hidden');
+  formStatus.classList.remove('show', 'success', 'error');
   
   const formData = {
     action: 'create',
     name: document.getElementById('name').value.trim(),
     email: document.getElementById('email').value.trim(),
     phone: document.getElementById('phone').value.trim(),
-    governorate: document.getElementById('governorate').value || 'غير محدد',
-    wilayat: document.getElementById('wilayat').value.trim() || 'غير محدد',
+    governorate: document.getElementById('governorate').value,
+    wilayat: document.getElementById('wilayat').value,
     school: document.getElementById('school').value.trim() || 'غير محدد',
     submitted_at: new Date().toISOString()
   };
   
-  console.log('📤 البيانات المرسلة:', formData);
+  // التحقق من اختيار المحافظة والولاية
+  if (!formData.governorate) {
+    formStatus.innerHTML = '❌ يرجى اختيار المحافظة';
+    formStatus.classList.add('show', 'error');
+    isSubmitting = false;
+    submitBtn.innerHTML = originalText;
+    submitBtn.disabled = false;
+    return;
+  }
+  
+  if (!formData.wilayat) {
+    formStatus.innerHTML = '❌ يرجى اختيار الولاية';
+    formStatus.classList.add('show', 'error');
+    isSubmitting = false;
+    submitBtn.innerHTML = originalText;
+    submitBtn.disabled = false;
+    return;
+  }
   
   try {
     const response = await fetch(SCRIPT_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(formData)
     });
     
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     const result = await response.json();
-    console.log('📥 الاستجابة:', result);
     
     if (result.status === 'success') {
-      document.getElementById('form-container').classList.add('hidden');
-      document.getElementById('success-message').classList.remove('hidden');
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('success-view').classList.add('show');
     } else {
       formStatus.innerHTML = `❌ ${result.message}`;
-      formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
-      formStatus.classList.remove('hidden');
+      formStatus.classList.add('show', 'error');
     }
     
   } catch (error) {
-    console.error('❌ خطأ الإرسال:', error);
-    formStatus.innerHTML = `❌ فشل الاتصال بالخادم`;
-    formStatus.className = 'p-4 rounded-xl text-center font-bold bg-red-100 text-red-700';
-    formStatus.classList.remove('hidden');
+    formStatus.innerHTML = '❌ فشل الاتصال بالخادم';
+    formStatus.classList.add('show', 'error');
   } finally {
     isSubmitting = false;
-    submitBtn.textContent = originalText;
+    submitBtn.innerHTML = originalText;
     submitBtn.disabled = false;
   }
 });
 
-// ============================================
 // إعادة تعيين النموذج
-// ============================================
 function resetForm() {
   document.getElementById('join-form').reset();
-  document.getElementById('form-container').classList.remove('hidden');
-  document.getElementById('success-message').classList.add('hidden');
-  document.getElementById('form-status').classList.add('hidden');
+  document.getElementById('wilayat').disabled = true;
+  document.getElementById('form-container').style.display = 'block';
+  document.getElementById('success-view').classList.remove('show');
+  document.getElementById('form-status').classList.remove('show');
 }
 
 // ============================================
-// نافذة تسجيل دخول المشرفين
+// نافذة تسجيل الدخول
 // ============================================
 function showAdminLogin() {
-  document.getElementById('admin-login-modal').classList.remove('hidden');
+  document.getElementById('login-modal').classList.add('show');
   document.getElementById('admin-password').value = '';
-  document.getElementById('login-error').classList.add('hidden');
+  document.getElementById('login-error').classList.remove('show');
   document.getElementById('admin-password').focus();
 }
 
 function hideAdminLogin() {
-  document.getElementById('admin-login-modal').classList.add('hidden');
+  document.getElementById('login-modal').classList.remove('show');
 }
 
-// معالجة تسجيل دخول المشرف
-document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
+document.getElementById('login-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   
   const password = document.getElementById('admin-password').value;
   const loginBtn = document.getElementById('login-btn');
   const errorDiv = document.getElementById('login-error');
-  const loginForm = document.getElementById('admin-login-form');
   
-  loginBtn.textContent = '⏳ جاري التحقق...';
+  loginBtn.innerHTML = '<span class="loading"><div class="loading-spinner"></div><span>جاري التحقق...</span></span>';
   loginBtn.disabled = true;
-  errorDiv.classList.add('hidden');
+  errorDiv.classList.remove('show');
   
   try {
     const response = await fetch(`${SCRIPT_URL}?action=adminLogin&password=${encodeURIComponent(password)}&t=${Date.now()}`);
     const data = await response.json();
     
-    console.log('🔐 استجابة تسجيل الدخول:', data);
-    
     if (data.status === 'success' && data.authenticated) {
-      // تسجيل دخول ناجح
       adminPassword = password;
       hideAdminLogin();
       openAdminPanel();
     } else {
-      // كلمة مرور خاطئة
       errorDiv.textContent = '❌ كلمة مرور خاطئة';
-      errorDiv.classList.remove('hidden');
-      loginForm.classList.add('shake');
-      setTimeout(() => loginForm.classList.remove('shake'), 500);
+      errorDiv.classList.add('show');
       document.getElementById('admin-password').value = '';
       document.getElementById('admin-password').focus();
     }
     
   } catch (error) {
-    console.error('❌ خطأ في تسجيل الدخول:', error);
     errorDiv.textContent = '❌ خطأ في الاتصال بالخادم';
-    errorDiv.classList.remove('hidden');
+    errorDiv.classList.add('show');
   } finally {
-    loginBtn.textContent = '✅ دخول';
+    loginBtn.innerHTML = '✅ دخول';
     loginBtn.disabled = false;
   }
 });
 
 // ============================================
-// لوحة المشرفين
+// لوحة التحكم
 // ============================================
 function openAdminPanel() {
-  document.getElementById('admin-panel').classList.remove('hidden');
+  document.getElementById('admin-panel').classList.add('show');
   document.body.style.overflow = 'hidden';
   updateDebugInfo();
-  // جلب البيانات تلقائياً
   setTimeout(loadAllRecords, 500);
 }
 
 function logoutAdmin() {
   if (confirm('هل تريد تسجيل الخروج؟')) {
     adminPassword = null;
-    document.getElementById('admin-panel').classList.add('hidden');
+    allRecords = [];
+    document.getElementById('admin-panel').classList.remove('show');
     document.body.style.overflow = 'auto';
   }
 }
 
 async function adminTestConnection() {
-  const resultDiv = document.getElementById('admin-test-result');
-  resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse">⏳ جاري الاختبار...</div>';
+  const resultDiv = document.getElementById('admin-result');
+  resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري الاختبار...</span></div>';
   
   try {
     const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`);
     const data = await response.json();
     
-    resultDiv.innerHTML = `
-      <div class="text-green-400 font-bold">✅ متصل</div>
-      <div class="text-gray-300 text-xs mt-1">${data.message}</div>
-    `;
+    resultDiv.innerHTML = `<div style="color: #10b981; font-weight: 600;">✅ متصل - ${data.message}</div>`;
     
   } catch (error) {
-    resultDiv.innerHTML = `
-      <div class="text-red-400 font-bold">❌ خطأ</div>
-      <div class="text-gray-300 text-xs mt-1">${error.message}</div>
-    `;
+    resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ خطأ - ${error.message}</div>`;
   }
 }
 
@@ -640,18 +1647,12 @@ async function loadAllRecords() {
     return;
   }
   
-  const resultDiv = document.getElementById('admin-test-result');
-  const statsTotal = document.getElementById('total-count');
-  const statsRemaining = document.getElementById('remaining-count');
-  
-  resultDiv.innerHTML = '<div class="text-blue-400 animate-pulse">⏳ جاري جلب البيانات...</div>';
+  const resultDiv = document.getElementById('admin-result');
+  resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري جلب البيانات...</span></div>';
   
   try {
-    const url = `${SCRIPT_URL}?action=getAll&password=${encodeURIComponent(adminPassword)}&t=${Date.now()}`;
-    const response = await fetch(url);
+    const response = await fetch(`${SCRIPT_URL}?action=getAll&password=${encodeURIComponent(adminPassword)}&t=${Date.now()}`);
     const data = await response.json();
-    
-    console.log('📊 بيانات GET:', data);
     
     if (data.code === 'UNAUTHORIZED') {
       alert('❌ كلمة المرور غير صحيحة. سيتم تسجيل الخروج.');
@@ -660,122 +1661,158 @@ async function loadAllRecords() {
     }
     
     if (data.status === 'success') {
-      statsTotal.textContent = data.count || 0;
-      statsRemaining.textContent = data.remaining || 0;
+      document.getElementById('total-count').textContent = data.count || 0;
+      document.getElementById('remaining-count').textContent = data.remaining || 0;
       
-      resultDiv.innerHTML = `
-        <div class="text-green-400 font-bold">✅ تم جلب ${data.count || 0} طلب</div>
-        <div class="text-gray-300 text-xs mt-1">آخر تحديث: ${new Date(data.lastUpdated).toLocaleString('ar-SA')}</div>
-      `;
+      resultDiv.innerHTML = `<div style="color: #10b981; font-weight: 600;">✅ تم جلب ${data.count || 0} طلب</div>`;
       
-      displayRecords(data.data || []);
+      allRecords = data.data || [];
+      displayRecords(allRecords);
     } else {
-      resultDiv.innerHTML = `
-        <div class="text-red-400 font-bold">❌ فشل جلب البيانات</div>
-        <div class="text-gray-300 text-xs">${data.message}</div>
-      `;
+      resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ ${data.message}</div>`;
       displayRecords([]);
     }
     
   } catch (error) {
-    resultDiv.innerHTML = `
-      <div class="text-red-400 font-bold">❌ خطأ في الاتصال</div>
-      <div class="text-gray-300 text-xs">${error.message}</div>
-    `;
-    console.error('❌ خطأ GET:', error);
+    resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ ${error.message}</div>`;
     displayRecords([]);
   }
 }
 
 function displayRecords(records) {
-  const recordsList = document.getElementById('records-list');
+  const list = document.getElementById('records-list');
   
   if (!records || records.length === 0) {
-    recordsList.innerHTML = `
-      <div class="text-center text-gray-400 py-8">
-        <div class="text-4xl mb-2">📭</div>
-        <p>لا توجد طلبات حتى الآن</p>
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <div class="empty-text">لا توجد طلبات حتى الآن</div>
       </div>
     `;
     return;
   }
   
-  let html = '<div class="space-y-3">';
-  
+  let html = '';
   records.forEach((record, index) => {
+    const name = record['الاسم'] || record.name || 'غير معروف';
+    const email = record['البريد الإلكتروني'] || record.email || 'لا يوجد';
+    const phone = record['رقم الهاتف'] || record.phone || 'لا يوجد';
+    const governorate = record['المحافظة'] || record.governorate || 'غير محدد';
+    const wilayat = record['الولاية'] || record.wilayat || 'غير محدد';
+    const school = record['المدرسة'] || record.school || 'غير محدد';
+    const date = formatDate(record['تاريخ التسجيل'] || record.submitted_at);
+    
     html += `
-      <div class="bg-slate-700 p-4 rounded-lg hover:bg-slate-600 transition-colors">
-        <div class="flex justify-between items-start mb-2">
-          <div class="font-bold text-lg">${record['الاسم'] || record.name || 'غير معروف'}</div>
-          <div class="text-xs text-gray-400">#${index + 1}</div>
+      <div class="record-card">
+        <div class="record-header">
+          <div class="record-name">${name}</div>
+          <div class="record-badge">#${index + 1}</div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-          <div class="text-gray-300">
-            <span class="text-gray-400">📧</span> ${record['البريد الإلكتروني'] || record.email || 'لا يوجد'}
+        <div class="record-grid">
+          <div class="record-item">
+            <span class="record-icon">📧</span>
+            <span class="record-text">${email}</span>
           </div>
-          <div class="text-gray-300">
-            <span class="text-gray-400">📱</span> ${record['رقم الهاتف'] || record.phone || 'لا يوجد'}
+          <div class="record-item">
+            <span class="record-icon">📱</span>
+            <span class="record-text">${phone}</span>
           </div>
-          <div class="text-gray-300">
-            <span class="text-gray-400">🏛️</span> ${record['المحافظة'] || record.governorate || 'غير محدد'}
+          <div class="record-item">
+            <span class="record-icon">🏛️</span>
+            <span class="record-text">${governorate}</span>
           </div>
-          <div class="text-gray-300">
-            <span class="text-gray-400">📍</span> ${record['الولاية'] || record.wilayat || 'غير محدد'}
+          <div class="record-item">
+            <span class="record-icon">📍</span>
+            <span class="record-text">${wilayat}</span>
           </div>
-          <div class="text-gray-300 md:col-span-2">
-            <span class="text-gray-400">🏫</span> ${record['المدرسة'] || record.school || 'غير محدد'}
+          <div class="record-item">
+            <span class="record-icon">🏫</span>
+            <span class="record-text">${school}</span>
           </div>
-          <div class="text-gray-400 text-xs md:col-span-2">
-            <span class="text-gray-500">⏰</span> ${formatDate(record['تاريخ التسجيل'] || record.submitted_at)}
+          <div class="record-item">
+            <span class="record-icon">⏰</span>
+            <span class="record-text muted">${date}</span>
           </div>
         </div>
       </div>
     `;
   });
   
-  html += '</div>';
-  recordsList.innerHTML = html;
+  list.innerHTML = html;
+}
+
+function filterRecords() {
+  const searchTerm = document.getElementById('search-input').value.toLowerCase();
+  const filterGov = document.getElementById('filter-governorate').value;
+  
+  const filtered = allRecords.filter(record => {
+    const name = (record['الاسم'] || record.name || '').toLowerCase();
+    const email = (record['البريد الإلكتروني'] || record.email || '').toLowerCase();
+    const phone = (record['رقم الهاتف'] || record.phone || '').toLowerCase();
+    const gov = record['المحافظة'] || record.governorate || '';
+    
+    const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm);
+    const matchesFilter = !filterGov || gov === filterGov;
+    
+    return matchesSearch && matchesFilter;
+  });
+  
+  displayRecords(filtered);
+}
+
+function exportData() {
+  if (!allRecords || allRecords.length === 0) {
+    alert('لا توجد بيانات للتصدير');
+    return;
+  }
+  
+  let csv = '\uFEFF'; // BOM for Arabic
+  csv += 'الاسم,البريد الإلكتروني,رقم الهاتف,المحافظة,الولاية,المدرسة,تاريخ التسجيل\n';
+  
+  allRecords.forEach(record => {
+    const row = [
+      record['الاسم'] || record.name || '',
+      record['البريد الإلكتروني'] || record.email || '',
+      record['رقم الهاتف'] || record.phone || '',
+      record['المحافظة'] || record.governorate || '',
+      record['الولاية'] || record.wilayat || '',
+      record['المدرسة'] || record.school || '',
+      record['تاريخ التسجيل'] || record.submitted_at || ''
+    ].map(field => `"${field}"`).join(',');
+    csv += row + '\n';
+  });
+  
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `طلبات_الانضمام_${new Date().toISOString().split('T')[0]}.csv`;
+  link.click();
 }
 
 function formatDate(dateString) {
   if (!dateString) return 'غير معروف';
-  
   try {
-    const date = new Date(dateString);
-    return date.toLocaleString('ar-SA', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(dateString).toLocaleString('ar-SA', {
+      year: 'numeric', month: 'long', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
     });
-  } catch (error) {
-    return dateString;
-  }
+  } catch { return dateString; }
 }
 
 function updateDebugInfo() {
-  const debugDiv = document.getElementById('debug-info');
-  debugDiv.innerHTML = `
-    <div class="space-y-1">
-      <div>🔗 رابط السكربيت: ${SCRIPT_URL}</div>
-      <div>🕒 وقت التحميل: ${new Date().toLocaleString('ar-SA')}</div>
-      <div>🌐 الموقع: ${window.location.href}</div>
-      <div>🔐 حالة الجلسة: ${adminPassword ? 'مسجل الدخول' : 'غير مسجل'}</div>
-    </div>
-  `;
+  document.getElementById('debug-info').innerHTML = `
+🔗 رابط السكربيت: ${SCRIPT_URL}
+🕒 وقت التحميل: ${new Date().toLocaleString('ar-SA')}
+🌐 الموقع: ${window.location.href}
+🔐 حالة الجلسة: ${adminPassword ? 'مسجل الدخول' : 'غير مسجل'}
+  `.trim();
 }
 
 // ============================================
-// اختبار تلقائي عند التحميل
+// التهيئة
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('🚀 الصفحة جاهزة');
-  console.log('🔗 رابط السكربيت:', SCRIPT_URL);
-  
-  setTimeout(() => {
-    testScript();
-  }, 1876);
+  setTimeout(testScript, 1500);
   
   if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
@@ -783,9 +1820,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('beforeunload', function() {
-  if (isSubmitting) {
-    return 'يتم حالياً إرسال البيانات، هل تريد المغادرة؟';
-  }
+  if (isSubmitting) return 'يتم حالياً إرسال البيانات، هل تريد المغادرة؟';
 });
 </script>
 
