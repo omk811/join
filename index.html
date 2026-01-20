@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>مجتمع اللغة العربية - الصف الخامس</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <style>
     :root {
       --primary: #0d9488;
@@ -1129,10 +1130,12 @@
       }
     }
   </style>
+
 </head>
 <body>
 
 <!-- الخلفية -->
+
 <div class="bg-pattern"></div>
 <div class="floating-shapes">
   <div class="shape"></div>
@@ -1141,9 +1144,11 @@
 </div>
 
 <!-- المحتوى الرئيسي -->
+
 <main class="main-container">
-  
+
   <!-- الهيدر -->
+
   <header class="header">
     <div class="badge">
       <span class="badge-icon">✨</span>
@@ -1152,8 +1157,9 @@
     <h1 class="main-title">مجتمع اللغة العربية</h1>
     <p class="subtitle">إشراف: الأستاذ خليل البلوشي</p>
   </header>
-  
+
   <!-- قسم الاختبار -->
+
   <div class="test-section">
     <button onclick="testScript()" class="test-btn">
       <span>🔧</span>
@@ -1161,260 +1167,273 @@
     </button>
     <div id="test-result" class="test-result"></div>
   </div>
-  
+
   <!-- نموذج التسجيل -->
+
   <div id="form-container" class="form-card">
     <form id="join-form">
-      
-      <div class="form-header">
-        <div class="form-icon">📝</div>
-        <h2 class="form-title">نموذج الانضمام</h2>
-        <p class="form-desc">املأ البيانات التالية للانضمام إلى المجتمع</p>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">
-          <span class="label-icon">👤</span>
-          <span>الاسم الثلاثي</span>
-          <span class="required">*</span>
-        </label>
-        <input type="text" id="name" name="name" required minlength="3" maxlength="100" 
-               class="form-input" placeholder="مثال: أحمد محمد سالم" autocomplete="name">
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">
-          <span class="label-icon">📧</span>
-          <span>البريد الإلكتروني</span>
-          <span class="required">*</span>
-        </label>
-        <input type="email" id="email" name="email" required 
-               class="form-input" placeholder="مثال: name@example.com" autocomplete="email">
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">
-          <span class="label-icon">📱</span>
-          <span>رقم الهاتف</span>
-          <span class="required">*</span>
-        </label>
-        <input type="tel" id="phone" name="phone" required pattern="[0-9]{8}" 
-               minlength="8" maxlength="8" class="form-input" 
-               placeholder="مثال: 99123456" autocomplete="tel">
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">
-          <span class="label-icon">🏛️</span>
-          <span>المحافظة</span>
-          <span class="required">*</span>
-        </label>
-        <select id="governorate" name="governorate" class="form-input" required>
-          <option value="">اختر المحافظة...</option>
-          <option value="مسقط">مسقط</option>
-          <option value="ظفار">ظفار</option>
-          <option value="مسندم">مسندم</option>
-          <option value="البريمي">البريمي</option>
-          <option value="الداخلية">الداخلية</option>
-          <option value="شمال الباطنة">شمال الباطنة</option>
-          <option value="جنوب الباطنة">جنوب الباطنة</option>
-          <option value="جنوب الشرقية">جنوب الشرقية</option>
-          <option value="شمال الشرقية">شمال الشرقية</option>
-          <option value="الظاهرة">الظاهرة</option>
-          <option value="الوسطى">الوسطى</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">
-          <span class="label-icon">📍</span>
-          <span>الولاية</span>
-          <span class="required">*</span>
-        </label>
-        <select id="wilayat" name="wilayat" class="form-input" disabled required>
-          <option value="">اختر الولاية...</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label class="form-label">
-          <span class="label-icon">🏫</span>
-          <span>المدرسة</span>
-        </label>
-        <input type="text" id="school" name="school" class="form-input" 
-               placeholder="مثال: مدرسة سعد بن معاذ" maxlength="100">
-        <div class="field-notice">
-          <span class="field-notice-icon">⚠️</span>
-          <span>تنويه: لا أستقبل طلاب الصف الخامس الأساسي بمدرسة سعد بن معاذ للتعليم الأساسي</span>
-        </div>
-      </div>
-      
-      <button type="submit" id="submit-btn" class="submit-btn">
-        <span>✅ إرسال طلب الانضمام</span>
-      </button>
-      
-      <div id="form-status" class="status-message"></div>
-    </form>
+
+```
+  <div class="form-header">
+    <div class="form-icon">📝</div>
+    <h2 class="form-title">نموذج الانضمام</h2>
+    <p class="form-desc">املأ البيانات التالية للانضمام إلى المجتمع</p>
   </div>
   
+  <div class="form-group">
+    <label class="form-label">
+      <span class="label-icon">👤</span>
+      <span>الاسم الثلاثي</span>
+      <span class="required">*</span>
+    </label>
+    <input type="text" id="name" name="name" required minlength="3" maxlength="100" 
+           class="form-input" placeholder="مثال: أحمد محمد سالم" autocomplete="name">
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">
+      <span class="label-icon">📧</span>
+      <span>البريد الإلكتروني</span>
+      <span class="required">*</span>
+    </label>
+    <input type="email" id="email" name="email" required 
+           class="form-input" placeholder="مثال: name@example.com" autocomplete="email">
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">
+      <span class="label-icon">📱</span>
+      <span>رقم الهاتف</span>
+      <span class="required">*</span>
+    </label>
+    <input type="tel" id="phone" name="phone" required pattern="[0-9]{8}" 
+           minlength="8" maxlength="8" class="form-input" 
+           placeholder="مثال: 99123456" autocomplete="tel">
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">
+      <span class="label-icon">🏛️</span>
+      <span>المحافظة</span>
+      <span class="required">*</span>
+    </label>
+    <select id="governorate" name="governorate" class="form-input" required>
+      <option value="">اختر المحافظة...</option>
+      <option value="مسقط">مسقط</option>
+      <option value="ظفار">ظفار</option>
+      <option value="مسندم">مسندم</option>
+      <option value="البريمي">البريمي</option>
+      <option value="الداخلية">الداخلية</option>
+      <option value="شمال الباطنة">شمال الباطنة</option>
+      <option value="جنوب الباطنة">جنوب الباطنة</option>
+      <option value="جنوب الشرقية">جنوب الشرقية</option>
+      <option value="شمال الشرقية">شمال الشرقية</option>
+      <option value="الظاهرة">الظاهرة</option>
+      <option value="الوسطى">الوسطى</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">
+      <span class="label-icon">📍</span>
+      <span>الولاية</span>
+      <span class="required">*</span>
+    </label>
+    <select id="wilayat" name="wilayat" class="form-input" disabled required>
+      <option value="">اختر الولاية...</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label">
+      <span class="label-icon">🏫</span>
+      <span>المدرسة</span>
+    </label>
+    <input type="text" id="school" name="school" class="form-input" 
+           placeholder="مثال: مدرسة سعد بن معاذ" maxlength="100">
+    <div class="field-notice">
+      <span class="field-notice-icon">⚠️</span>
+      <span>تنويه: لا أستقبل طلاب الصف الخامس الأساسي بمدرسة سعد بن معاذ للتعليم الأساسي</span>
+    </div>
+  </div>
+  
+  <button type="submit" id="submit-btn" class="submit-btn">
+    <span>✅ إرسال طلب الانضمام</span>
+  </button>
+  
+  <div id="form-status" class="status-message"></div>
+</form>
+```
+
+  </div>
+
   <!-- رسالة النجاح -->
+
   <div id="success-view" class="success-view">
     <div class="success-icon">🎉</div>
     <h2 class="success-title">تم الإرسال بنجاح!</h2>
     <p class="success-desc">شكراً لك! سيتم التواصل معك قريباً.</p>
     <button onclick="resetForm()" class="reset-btn">📝 إرسال طلب آخر</button>
   </div>
-  
+
   <!-- زر المشرفين -->
+
   <div class="admin-trigger">
     <button onclick="showAdminLogin()" class="admin-btn">
       <span>🔐</span>
       <span>دخول المشرفين</span>
     </button>
   </div>
-  
+
 </main>
 
 <!-- نافذة تسجيل الدخول -->
+
 <div id="login-modal" class="modal-overlay">
   <div class="modal-card">
     <div class="modal-header">
       <div class="modal-icon">🔐</div>
       <h3 class="modal-title">تسجيل دخول المشرفين</h3>
     </div>
-    
-    <form id="login-form">
-      <div id="login-error" class="modal-error"></div>
-      
-      <div class="form-group">
-        <label class="form-label">
-          <span class="label-icon">🔑</span>
-          <span>كلمة المرور</span>
-        </label>
-        <input type="password" id="admin-password" required class="form-input" 
-               placeholder="أدخل كلمة المرور" autocomplete="current-password">
-      </div>
-      
-      <div class="modal-actions">
-        <button type="submit" id="login-btn" class="modal-btn primary">✅ دخول</button>
-        <button type="button" onclick="hideAdminLogin()" class="modal-btn secondary">✕ إلغاء</button>
-      </div>
-    </form>
+
+```
+<form id="login-form">
+  <div id="login-error" class="modal-error"></div>
+  
+  <div class="form-group">
+    <label class="form-label">
+      <span class="label-icon">🔑</span>
+      <span>كلمة المرور</span>
+    </label>
+    <input type="password" id="admin-password" required class="form-input" 
+           placeholder="أدخل كلمة المرور" autocomplete="current-password">
+  </div>
+  
+  <div class="modal-actions">
+    <button type="submit" id="login-btn" class="modal-btn primary">✅ دخول</button>
+    <button type="button" onclick="hideAdminLogin()" class="modal-btn secondary">✕ إلغاء</button>
+  </div>
+</form>
+```
+
   </div>
 </div>
 
 <!-- لوحة التحكم -->
+
 <div id="admin-panel" class="admin-panel">
   <div class="admin-container">
-    
-    <!-- هيدر اللوحة -->
-    <div class="admin-header">
-      <div class="admin-header-info">
-        <h2>🎛️ لوحة التحكم</h2>
-        <p>مرحباً بك في لوحة إدارة الطلبات</p>
-      </div>
-      <button onclick="logoutAdmin()" class="logout-btn">
-        <span>🚪</span>
-        <span>تسجيل الخروج</span>
+
+```
+<!-- هيدر اللوحة -->
+<div class="admin-header">
+  <div class="admin-header-info">
+    <h2>🎛️ لوحة التحكم</h2>
+    <p>مرحباً بك في لوحة إدارة الطلبات</p>
+  </div>
+  <button onclick="logoutAdmin()" class="logout-btn">
+    <span>🚪</span>
+    <span>تسجيل الخروج</span>
+  </button>
+</div>
+
+<!-- الإحصائيات والأدوات -->
+<div class="admin-grid">
+  
+  <!-- إجمالي الطلبات -->
+  <div class="stat-card primary">
+    <div class="stat-icon">📊</div>
+    <div class="stat-label">إجمالي الطلبات</div>
+    <div class="stat-value" id="total-count">—</div>
+  </div>
+  
+  <!-- الطلبات المتبقية -->
+  <div class="stat-card accent">
+    <div class="stat-icon">📋</div>
+    <div class="stat-label">المتبقي من 1870</div>
+    <div class="stat-value" id="remaining-count">—</div>
+  </div>
+  
+  <!-- أدوات التحكم -->
+  <div class="tools-card">
+    <div class="tools-title">
+      <span>🔧</span>
+      <span>أدوات سريعة</span>
+    </div>
+    <div class="tools-grid">
+      <button onclick="adminTestConnection()" class="tool-btn blue">
+        <span>📡</span>
+        <span>اختبار الاتصال</span>
+      </button>
+      <button onclick="loadAllRecords()" class="tool-btn green">
+        <span>📥</span>
+        <span>تحديث البيانات</span>
+      </button>
+      <button onclick="exportData()" class="tool-btn purple">
+        <span>📤</span>
+        <span>تصدير CSV</span>
       </button>
     </div>
-    
-    <!-- الإحصائيات والأدوات -->
-    <div class="admin-grid">
-      
-      <!-- إجمالي الطلبات -->
-      <div class="stat-card primary">
-        <div class="stat-icon">📊</div>
-        <div class="stat-label">إجمالي الطلبات</div>
-        <div class="stat-value" id="total-count">—</div>
-      </div>
-      
-      <!-- الطلبات المتبقية -->
-      <div class="stat-card accent">
-        <div class="stat-icon">📋</div>
-        <div class="stat-label">المتبقي من 1870</div>
-        <div class="stat-value" id="remaining-count">—</div>
-      </div>
-      
-      <!-- أدوات التحكم -->
-      <div class="tools-card">
-        <div class="tools-title">
-          <span>🔧</span>
-          <span>أدوات سريعة</span>
-        </div>
-        <div class="tools-grid">
-          <button onclick="adminTestConnection()" class="tool-btn blue">
-            <span>📡</span>
-            <span>اختبار الاتصال</span>
-          </button>
-          <button onclick="loadAllRecords()" class="tool-btn green">
-            <span>📥</span>
-            <span>تحديث البيانات</span>
-          </button>
-          <button onclick="exportData()" class="tool-btn purple">
-            <span>📤</span>
-            <span>تصدير CSV</span>
-          </button>
-        </div>
-        <div id="admin-result" class="tools-result"></div>
-      </div>
-      
+    <div id="admin-result" class="tools-result"></div>
+  </div>
+  
+</div>
+
+<!-- قسم البيانات -->
+<div class="data-section">
+  
+  <div class="data-header">
+    <div class="data-title">
+      <span>📋</span>
+      <span>سجل الطلبات</span>
     </div>
-    
-    <!-- قسم البيانات -->
-    <div class="data-section">
-      
-      <div class="data-header">
-        <div class="data-title">
-          <span>📋</span>
-          <span>سجل الطلبات</span>
-        </div>
-        <button onclick="loadAllRecords()" class="refresh-btn">
-          <span>🔄</span>
-          <span>تحديث</span>
-        </button>
-      </div>
-      
-      <div class="data-controls">
-        <div class="search-box">
-          <input type="text" id="search-input" class="search-input" 
-                 placeholder="البحث بالاسم أو البريد أو الهاتف..." oninput="filterRecords()">
-          <span class="search-icon">🔍</span>
-        </div>
-        <select id="filter-governorate" class="filter-select" onchange="filterRecords()">
-          <option value="">كل المحافظات</option>
-          <option value="مسقط">مسقط</option>
-          <option value="ظفار">ظفار</option>
-          <option value="مسندم">مسندم</option>
-          <option value="البريمي">البريمي</option>
-          <option value="الداخلية">الداخلية</option>
-          <option value="شمال الباطنة">شمال الباطنة</option>
-          <option value="جنوب الباطنة">جنوب الباطنة</option>
-          <option value="جنوب الشرقية">جنوب الشرقية</option>
-          <option value="شمال الشرقية">شمال الشرقية</option>
-          <option value="الظاهرة">الظاهرة</option>
-          <option value="الوسطى">الوسطى</option>
-        </select>
-      </div>
-      
-      <div id="records-list" class="data-list">
-        <div class="empty-state">
-          <div class="empty-icon">📭</div>
-          <div class="empty-text">اضغط على "تحديث البيانات" لعرض الطلبات</div>
-        </div>
-      </div>
-      
+    <button onclick="loadAllRecords()" class="refresh-btn">
+      <span>🔄</span>
+      <span>تحديث</span>
+    </button>
+  </div>
+  
+  <div class="data-controls">
+    <div class="search-box">
+      <input type="text" id="search-input" class="search-input" 
+             placeholder="البحث بالاسم أو البريد أو الهاتف..." oninput="filterRecords()">
+      <span class="search-icon">🔍</span>
     </div>
-    
-    <!-- معلومات التصحيح -->
-    <div class="debug-section">
-      <div class="debug-title">
-        <span>🐛</span>
-        <span>معلومات التصحيح</span>
-      </div>
-      <div id="debug-info" class="debug-content"></div>
+    <select id="filter-governorate" class="filter-select" onchange="filterRecords()">
+      <option value="">كل المحافظات</option>
+      <option value="مسقط">مسقط</option>
+      <option value="ظفار">ظفار</option>
+      <option value="مسندم">مسندم</option>
+      <option value="البريمي">البريمي</option>
+      <option value="الداخلية">الداخلية</option>
+      <option value="شمال الباطنة">شمال الباطنة</option>
+      <option value="جنوب الباطنة">جنوب الباطنة</option>
+      <option value="جنوب الشرقية">جنوب الشرقية</option>
+      <option value="شمال الشرقية">شمال الشرقية</option>
+      <option value="الظاهرة">الظاهرة</option>
+      <option value="الوسطى">الوسطى</option>
+    </select>
+  </div>
+  
+  <div id="records-list" class="data-list">
+    <div class="empty-state">
+      <div class="empty-icon">📭</div>
+      <div class="empty-text">اضغط على "تحديث البيانات" لعرض الطلبات</div>
     </div>
-    
+  </div>
+  
+</div>
+
+<!-- معلومات التصحيح -->
+<div class="debug-section">
+  <div class="debug-title">
+    <span>🐛</span>
+    <span>معلومات التصحيح</span>
+  </div>
+  <div id="debug-info" class="debug-content"></div>
+</div>
+```
+
   </div>
 </div>
 
@@ -1422,7 +1441,7 @@
 // ============================================
 // الإعدادات
 // ============================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxV6xfdLBXllMA66vGtkHJUuxh8W2tccjr1pAWomtEHzpEhVUdVQ4y5oTfTV3847J-A/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRU0C6bbgpnbXNAwC_fVgXfWxs_dFezEmsK0vQSJLfw1vlrjKDKIdyWU4K9ziddzf6/exec';
 
 let isSubmitting = false;
 let adminPassword = null;
@@ -1433,16 +1452,16 @@ let allRecords = [];
 // ============================================
 const OMAN_WILAYAT = {
   "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
-  "ظفار": ["صلالة", "طاقة", "مرباط", "سدح", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات", "ثمريت"],
-  "مسندم": ["خصب", "دبا", "بخا", "مدحاء"],
+  "ظفار": ["صلالة", "طاقة", "مرباط", "سدح", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات", "ثمريت", "المزيونة"],
+  "مسندم": ["خصب", "بخا", "دبا", "مدحا"],
   "البريمي": ["البريمي", "محضة", "السنينة"],
-  "الداخلية": ["نزوى", "بهلاء", "منح", "الحمراء", "إزكي", "سمائل", "أدم"],
+  "الداخلية": ["نزوى", "بهلاء", "منح", "الحمراء", "إزكي", "سمائل", "أدم", "بدبد"],
   "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
-  "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء"],
+  "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء", "المصنعة"],
   "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
   "جنوب الشرقية": ["صور", "جعلان بني بوعلي", "جعلان بني بوحسن", "الكامل والوافي", "مصيرة"],
   "الظاهرة": ["عبري", "ينقل", "ضنك"],
-  "الوسطى": ["هيما", "الدقم", "محوت", "الجازر"]
+  "الوسطى": ["هيماء", "الدقم", "محوت", "الجازر"]
 };
 
 // ربط المحافظة بالولاية
