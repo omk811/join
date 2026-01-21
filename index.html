@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="نموذج الانضمام لمجتمع اللغة العربية - الصف الخامس">
   <title>مجتمع اللغة العربية - الصف الخامس</title>
+  
+  <!-- الخطوط -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-
+  
   <style>
     :root {
       --primary: #0d9488;
@@ -24,6 +28,7 @@
       --glass: rgba(255,255,255,0.03);
       --success: #10b981;
       --error: #ef4444;
+      --warning: #f59e0b;
     }
     
     * {
@@ -39,7 +44,9 @@
       overflow-x: hidden;
     }
     
+    /* ===================================== */
     /* الخلفية المتحركة */
+    /* ===================================== */
     .bg-pattern {
       position: fixed;
       inset: 0;
@@ -100,7 +107,9 @@
       75% { transform: translate(20px, 10px) rotate(3deg) scale(1.02); }
     }
     
+    /* ===================================== */
     /* الحاوية الرئيسية */
+    /* ===================================== */
     .main-container {
       position: relative;
       z-index: 1;
@@ -111,7 +120,9 @@
       align-items: center;
     }
     
+    /* ===================================== */
     /* الهيدر */
+    /* ===================================== */
     .header {
       text-align: center;
       margin-bottom: 2.5rem;
@@ -159,7 +170,9 @@
       font-weight: 400;
     }
     
+    /* ===================================== */
     /* بطاقة النموذج */
+    /* ===================================== */
     .form-card {
       width: 100%;
       max-width: 600px;
@@ -210,7 +223,9 @@
       font-size: 0.95rem;
     }
     
+    /* ===================================== */
     /* حقول الإدخال */
+    /* ===================================== */
     .form-group {
       margin-bottom: 1.25rem;
     }
@@ -261,6 +276,15 @@
       box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
     }
     
+    .form-input.error {
+      border-color: var(--error);
+      background: #fef2f2;
+    }
+    
+    .form-input.error:focus {
+      box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+    }
+    
     select.form-input {
       cursor: pointer;
       appearance: none;
@@ -274,6 +298,25 @@
     select.form-input:disabled {
       opacity: 0.6;
       cursor: not-allowed;
+      background-color: #f1f5f9;
+    }
+    
+    /* رسالة خطأ الحقل */
+    .field-error {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: #fef2f2;
+      border-right: 3px solid var(--error);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #dc2626;
+      font-weight: 500;
+    }
+    
+    .field-error.show {
+      display: block;
+      animation: slideDown 0.3s ease;
     }
     
     /* تنويه الحقل */
@@ -297,7 +340,9 @@
       flex-shrink: 0;
     }
     
+    /* ===================================== */
     /* زر الإرسال */
+    /* ===================================== */
     .submit-btn {
       width: 100%;
       padding: 1.1rem 2rem;
@@ -347,12 +392,18 @@
       transform: none;
     }
     
+    .submit-btn:disabled:hover {
+      box-shadow: none;
+    }
+    
     .submit-btn span {
       position: relative;
       z-index: 1;
     }
     
+    /* ===================================== */
     /* رسالة الحالة */
+    /* ===================================== */
     .status-message {
       display: none;
       padding: 1rem 1.25rem;
@@ -384,7 +435,9 @@
       display: block;
     }
     
+    /* ===================================== */
     /* رسالة النجاح */
+    /* ===================================== */
     .success-view {
       display: none;
       width: 100%;
@@ -458,7 +511,9 @@
       box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
     }
     
+    /* ===================================== */
     /* زر التحكم */
+    /* ===================================== */
     .admin-trigger {
       margin-top: 3rem;
       animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
@@ -475,7 +530,7 @@
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
     }
@@ -486,7 +541,9 @@
       box-shadow: 0 6px 20px rgba(15, 23, 42, 0.25);
     }
     
+    /* ===================================== */
     /* زر الاختبار */
+    /* ===================================== */
     .test-section {
       width: 100%;
       max-width: 600px;
@@ -505,7 +562,7 @@
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
     }
@@ -518,7 +575,7 @@
     .test-result {
       margin-top: 1rem;
       padding: 1rem 1.25rem;
-      background: white;d: white;
+      background: white;
       border-radius: 14px;
       min-height: 60px;
       font-size: 0.9rem;
@@ -626,6 +683,7 @@
     
     .modal-btn.primary:hover {
       box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+      transform: translateY(-2px);
     }
     
     .modal-btn.secondary {
@@ -701,6 +759,7 @@
     
     .logout-btn:hover {
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+      transform: translateY(-2px);
     }
     
     /* شبكة لوحة التحكم */
@@ -841,6 +900,7 @@
       min-height: 50px;
       font-size: 0.9rem;
       color: var(--text-light);
+      line-height: 1.6;
     }
     
     /* قسم البيانات */
@@ -886,6 +946,7 @@
     
     .refresh-btn:hover {
       box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+      transform: translateY(-2px);
     }
     
     /* البحث والفلترة */
@@ -932,6 +993,7 @@
       transform: translateY(-50%);
       color: var(--text-muted);
       font-size: 1rem;
+      pointer-events: none;
     }
     
     .filter-select {
@@ -1086,6 +1148,8 @@
       color: #fbbf24;
       line-height: 1.6;
       overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
     }
     
     /* التحميل */
@@ -1109,12 +1173,26 @@
       to { transform: rotate(360deg); }
     }
     
-    /* الاستجابة */
+    /* ===================================== */
+    /* الاستجابة للشاشات الصغيرة */
+    /* ===================================== */
     @media (max-width: 768px) {
+      .main-container {
+        padding: 1.5rem 1rem;
+      }
+      
+      .form-card {
+        padding: 2rem 1.5rem;
+      }
+      
       .admin-header {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+      }
+      
+      .admin-grid {
+        grid-template-columns: 1fr;
       }
       
       .record-grid {
@@ -1128,14 +1206,40 @@
       .search-box {
         width: 100%;
       }
+      
+      .filter-select {
+        width: 100%;
+      }
+      
+      .modal-card {
+        padding: 2rem 1.5rem;
+      }
+      
+      .tools-grid {
+        flex-direction: column;
+      }
+      
+      .tool-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .form-card {
+        border-radius: 20px;
+        padding: 1.5rem 1.25rem;
+      }
+      
+      .stat-value {
+        font-size: 2rem;
+      }
     }
   </style>
-
 </head>
 <body>
 
 <!-- الخلفية -->
-
 <div class="bg-pattern"></div>
 <div class="floating-shapes">
   <div class="shape"></div>
@@ -1144,11 +1248,9 @@
 </div>
 
 <!-- المحتوى الرئيسي -->
-
 <main class="main-container">
-
+  
   <!-- الهيدر -->
-
   <header class="header">
     <div class="badge">
       <span class="badge-icon">✨</span>
@@ -1157,715 +1259,959 @@
     <h1 class="main-title">مجتمع اللغة العربية</h1>
     <p class="subtitle">إشراف: الأستاذ خليل البلوشي</p>
   </header>
-
+  
   <!-- قسم الاختبار -->
-
   <div class="test-section">
-    <button onclick="testScript()" class="test-btn">
+    <button type="button" onclick="testScript()" class="test-btn">
       <span>🔧</span>
       <span>اختبار الاتصال بالسكربيت</span>
     </button>
     <div id="test-result" class="test-result"></div>
   </div>
-
+  
   <!-- نموذج التسجيل -->
-
   <div id="form-container" class="form-card">
-    <form id="join-form">
-
-```
-  <div class="form-header">
-    <div class="form-icon">📝</div>
-    <h2 class="form-title">نموذج الانضمام</h2>
-    <p class="form-desc">املأ البيانات التالية للانضمام إلى المجتمع</p>
+    <form id="join-form" novalidate>
+      
+      <div class="form-header">
+        <div class="form-icon">📝</div>
+        <h2 class="form-title">نموذج الانضمام</h2>
+        <p class="form-desc">املأ البيانات التالية للانضمام إلى المجتمع</p>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="name">
+          <span class="label-icon">👤</span>
+          <span>الاسم الثلاثي</span>
+          <span class="required">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          required 
+          minlength="3" 
+          maxlength="100" 
+          class="form-input" 
+          placeholder="مثال: أحمد محمد سالم" 
+          autocomplete="name"
+          aria-required="true"
+          aria-describedby="name-error">
+        <div id="name-error" class="field-error"></div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="email">
+          <span class="label-icon">📧</span>
+          <span>البريد الإلكتروني</span>
+          <span class="required">*</span>
+        </label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          required 
+          class="form-input" 
+          placeholder="مثال: name@example.com" 
+          autocomplete="email"
+          aria-required="true"
+          aria-describedby="email-error">
+        <div id="email-error" class="field-error"></div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="phone">
+          <span class="label-icon">📱</span>
+          <span>رقم الهاتف</span>
+          <span class="required">*</span>
+        </label>
+        <input 
+          type="tel" 
+          id="phone" 
+          name="phone" 
+          required 
+          pattern="[0-9]{8}" 
+          minlength="8" 
+          maxlength="8" 
+          class="form-input" 
+          placeholder="مثال: 99123456" 
+          autocomplete="tel"
+          aria-required="true"
+          aria-describedby="phone-error">
+        <div id="phone-error" class="field-error"></div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="governorate">
+          <span class="label-icon">🏛️</span>
+          <span>المحافظة</span>
+          <span class="required">*</span>
+        </label>
+        <select 
+          id="governorate" 
+          name="governorate" 
+          class="form-input" 
+          required
+          aria-required="true"
+          aria-describedby="governorate-error">
+          <option value="">اختر المحافظة...</option>
+          <option value="مسقط">مسقط</option>
+          <option value="ظفار">ظفار</option>
+          <option value="مسندم">مسندم</option>
+          <option value="البريمي">البريمي</option>
+          <option value="الداخلية">الداخلية</option>
+          <option value="شمال الباطنة">شمال الباطنة</option>
+          <option value="جنوب الباطنة">جنوب الباطنة</option>
+          <option value="جنوب الشرقية">جنوب الشرقية</option>
+          <option value="شمال الشرقية">شمال الشرقية</option>
+          <option value="الظاهرة">الظاهرة</option>
+          <option value="الوسطى">الوسطى</option>
+        </select>
+        <div id="governorate-error" class="field-error"></div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="wilayat">
+          <span class="label-icon">📍</span>
+          <span>الولاية</span>
+          <span class="required">*</span>
+        </label>
+        <select 
+          id="wilayat" 
+          name="wilayat" 
+          class="form-input" 
+          disabled 
+          required
+          aria-required="true"
+          aria-describedby="wilayat-error">
+          <option value="">اختر الولاية...</option>
+        </select>
+        <div id="wilayat-error" class="field-error"></div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="school">
+          <span class="label-icon">🏫</span>
+          <span>المدرسة</span>
+        </label>
+        <input 
+          type="text" 
+          id="school" 
+          name="school" 
+          class="form-input" 
+          placeholder="مثال: مدرسة سعد بن معاذ" 
+          maxlength="100">
+        <div class="field-notice">
+          <span class="field-notice-icon">⚠️</span>
+          <span>تنويه: لا أستقبل طلاب الصف الخامس الأساسي بمدرسة سعد بن معاذ للتعليم الأساسي</span>
+        </div>
+      </div>
+      
+      <button type="submit" id="submit-btn" class="submit-btn">
+        <span>✅ إرسال طلب الانضمام</span>
+      </button>
+      
+      <div id="form-status" class="status-message"></div>
+    </form>
   </div>
   
-  <div class="form-group">
-    <label class="form-label">
-      <span class="label-icon">👤</span>
-      <span>الاسم الثلاثي</span>
-      <span class="required">*</span>
-    </label>
-    <input type="text" id="name" name="name" required minlength="3" maxlength="100" 
-           class="form-input" placeholder="مثال: أحمد محمد سالم" autocomplete="name">
-  </div>
-  
-  <div class="form-group">
-    <label class="form-label">
-      <span class="label-icon">📧</span>
-      <span>البريد الإلكتروني</span>
-      <span class="required">*</span>
-    </label>
-    <input type="email" id="email" name="email" required 
-           class="form-input" placeholder="مثال: name@example.com" autocomplete="email">
-  </div>
-  
-  <div class="form-group">
-    <label class="form-label">
-      <span class="label-icon">📱</span>
-      <span>رقم الهاتف</span>
-      <span class="required">*</span>
-    </label>
-    <input type="tel" id="phone" name="phone" required pattern="[0-9]{8}" 
-           minlength="8" maxlength="8" class="form-input" 
-           placeholder="مثال: 99123456" autocomplete="tel">
-  </div>
-  
-  <div class="form-group">
-    <label class="form-label">
-      <span class="label-icon">🏛️</span>
-      <span>المحافظة</span>
-      <span class="required">*</span>
-    </label>
-    <select id="governorate" name="governorate" class="form-input" required>
-      <option value="">اختر المحافظة...</option>
-      <option value="مسقط">مسقط</option>
-      <option value="ظفار">ظفار</option>
-      <option value="مسندم">مسندم</option>
-      <option value="البريمي">البريمي</option>
-      <option value="الداخلية">الداخلية</option>
-      <option value="شمال الباطنة">شمال الباطنة</option>
-      <option value="جنوب الباطنة">جنوب الباطنة</option>
-      <option value="جنوب الشرقية">جنوب الشرقية</option>
-      <option value="شمال الشرقية">شمال الشرقية</option>
-      <option value="الظاهرة">الظاهرة</option>
-      <option value="الوسطى">الوسطى</option>
-    </select>
-  </div>
-  
-  <div class="form-group">
-    <label class="form-label">
-      <span class="label-icon">📍</span>
-      <span>الولاية</span>
-      <span class="required">*</span>
-    </label>
-    <select id="wilayat" name="wilayat" class="form-input" disabled required>
-      <option value="">اختر الولاية...</option>
-    </select>
-  </div>
-  
-  <div class="form-group">
-    <label class="form-label">
-      <span class="label-icon">🏫</span>
-      <span>المدرسة</span>
-    </label>
-    <input type="text" id="school" name="school" class="form-input" 
-           placeholder="مثال: مدرسة سعد بن معاذ" maxlength="100">
-    <div class="field-notice">
-      <span class="field-notice-icon">⚠️</span>
-      <span>تنويه: لا أستقبل طلاب الصف الخامس الأساسي بمدرسة سعد بن معاذ للتعليم الأساسي</span>
-    </div>
-  </div>
-  
-  <button type="submit" id="submit-btn" class="submit-btn">
-    <span>✅ إرسال طلب الانضمام</span>
-  </button>
-  
-  <div id="form-status" class="status-message"></div>
-</form>
-```
-
-  </div>
-
   <!-- رسالة النجاح -->
-
   <div id="success-view" class="success-view">
     <div class="success-icon">🎉</div>
     <h2 class="success-title">تم الإرسال بنجاح!</h2>
     <p class="success-desc">شكراً لك! سيتم التواصل معك قريباً.</p>
-    <button onclick="resetForm()" class="reset-btn">📝 إرسال طلب آخر</button>
+    <button type="button" onclick="resetForm()" class="reset-btn">📝 إرسال طلب آخر</button>
   </div>
-
+  
   <!-- زر المشرفين -->
-
   <div class="admin-trigger">
-    <button onclick="showAdminLogin()" class="admin-btn">
+    <button type="button" onclick="showAdminLogin()" class="admin-btn">
       <span>🔐</span>
       <span>دخول المشرفين</span>
     </button>
   </div>
-
+  
 </main>
 
 <!-- نافذة تسجيل الدخول -->
-
-<div id="login-modal" class="modal-overlay">
+<div id="login-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-modal="true">
   <div class="modal-card">
     <div class="modal-header">
       <div class="modal-icon">🔐</div>
-      <h3 class="modal-title">تسجيل دخول المشرفين</h3>
+      <h3 id="modal-title" class="modal-title">تسجيل دخول المشرفين</h3>
     </div>
-
-```
-<form id="login-form">
-  <div id="login-error" class="modal-error"></div>
-  
-  <div class="form-group">
-    <label class="form-label">
-      <span class="label-icon">🔑</span>
-      <span>كلمة المرور</span>
-    </label>
-    <input type="password" id="admin-password" required class="form-input" 
-           placeholder="أدخل كلمة المرور" autocomplete="current-password">
-  </div>
-  
-  <div class="modal-actions">
-    <button type="submit" id="login-btn" class="modal-btn primary">✅ دخول</button>
-    <button type="button" onclick="hideAdminLogin()" class="modal-btn secondary">✕ إلغاء</button>
-  </div>
-</form>
-```
-
+    
+    <form id="login-form">
+      <div id="login-error" class="modal-error" role="alert"></div>
+      
+      <div class="form-group">
+        <label class="form-label" for="admin-password">
+          <span class="label-icon">🔑</span>
+          <span>كلمة المرور</span>
+        </label>
+        <input 
+          type="password" 
+          id="admin-password" 
+          required 
+          class="form-input" 
+          placeholder="أدخل كلمة المرور" 
+          autocomplete="current-password">
+      </div>
+      
+      <div class="modal-actions">
+        <button type="submit" id="login-btn" class="modal-btn primary">✅ دخول</button>
+        <button type="button" onclick="hideAdminLogin()" class="modal-btn secondary">✕ إلغاء</button>
+      </div>
+    </form>
   </div>
 </div>
 
 <!-- لوحة التحكم -->
-
 <div id="admin-panel" class="admin-panel">
   <div class="admin-container">
-
-```
-<!-- هيدر اللوحة -->
-<div class="admin-header">
-  <div class="admin-header-info">
-    <h2>🎛️ لوحة التحكم</h2>
-    <p>مرحباً بك في لوحة إدارة الطلبات</p>
-  </div>
-  <button onclick="logoutAdmin()" class="logout-btn">
-    <span>🚪</span>
-    <span>تسجيل الخروج</span>
-  </button>
-</div>
-
-<!-- الإحصائيات والأدوات -->
-<div class="admin-grid">
-  
-  <!-- إجمالي الطلبات -->
-  <div class="stat-card primary">
-    <div class="stat-icon">📊</div>
-    <div class="stat-label">إجمالي الطلبات</div>
-    <div class="stat-value" id="total-count">—</div>
-  </div>
-  
-  <!-- الطلبات المتبقية -->
-  <div class="stat-card accent">
-    <div class="stat-icon">📋</div>
-    <div class="stat-label">المتبقي من 1870</div>
-    <div class="stat-value" id="remaining-count">—</div>
-  </div>
-  
-  <!-- أدوات التحكم -->
-  <div class="tools-card">
-    <div class="tools-title">
-      <span>🔧</span>
-      <span>أدوات سريعة</span>
-    </div>
-    <div class="tools-grid">
-      <button onclick="adminTestConnection()" class="tool-btn blue">
-        <span>📡</span>
-        <span>اختبار الاتصال</span>
-      </button>
-      <button onclick="loadAllRecords()" class="tool-btn green">
-        <span>📥</span>
-        <span>تحديث البيانات</span>
-      </button>
-      <button onclick="exportData()" class="tool-btn purple">
-        <span>📤</span>
-        <span>تصدير CSV</span>
+    
+    <!-- هيدر اللوحة -->
+    <div class="admin-header">
+      <div class="admin-header-info">
+        <h2>🎛️ لوحة التحكم</h2>
+        <p>مرحباً بك في لوحة إدارة الطلبات</p>
+      </div>
+      <button type="button" onclick="logoutAdmin()" class="logout-btn">
+        <span>🚪</span>
+        <span>تسجيل الخروج</span>
       </button>
     </div>
-    <div id="admin-result" class="tools-result"></div>
-  </div>
-  
-</div>
-
-<!-- قسم البيانات -->
-<div class="data-section">
-  
-  <div class="data-header">
-    <div class="data-title">
-      <span>📋</span>
-      <span>سجل الطلبات</span>
+    
+    <!-- الإحصائيات والأدوات -->
+    <div class="admin-grid">
+      
+      <!-- إجمالي الطلبات -->
+      <div class="stat-card primary">
+        <div class="stat-icon">📊</div>
+        <div class="stat-label">إجمالي الطلبات</div>
+        <div class="stat-value" id="total-count">—</div>
+      </div>
+      
+      <!-- الطلبات المتبقية -->
+      <div class="stat-card accent">
+        <div class="stat-icon">📋</div>
+        <div class="stat-label">المتبقي من 1870</div>
+        <div class="stat-value" id="remaining-count">—</div>
+      </div>
+      
+      <!-- أدوات التحكم -->
+      <div class="tools-card">
+        <div class="tools-title">
+          <span>🔧</span>
+          <span>أدوات سريعة</span>
+        </div>
+        <div class="tools-grid">
+          <button type="button" onclick="adminTestConnection()" class="tool-btn blue">
+            <span>📡</span>
+            <span>اختبار الاتصال</span>
+          </button>
+          <button type="button" onclick="loadAllRecords()" class="tool-btn green">
+            <span>📥</span>
+            <span>تحديث البيانات</span>
+          </button>
+          <button type="button" onclick="exportData()" class="tool-btn purple">
+            <span>📤</span>
+            <span>تصدير CSV</span>
+          </button>
+        </div>
+        <div id="admin-result" class="tools-result"></div>
+      </div>
+      
     </div>
-    <button onclick="loadAllRecords()" class="refresh-btn">
-      <span>🔄</span>
-      <span>تحديث</span>
-    </button>
-  </div>
-  
-  <div class="data-controls">
-    <div class="search-box">
-      <input type="text" id="search-input" class="search-input" 
-             placeholder="البحث بالاسم أو البريد أو الهاتف..." oninput="filterRecords()">
-      <span class="search-icon">🔍</span>
+    
+    <!-- قسم البيانات -->
+    <div class="data-section">
+      
+      <div class="data-header">
+        <div class="data-title">
+          <span>📋</span>
+          <span>سجل الطلبات</span>
+        </div>
+        <button type="button" onclick="loadAllRecords()" class="refresh-btn">
+          <span>🔄</span>
+          <span>تحديث</span>
+        </button>
+      </div>
+      
+      <div class="data-controls">
+        <div class="search-box">
+          <input 
+            type="text" 
+            id="search-input" 
+            class="search-input" 
+            placeholder="البحث بالاسم أو البريد أو الهاتف..." 
+            oninput="filterRecords()"
+            aria-label="البحث في السجلات">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+        </div>
+        <select 
+          id="filter-governorate" 
+          class="filter-select" 
+          onchange="filterRecords()"
+          aria-label="فلترة حسب المحافظة">
+          <option value="">كل المحافظات</option>
+          <option value="مسقط">مسقط</option>
+          <option value="ظفار">ظفار</option>
+          <option value="مسندم">مسندم</option>
+          <option value="البريمي">البريمي</option>
+          <option value="الداخلية">الداخلية</option>
+          <option value="شمال الباطنة">شمال الباطنة</option>
+          <option value="جنوب الباطنة">جنوب الباطنة</option>
+          <option value="جنوب الشرقية">جنوب الشرقية</option>
+          <option value="شمال الشرقية">شمال الشرقية</option>
+          <option value="الظاهرة">الظاهرة</option>
+          <option value="الوسطى">الوسطى</option>
+        </select>
+      </div>
+      
+      <div id="records-list" class="data-list">
+        <div class="empty-state">
+          <div class="empty-icon">📭</div>
+          <div class="empty-text">اضغط على "تحديث البيانات" لعرض الطلبات</div>
+        </div>
+      </div>
+      
     </div>
-    <select id="filter-governorate" class="filter-select" onchange="filterRecords()">
-      <option value="">كل المحافظات</option>
-      <option value="مسقط">مسقط</option>
-      <option value="ظفار">ظفار</option>
-      <option value="مسندم">مسندم</option>
-      <option value="البريمي">البريمي</option>
-      <option value="الداخلية">الداخلية</option>
-      <option value="شمال الباطنة">شمال الباطنة</option>
-      <option value="جنوب الباطنة">جنوب الباطنة</option>
-      <option value="جنوب الشرقية">جنوب الشرقية</option>
-      <option value="شمال الشرقية">شمال الشرقية</option>
-      <option value="الظاهرة">الظاهرة</option>
-      <option value="الوسطى">الوسطى</option>
-    </select>
-  </div>
-  
-  <div id="records-list" class="data-list">
-    <div class="empty-state">
-      <div class="empty-icon">📭</div>
-      <div class="empty-text">اضغط على "تحديث البيانات" لعرض الطلبات</div>
+    
+    <!-- معلومات التصحيح -->
+    <div class="debug-section">
+      <div class="debug-title">
+        <span>🐛</span>
+        <span>معلومات التصحيح</span>
+      </div>
+      <div id="debug-info" class="debug-content"></div>
     </div>
-  </div>
-  
-</div>
-
-<!-- معلومات التصحيح -->
-<div class="debug-section">
-  <div class="debug-title">
-    <span>🐛</span>
-    <span>معلومات التصحيح</span>
-  </div>
-  <div id="debug-info" class="debug-content"></div>
-</div>
-```
-
+    
   </div>
 </div>
 
 <script>
-// ============================================
-// الإعدادات
-// ============================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRU0C6bbgpnbXNAwC_fVgXfWxs_dFezEmsK0vQSJLfw1vlrjKDKIdyWU4K9ziddzf6/exec';
-
-let isSubmitting = false;
-let adminPassword = null;
-let allRecords = [];
-
-// ============================================
-// المحافظات والولايات
-// ============================================
-const OMAN_WILAYAT = {
-  "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
-  "ظفار": ["صلالة", "طاقة", "مرباط", "سدح", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات", "ثمريت", "المزيونة"],
-  "مسندم": ["خصب", "بخا", "دبا", "مدحا"],
-  "البريمي": ["البريمي", "محضة", "السنينة"],
-  "الداخلية": ["نزوى", "بهلاء", "منح", "الحمراء", "إزكي", "سمائل", "أدم", "بدبد"],
-  "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
-  "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء", "المصنعة"],
-  "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
-  "جنوب الشرقية": ["صور", "جعلان بني بوعلي", "جعلان بني بوحسن", "الكامل والوافي", "مصيرة"],
-  "الظاهرة": ["عبري", "ينقل", "ضنك"],
-  "الوسطى": ["هيماء", "الدقم", "محوت", "الجازر"]
-};
-
-// ربط المحافظة بالولاية
-document.getElementById("governorate").addEventListener("change", function() {
-  const wilayatSelect = document.getElementById("wilayat");
-  wilayatSelect.innerHTML = '<option value="">اختر الولاية...</option>';
-  wilayatSelect.disabled = true;
+(function() {
+  'use strict';
   
-  if (!this.value || !OMAN_WILAYAT[this.value]) return;
+  // ============================================
+  // الإعدادات
+  // ============================================
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypZWK8tE6CpnhcnbQ2bQb875cRkXaaRKNrM59SCiJPR4y5mopCmuRq47W1l4Xagrc9/exec';
+  const MAX_CAPACITY = 1870;
   
-  OMAN_WILAYAT[this.value].forEach(wilaya => {
-    const option = document.createElement("option");
-    option.value = wilaya;
-    option.textContent = wilaya;
-    wilayatSelect.appendChild(option);
-  });
+  let isSubmitting = false;
+  let adminPassword = null;
+  let allRecords = [];
   
-  wilayatSelect.disabled = false;
-});
-
-// ============================================
-// اختبار الاتصال
-// ============================================
-async function testScript() {
-  const resultDiv = document.getElementById('test-result');
-  resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري اختبار الاتصال...</span></div>';
-  
-  try {
-    const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' }
-    });
-    
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    
-    const data = await response.json();
-    
-    resultDiv.innerHTML = `
-      <div style="color: var(--success); font-weight: 700; margin-bottom: 0.5rem;">✅ اتصال ناجح!</div>
-      <div style="color: var(--text-muted); font-size: 0.85rem;">
-        <div>الحالة: ${data.status}</div>
-        <div>الرسالة: ${data.message}</div>
-        <div>الإصدار: ${data.version || 'غير معروف'}</div>
-      </div>
-    `;
-    return true;
-    
-  } catch (error) {
-    resultDiv.innerHTML = `
-      <div style="color: var(--error); font-weight: 700; margin-bottom: 0.5rem;">❌ فشل الاتصال!</div>
-      <div style="color: var(--text-muted); font-size: 0.85rem;">الخطأ: ${error.message}</div>
-    `;
-    return false;
-  }
-}
-
-// ============================================
-// معالجة النموذج
-// ============================================
-document.getElementById('join-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  if (isSubmitting) return;
-  
-  const submitBtn = document.getElementById('submit-btn');
-  const formStatus = document.getElementById('form-status');
-  const originalText = submitBtn.innerHTML;
-  
-  isSubmitting = true;
-  submitBtn.innerHTML = '<span class="loading"><div class="loading-spinner"></div><span>جاري الإرسال...</span></span>';
-  submitBtn.disabled = true;
-  formStatus.classList.remove('show', 'success', 'error');
-  
-  const formData = {
-    action: 'create',
-    name: document.getElementById('name').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-    governorate: document.getElementById('governorate').value,
-    wilayat: document.getElementById('wilayat').value,
-    school: document.getElementById('school').value.trim() || 'غير محدد',
-    submitted_at: new Date().toISOString()
+  // ============================================
+  // المحافظات والولايات
+  // ============================================
+  const OMAN_WILAYAT = {
+    "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
+    "ظفار": ["صلالة", "طاقة", "مرباط", "سدح", "رخيوت", "ضلكوت", "مقشن", "شليم وجزر الحلانيات", "ثمريت", "المزيونة"],
+    "مسندم": ["خصب", "بخا", "دبا", "مدحا"],
+    "البريمي": ["البريمي", "محضة", "السنينة"],
+    "الداخلية": ["نزوى", "بهلاء", "منح", "الحمراء", "إزكي", "سمائل", "أدم", "بدبد"],
+    "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
+    "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء", "المصنعة"],
+    "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
+    "جنوب الشرقية": ["صور", "جعلان بني بوعلي", "جعلان بني بوحسن", "الكامل والوافي", "مصيرة"],
+    "الظاهرة": ["عبري", "ينقل", "ضنك"],
+    "الوسطى": ["هيماء", "الدقم", "محوت", "الجازر"]
   };
   
-  // التحقق من اختيار المحافظة والولاية
-  if (!formData.governorate) {
-    formStatus.innerHTML = '❌ يرجى اختيار المحافظة';
-    formStatus.classList.add('show', 'error');
-    isSubmitting = false;
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-    return;
+  // ============================================
+  // دوال المساعدة
+  // ============================================
+  
+  // تنظيف قيمة النص
+  function sanitizeInput(value) {
+    if (typeof value !== 'string') return '';
+    return value.trim().replace(/\s+/g, ' ');
   }
   
-  if (!formData.wilayat) {
-    formStatus.innerHTML = '❌ يرجى اختيار الولاية';
-    formStatus.classList.add('show', 'error');
-    isSubmitting = false;
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-    return;
+  // التحقق من صحة البريد الإلكتروني
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
   
-  try {
-    const response = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(formData)
+  // التحقق من صحة رقم الهاتف
+  function isValidPhone(phone) {
+    const phoneRegex = /^[0-9]{8}$/;
+    return phoneRegex.test(phone);
+  }
+  
+  // عرض خطأ الحقل
+  function showFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorDiv = document.getElementById(`${fieldId}-error`);
+    
+    if (field && errorDiv) {
+      field.classList.add('error');
+      errorDiv.textContent = message;
+      errorDiv.classList.add('show');
+    }
+  }
+  
+  // إخفاء خطأ الحقل
+  function hideFieldError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorDiv = document.getElementById(`${fieldId}-error`);
+    
+    if (field && errorDiv) {
+      field.classList.remove('error');
+      errorDiv.classList.remove('show');
+    }
+  }
+  
+  // إخفاء جميع أخطاء الحقول
+  function hideAllFieldErrors() {
+    const fields = ['name', 'email', 'phone', 'governorate', 'wilayat'];
+    fields.forEach(hideFieldError);
+  }
+  
+  // التحقق من صحة النموذج
+  function validateForm() {
+    hideAllFieldErrors();
+    let isValid = true;
+    
+    // التحقق من الاسم
+    const name = sanitizeInput(document.getElementById('name').value);
+    if (!name || name.length < 3) {
+      showFieldError('name', 'يرجى إدخال الاسم الثلاثي (3 أحرف على الأقل)');
+      isValid = false;
+    }
+    
+    // التحقق من البريد الإلكتروني
+    const email = sanitizeInput(document.getElementById('email').value);
+    if (!email) {
+      showFieldError('email', 'يرجى إدخال البريد الإلكتروني');
+      isValid = false;
+    } else if (!isValidEmail(email)) {
+      showFieldError('email', 'يرجى إدخال بريد إلكتروني صحيح');
+      isValid = false;
+    }
+    
+    // التحقق من رقم الهاتف
+    const phone = sanitizeInput(document.getElementById('phone').value);
+    if (!phone) {
+      showFieldError('phone', 'يرجى إدخال رقم الهاتف');
+      isValid = false;
+    } else if (!isValidPhone(phone)) {
+      showFieldError('phone', 'يرجى إدخال رقم هاتف صحيح (8 أرقام)');
+      isValid = false;
+    }
+    
+    // التحقق من المحافظة
+    const governorate = document.getElementById('governorate').value;
+    if (!governorate) {
+      showFieldError('governorate', 'يرجى اختيار المحافظة');
+      isValid = false;
+    }
+    
+    // التحقق من الولاية
+    const wilayat = document.getElementById('wilayat').value;
+    if (!wilayat) {
+      showFieldError('wilayat', 'يرجى اختيار الولاية');
+      isValid = false;
+    }
+    
+    return isValid;
+  }
+  
+  // تنسيق التاريخ
+  function formatDate(dateString) {
+    if (!dateString) return 'غير معروف';
+    try {
+      return new Date(dateString).toLocaleString('ar-SA', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch {
+      return dateString;
+    }
+  }
+  
+  // عرض رسالة الحالة
+  function showStatusMessage(message, type = 'error') {
+    const statusDiv = document.getElementById('form-status');
+    statusDiv.textContent = message;
+    statusDiv.className = 'status-message show ' + type;
+    
+    // إخفاء الرسالة بعد 5 ثواني
+    setTimeout(() => {
+      statusDiv.classList.remove('show');
+    }, 5000);
+  }
+  
+  // ============================================
+  // ربط المحافظة بالولاية
+  // ============================================
+  function setupGovernorateWilayatBinding() {
+    const governorateSelect = document.getElementById('governorate');
+    const wilayatSelect = document.getElementById('wilayat');
+    
+    governorateSelect.addEventListener('change', function() {
+      wilayatSelect.innerHTML = '<option value="">اختر الولاية...</option>';
+      wilayatSelect.disabled = true;
+      hideFieldError('wilayat');
+      
+      if (!this.value || !OMAN_WILAYAT[this.value]) return;
+      
+      OMAN_WILAYAT[this.value].forEach(wilaya => {
+        const option = document.createElement('option');
+        option.value = wilaya;
+        option.textContent = wilaya;
+        wilayatSelect.appendChild(option);
+      });
+      
+      wilayatSelect.disabled = false;
+    });
+  }
+  
+  // ============================================
+  // اختبار الاتصال
+  // ============================================
+  window.testScript = async function() {
+    const resultDiv = document.getElementById('test-result');
+    resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري اختبار الاتصال...</span></div>';
+    
+    try {
+      const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      resultDiv.innerHTML = `
+        <div style="color: var(--success); font-weight: 700; margin-bottom: 0.5rem;">✅ اتصال ناجح!</div>
+        <div style="color: var(--text-muted); font-size: 0.85rem;">
+          <div>الحالة: ${data.status || 'نجح'}</div>
+          <div>الرسالة: ${data.message || 'متصل'}</div>
+          <div>الإصدار: ${data.version || 'غير معروف'}</div>
+        </div>
+      `;
+      return true;
+      
+    } catch (error) {
+      resultDiv.innerHTML = `
+        <div style="color: var(--error); font-weight: 700; margin-bottom: 0.5rem;">❌ فشل الاتصال!</div>
+        <div style="color: var(--text-muted); font-size: 0.85rem;">الخطأ: ${error.message}</div>
+      `;
+      return false;
+    }
+  };
+  
+  // ============================================
+  // معالجة النموذج
+  // ============================================
+  function setupFormSubmission() {
+    const form = document.getElementById('join-form');
+    
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      if (isSubmitting) return;
+      
+      // التحقق من صحة النموذج
+      if (!validateForm()) {
+        showStatusMessage('❌ يرجى تصحيح الأخطاء في النموذج', 'error');
+        return;
+      }
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const originalText = submitBtn.innerHTML;
+      
+      isSubmitting = true;
+      submitBtn.innerHTML = '<span class="loading"><div class="loading-spinner"></div><span>جاري الإرسال...</span></span>';
+      submitBtn.disabled = true;
+      hideAllFieldErrors();
+      
+      const formData = {
+        action: 'create',
+        name: sanitizeInput(document.getElementById('name').value),
+        email: sanitizeInput(document.getElementById('email').value),
+        phone: sanitizeInput(document.getElementById('phone').value),
+        governorate: document.getElementById('governorate').value,
+        wilayat: document.getElementById('wilayat').value,
+        school: sanitizeInput(document.getElementById('school').value) || 'غير محدد',
+        submitted_at: new Date().toISOString()
+      };
+      
+      try {
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(formData)
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+          document.getElementById('form-container').style.display = 'none';
+          document.getElementById('success-view').classList.add('show');
+        } else {
+          showStatusMessage(`❌ ${result.message}`, 'error');
+        }
+        
+      } catch (error) {
+        console.error('Submission error:', error);
+        showStatusMessage('❌ فشل الاتصال بالخادم. يرجى المحاولة مرة أخرى.', 'error');
+      } finally {
+        isSubmitting = false;
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+  
+  // ============================================
+  // إعادة تعيين النموذج
+  // ============================================
+  window.resetForm = function() {
+    document.getElementById('join-form').reset();
+    document.getElementById('wilayat').disabled = true;
+    hideAllFieldErrors();
+    document.getElementById('form-container').style.display = 'block';
+    document.getElementById('success-view').classList.remove('show');
+  };
+  
+  // ============================================
+  // نافذة تسجيل الدخول
+  // ============================================
+  window.showAdminLogin = function() {
+    const modal = document.getElementById('login-modal');
+    modal.classList.add('show');
+    document.getElementById('admin-password').value = '';
+    document.getElementById('login-error').classList.remove('show');
+    
+    // التركيز على حقل كلمة المرور
+    setTimeout(() => {
+      document.getElementById('admin-password').focus();
+    }, 100);
+  };
+  
+  window.hideAdminLogin = function() {
+    document.getElementById('login-modal').classList.remove('show');
+  };
+  
+  function setupAdminLogin() {
+    const form = document.getElementById('login-form');
+    
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('admin-password').value;
+      const loginBtn = document.getElementById('login-btn');
+      const errorDiv = document.getElementById('login-error');
+      
+      loginBtn.innerHTML = '<span class="loading"><div class="loading-spinner"></div><span>جاري التحقق...</span></span>';
+      loginBtn.disabled = true;
+      errorDiv.classList.remove('show');
+      
+      try {
+        const response = await fetch(`${SCRIPT_URL}?action=adminLogin&password=${encodeURIComponent(password)}&t=${Date.now()}`);
+        
+        if (!response.ok) {
+          throw new Error('فشل الاتصال بالخادم');
+        }
+        
+        const data = await response.json();
+        
+        if (data.status === 'success' && data.authenticated) {
+          adminPassword = password;
+          hideAdminLogin();
+          openAdminPanel();
+        } else {
+          errorDiv.textContent = '❌ كلمة مرور خاطئة';
+          errorDiv.classList.add('show');
+          document.getElementById('admin-password').value = '';
+          document.getElementById('admin-password').focus();
+        }
+        
+      } catch (error) {
+        console.error('Login error:', error);
+        errorDiv.textContent = '❌ خطأ في الاتصال بالخادم';
+        errorDiv.classList.add('show');
+      } finally {
+        loginBtn.innerHTML = '✅ دخول';
+        loginBtn.disabled = false;
+      }
     });
     
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    
-    const result = await response.json();
-    
-    if (result.status === 'success') {
-      document.getElementById('form-container').style.display = 'none';
-      document.getElementById('success-view').classList.add('show');
-    } else {
-      formStatus.innerHTML = `❌ ${result.message}`;
-      formStatus.classList.add('show', 'error');
+    // إغلاق النافذة عند النقر خارجها
+    document.getElementById('login-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        hideAdminLogin();
+      }
+    });
+  }
+  
+  // ============================================
+  // لوحة التحكم
+  // ============================================
+  function openAdminPanel() {
+    document.getElementById('admin-panel').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    updateDebugInfo();
+    setTimeout(loadAllRecords, 500);
+  }
+  
+  window.logoutAdmin = function() {
+    if (confirm('هل تريد تسجيل الخروج؟')) {
+      adminPassword = null;
+      allRecords = [];
+      document.getElementById('admin-panel').classList.remove('show');
+      document.body.style.overflow = 'auto';
     }
+  };
+  
+  window.adminTestConnection = async function() {
+    const resultDiv = document.getElementById('admin-result');
+    resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري الاختبار...</span></div>';
     
-  } catch (error) {
-    formStatus.innerHTML = '❌ فشل الاتصال بالخادم';
-    formStatus.classList.add('show', 'error');
-  } finally {
-    isSubmitting = false;
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-  }
-});
-
-// إعادة تعيين النموذج
-function resetForm() {
-  document.getElementById('join-form').reset();
-  document.getElementById('wilayat').disabled = true;
-  document.getElementById('form-container').style.display = 'block';
-  document.getElementById('success-view').classList.remove('show');
-  document.getElementById('form-status').classList.remove('show');
-}
-
-// ============================================
-// نافذة تسجيل الدخول
-// ============================================
-function showAdminLogin() {
-  document.getElementById('login-modal').classList.add('show');
-  document.getElementById('admin-password').value = '';
-  document.getElementById('login-error').classList.remove('show');
-  document.getElementById('admin-password').focus();
-}
-
-function hideAdminLogin() {
-  document.getElementById('login-modal').classList.remove('show');
-}
-
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const password = document.getElementById('admin-password').value;
-  const loginBtn = document.getElementById('login-btn');
-  const errorDiv = document.getElementById('login-error');
-  
-  loginBtn.innerHTML = '<span class="loading"><div class="loading-spinner"></div><span>جاري التحقق...</span></span>';
-  loginBtn.disabled = true;
-  errorDiv.classList.remove('show');
-  
-  try {
-    const response = await fetch(`${SCRIPT_URL}?action=adminLogin&password=${encodeURIComponent(password)}&t=${Date.now()}`);
-    const data = await response.json();
-    
-    if (data.status === 'success' && data.authenticated) {
-      adminPassword = password;
-      hideAdminLogin();
-      openAdminPanel();
-    } else {
-      errorDiv.textContent = '❌ كلمة مرور خاطئة';
-      errorDiv.classList.add('show');
-      document.getElementById('admin-password').value = '';
-      document.getElementById('admin-password').focus();
+    try {
+      const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      resultDiv.innerHTML = `<div style="color: #10b981; font-weight: 600;">✅ متصل - ${data.message || 'نجح'}</div>`;
+      
+    } catch (error) {
+      resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ خطأ - ${error.message}</div>`;
     }
-    
-  } catch (error) {
-    errorDiv.textContent = '❌ خطأ في الاتصال بالخادم';
-    errorDiv.classList.add('show');
-  } finally {
-    loginBtn.innerHTML = '✅ دخول';
-    loginBtn.disabled = false;
-  }
-});
-
-// ============================================
-// لوحة التحكم
-// ============================================
-function openAdminPanel() {
-  document.getElementById('admin-panel').classList.add('show');
-  document.body.style.overflow = 'hidden';
-  updateDebugInfo();
-  setTimeout(loadAllRecords, 500);
-}
-
-function logoutAdmin() {
-  if (confirm('هل تريد تسجيل الخروج؟')) {
-    adminPassword = null;
-    allRecords = [];
-    document.getElementById('admin-panel').classList.remove('show');
-    document.body.style.overflow = 'auto';
-  }
-}
-
-async function adminTestConnection() {
-  const resultDiv = document.getElementById('admin-result');
-  resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري الاختبار...</span></div>';
+  };
   
-  try {
-    const response = await fetch(`${SCRIPT_URL}?action=test&t=${Date.now()}`);
-    const data = await response.json();
-    
-    resultDiv.innerHTML = `<div style="color: #10b981; font-weight: 600;">✅ متصل - ${data.message}</div>`;
-    
-  } catch (error) {
-    resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ خطأ - ${error.message}</div>`;
-  }
-}
-
-async function loadAllRecords() {
-  if (!adminPassword) {
-    alert('يجب تسجيل الدخول أولاً');
-    return;
-  }
-  
-  const resultDiv = document.getElementById('admin-result');
-  resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري جلب البيانات...</span></div>';
-  
-  try {
-    const response = await fetch(`${SCRIPT_URL}?action=getAll&password=${encodeURIComponent(adminPassword)}&t=${Date.now()}`);
-    const data = await response.json();
-    
-    if (data.code === 'UNAUTHORIZED') {
-      alert('❌ كلمة المرور غير صحيحة. سيتم تسجيل الخروج.');
-      logoutAdmin();
+  window.loadAllRecords = async function() {
+    if (!adminPassword) {
+      alert('يجب تسجيل الدخول أولاً');
       return;
     }
     
-    if (data.status === 'success') {
-      document.getElementById('total-count').textContent = data.count || 0;
-      document.getElementById('remaining-count').textContent = data.remaining || 0;
+    const resultDiv = document.getElementById('admin-result');
+    resultDiv.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>جاري جلب البيانات...</span></div>';
+    
+    try {
+      const response = await fetch(`${SCRIPT_URL}?action=getAll&password=${encodeURIComponent(adminPassword)}&t=${Date.now()}`);
       
-      resultDiv.innerHTML = `<div style="color: #10b981; font-weight: 600;">✅ تم جلب ${data.count || 0} طلب</div>`;
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
       
-      allRecords = data.data || [];
-      displayRecords(allRecords);
-    } else {
-      resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ ${data.message}</div>`;
+      const data = await response.json();
+      
+      if (data.code === 'UNAUTHORIZED') {
+        alert('❌ كلمة المرور غير صحيحة. سيتم تسجيل الخروج.');
+        logoutAdmin();
+        return;
+      }
+      
+      if (data.status === 'success') {
+        const count = data.count || 0;
+        const remaining = Math.max(0, MAX_CAPACITY - count);
+        
+        document.getElementById('total-count').textContent = count;
+        document.getElementById('remaining-count').textContent = remaining;
+        
+        resultDiv.innerHTML = `<div style="color: #10b981; font-weight: 600;">✅ تم جلب ${count} طلب</div>`;
+        
+        allRecords = data.data || [];
+        displayRecords(allRecords);
+      } else {
+        resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ ${data.message}</div>`;
+        displayRecords([]);
+      }
+      
+    } catch (error) {
+      console.error('Load records error:', error);
+      resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ ${error.message}</div>`;
       displayRecords([]);
     }
-    
-  } catch (error) {
-    resultDiv.innerHTML = `<div style="color: #ef4444; font-weight: 600;">❌ ${error.message}</div>`;
-    displayRecords([]);
-  }
-}
-
-function displayRecords(records) {
-  const list = document.getElementById('records-list');
+  };
   
-  if (!records || records.length === 0) {
-    list.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📭</div>
-        <div class="empty-text">لا توجد طلبات حتى الآن</div>
-      </div>
-    `;
-    return;
-  }
-  
-  let html = '';
-  records.forEach((record, index) => {
-    const name = record['الاسم'] || record.name || 'غير معروف';
-    const email = record['البريد الإلكتروني'] || record.email || 'لا يوجد';
-    const phone = record['رقم الهاتف'] || record.phone || 'لا يوجد';
-    const governorate = record['المحافظة'] || record.governorate || 'غير محدد';
-    const wilayat = record['الولاية'] || record.wilayat || 'غير محدد';
-    const school = record['المدرسة'] || record.school || 'غير محدد';
-    const date = formatDate(record['تاريخ التسجيل'] || record.submitted_at);
+  function displayRecords(records) {
+    const list = document.getElementById('records-list');
     
-    html += `
-      <div class="record-card">
-        <div class="record-header">
-          <div class="record-name">${name}</div>
-          <div class="record-badge">#${index + 1}</div>
+    if (!records || records.length === 0) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">📭</div>
+          <div class="empty-text">لا توجد طلبات حتى الآن</div>
         </div>
-        <div class="record-grid">
-          <div class="record-item">
-            <span class="record-icon">📧</span>
-            <span class="record-text">${email}</span>
+      `;
+      return;
+    }
+    
+    let html = '';
+    records.forEach((record, index) => {
+      const name = record['الاسم'] || record.name || 'غير معروف';
+      const email = record['البريد الإلكتروني'] || record.email || 'لا يوجد';
+      const phone = record['رقم الهاتف'] || record.phone || 'لا يوجد';
+      const governorate = record['المحافظة'] || record.governorate || 'غير محدد';
+      const wilayat = record['الولاية'] || record.wilayat || 'غير محدد';
+      const school = record['المدرسة'] || record.school || 'غير محدد';
+      const date = formatDate(record['تاريخ التسجيل'] || record.submitted_at);
+      
+      html += `
+        <div class="record-card">
+          <div class="record-header">
+            <div class="record-name">${escapeHtml(name)}</div>
+            <div class="record-badge">#${index + 1}</div>
           </div>
-          <div class="record-item">
-            <span class="record-icon">📱</span>
-            <span class="record-text">${phone}</span>
-          </div>
-          <div class="record-item">
-            <span class="record-icon">🏛️</span>
-            <span class="record-text">${governorate}</span>
-          </div>
-          <div class="record-item">
-            <span class="record-icon">📍</span>
-            <span class="record-text">${wilayat}</span>
-          </div>
-          <div class="record-item">
-            <span class="record-icon">🏫</span>
-            <span class="record-text">${school}</span>
-          </div>
-          <div class="record-item">
-            <span class="record-icon">⏰</span>
-            <span class="record-text muted">${date}</span>
+          <div class="record-grid">
+            <div class="record-item">
+              <span class="record-icon">📧</span>
+              <span class="record-text">${escapeHtml(email)}</span>
+            </div>
+            <div class="record-item">
+              <span class="record-icon">📱</span>
+              <span class="record-text">${escapeHtml(phone)}</span>
+            </div>
+            <div class="record-item">
+              <span class="record-icon">🏛️</span>
+              <span class="record-text">${escapeHtml(governorate)}</span>
+            </div>
+            <div class="record-item">
+              <span class="record-icon">📍</span>
+              <span class="record-text">${escapeHtml(wilayat)}</span>
+            </div>
+            <div class="record-item">
+              <span class="record-icon">🏫</span>
+              <span class="record-text">${escapeHtml(school)}</span>
+            </div>
+            <div class="record-item">
+              <span class="record-icon">⏰</span>
+              <span class="record-text muted">${date}</span>
+            </div>
           </div>
         </div>
-      </div>
-    `;
-  });
-  
-  list.innerHTML = html;
-}
-
-function filterRecords() {
-  const searchTerm = document.getElementById('search-input').value.toLowerCase();
-  const filterGov = document.getElementById('filter-governorate').value;
-  
-  const filtered = allRecords.filter(record => {
-    const name = (record['الاسم'] || record.name || '').toLowerCase();
-    const email = (record['البريد الإلكتروني'] || record.email || '').toLowerCase();
-    const phone = (record['رقم الهاتف'] || record.phone || '').toLowerCase();
-    const gov = record['المحافظة'] || record.governorate || '';
-    
-    const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm);
-    const matchesFilter = !filterGov || gov === filterGov;
-    
-    return matchesSearch && matchesFilter;
-  });
-  
-  displayRecords(filtered);
-}
-
-function exportData() {
-  if (!allRecords || allRecords.length === 0) {
-    alert('لا توجد بيانات للتصدير');
-    return;
-  }
-  
-  let csv = '\uFEFF'; // BOM for Arabic
-  csv += 'الاسم,البريد الإلكتروني,رقم الهاتف,المحافظة,الولاية,المدرسة,تاريخ التسجيل\n';
-  
-  allRecords.forEach(record => {
-    const row = [
-      record['الاسم'] || record.name || '',
-      record['البريد الإلكتروني'] || record.email || '',
-      record['رقم الهاتف'] || record.phone || '',
-      record['المحافظة'] || record.governorate || '',
-      record['الولاية'] || record.wilayat || '',
-      record['المدرسة'] || record.school || '',
-      record['تاريخ التسجيل'] || record.submitted_at || ''
-    ].map(field => `"${field}"`).join(',');
-    csv += row + '\n';
-  });
-  
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `طلبات_الانضمام_${new Date().toISOString().split('T')[0]}.csv`;
-  link.click();
-}
-
-function formatDate(dateString) {
-  if (!dateString) return 'غير معروف';
-  try {
-    return new Date(dateString).toLocaleString('ar-SA', {
-      year: 'numeric', month: 'long', day: 'numeric',
-      hour: '2-digit', minute: '2-digit'
+      `;
     });
-  } catch { return dateString; }
-}
-
-function updateDebugInfo() {
-  document.getElementById('debug-info').innerHTML = `
-🔗 رابط السكربيت: ${SCRIPT_URL}
+    
+    list.innerHTML = html;
+  }
+  
+  // دالة لحماية من XSS
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  window.filterRecords = function() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const filterGov = document.getElementById('filter-governorate').value;
+    
+    const filtered = allRecords.filter(record => {
+      const name = (record['الاسم'] || record.name || '').toLowerCase();
+      const email = (record['البريد الإلكتروني'] || record.email || '').toLowerCase();
+      const phone = (record['رقم الهاتف'] || record.phone || '').toLowerCase();
+      const gov = record['المحافظة'] || record.governorate || '';
+      
+      const matchesSearch = !searchTerm || 
+        name.includes(searchTerm) || 
+        email.includes(searchTerm) || 
+        phone.includes(searchTerm);
+      
+      const matchesFilter = !filterGov || gov === filterGov;
+      
+      return matchesSearch && matchesFilter;
+    });
+    
+    displayRecords(filtered);
+  };
+  
+  window.exportData = function() {
+    if (!allRecords || allRecords.length === 0) {
+      alert('لا توجد بيانات للتصدير');
+      return;
+    }
+    
+    let csv = '\uFEFF'; // BOM for Arabic
+    csv += 'الاسم,البريد الإلكتروني,رقم الهاتف,المحافظة,الولاية,المدرسة,تاريخ التسجيل\n';
+    
+    allRecords.forEach(record => {
+      const row = [
+        record['الاسم'] || record.name || '',
+        record['البريد الإلكتروني'] || record.email || '',
+        record['رقم الهاتف'] || record.phone || '',
+        record['المحافظة'] || record.governorate || '',
+        record['الولاية'] || record.wilayat || '',
+        record['المدرسة'] || record.school || '',
+        record['تاريخ التسجيل'] || record.submitted_at || ''
+      ].map(field => `"${field.replace(/"/g, '""')}"`).join(',');
+      csv += row + '\n';
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `طلبات_الانضمام_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+  
+  function updateDebugInfo() {
+    const debugDiv = document.getElementById('debug-info');
+    debugDiv.textContent = `🔗 رابط السكربيت: ${SCRIPT_URL}
 🕒 وقت التحميل: ${new Date().toLocaleString('ar-SA')}
 🌐 الموقع: ${window.location.href}
 🔐 حالة الجلسة: ${adminPassword ? 'مسجل الدخول' : 'غير مسجل'}
-  `.trim();
-}
-
-// ============================================
-// التهيئة
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(testScript, 1500);
-  
-  if (window.history.replaceState) {
-    window.history.replaceState(null, null, window.location.href);
+📊 السعة القصوى: ${MAX_CAPACITY}`;
   }
-});
-
-window.addEventListener('beforeunload', function() {
-  if (isSubmitting) return 'يتم حالياً إرسال البيانات، هل تريد المغادرة؟';
-});
+  
+  // ============================================
+  // التهيئة
+  // ============================================
+  function init() {
+    setupGovernorateWilayatBinding();
+    setupFormSubmission();
+    setupAdminLogin();
+    
+    // اختبار اتصال تلقائي بعد التحميل
+    setTimeout(testScript, 1500);
+    
+    // منع إعادة إرسال النموذج عند تحديث الصفحة
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  }
+  
+  // تحذير قبل المغادرة أثناء الإرسال
+  window.addEventListener('beforeunload', function(e) {
+    if (isSubmitting) {
+      e.preventDefault();
+      e.returnValue = 'يتم حالياً إرسال البيانات، هل تريد المغادرة؟';
+      return e.returnValue;
+    }
+  });
+  
+  // بدء التطبيق عند تحميل الصفحة
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  
+})();
 </script>
 
 </body>
