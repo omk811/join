@@ -171,6 +171,51 @@
     }
     
     /* ===================================== */
+    /* تنويه المعلمين */
+    /* ===================================== */
+    .teacher-notice {
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 1.5rem;
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }
+    
+    .notice-content {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #f59e0b;
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+    }
+    
+    .notice-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      filter: grayscale(0.2);
+    }
+    
+    .notice-text {
+      flex: 1;
+    }
+    
+    .notice-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 0.5rem;
+    }
+    
+    .notice-desc {
+      font-size: 0.95rem;
+      color: #78350f;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    
+    /* ===================================== */
     /* بطاقة النموذج */
     /* ===================================== */
     .form-card {
@@ -1185,6 +1230,16 @@
         padding: 2rem 1.5rem;
       }
       
+      .notice-content {
+        padding: 1.25rem;
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .notice-icon {
+        font-size: 2.5rem;
+      }
+      
       .admin-header {
         flex-direction: column;
         gap: 1rem;
@@ -1267,6 +1322,17 @@
       <span>اختبار الاتصال بالسكربيت</span>
     </button>
     <div id="test-result" class="test-result"></div>
+  </div>
+  
+  <!-- تنويه للمعلمين -->
+  <div class="teacher-notice">
+    <div class="notice-content">
+      <div class="notice-icon">👨‍🏫</div>
+      <div class="notice-text">
+        <p class="notice-title">تنويه للزملاء المعلمين</p>
+        <p class="notice-desc">هذا المجتمع موجه لطلبة الصف الخامس وأولياء أمورهم فقط. أعتذر من زملائي الأعزاء، وأقدر تفهمكم واحترامكم لخصوصية هذا الفضاء التعليمي.</p>
+      </div>
+    </div>
   </div>
   
   <!-- نموذج التسجيل -->
