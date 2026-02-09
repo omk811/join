@@ -364,27 +364,6 @@
       animation: slideDown 0.3s ease;
     }
     
-    /* تنويه الحقل */
-    .field-notice {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-      padding: 0.75rem 1rem;
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-      border: 1px solid #f59e0b;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      color: #92400e;
-      font-weight: 500;
-      line-height: 1.5;
-    }
-    
-    .field-notice-icon {
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-    
     /* ===================================== */
     /* زر الإرسال */
     /* ===================================== */
@@ -1459,18 +1438,20 @@
         <label class="form-label" for="school">
           <span class="label-icon">🏫</span>
           <span>المدرسة</span>
+          <span class="required">*</span>
         </label>
         <input 
           type="text" 
           id="school" 
           name="school" 
+          required
+          minlength="3"
           class="form-input" 
-          placeholder="مثال: مدرسة سعد بن معاذ" 
-          maxlength="100">
-        <div class="field-notice">
-          <span class="field-notice-icon">⚠️</span>
-          <span>تنويه: لا أستقبل طلاب الصف الخامس الأساسي بمدرسة سعد بن معاذ للتعليم الأساسي</span>
-        </div>
+          placeholder="مثال: مدرسة سعد بن معاذ للتعليم الأساسي" 
+          maxlength="100"
+          aria-required="true"
+          aria-describedby="school-error">
+        <div id="school-error" class="field-error"></div>
       </div>
       
       <button type="submit" id="submit-btn" class="submit-btn">
@@ -1663,7 +1644,7 @@
   // ============================================
   // الإعدادات
   // ============================================
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypZWK8tE6CpnhcnbQ2bQb875cRkXaaRKNrM59SCiJPR4y5mopCmuRq47W1l4Xagrc9/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpnsPz48lcdp_PHjkrLjveajBRM5DEv5CyDIcusCSwpQuUpH-RnN-pF1qM8nCOsno9/exec';
   const MAX_CAPACITY = 1870;
   
   let isSubmitting = false;
@@ -1734,7 +1715,7 @@
   
   // إخفاء جميع أخطاء الحقول
   function hideAllFieldErrors() {
-    const fields = ['name', 'email', 'phone', 'governorate', 'wilayat'];
+    const fields = ['name', 'email', 'phone', 'governorate', 'wilayat', 'school'];
     fields.forEach(hideFieldError);
   }
   
@@ -1781,6 +1762,13 @@
     const wilayat = document.getElementById('wilayat').value;
     if (!wilayat) {
       showFieldError('wilayat', 'يرجى اختيار الولاية');
+      isValid = false;
+    }
+    
+    // ⭐ التحقق من المدرسة - جديد
+    const school = sanitizeInput(document.getElementById('school').value);
+    if (!school || school.length < 3) {
+      showFieldError('school', 'يرجى إدخال اسم المدرسة (3 أحرف على الأقل)');
       isValid = false;
     }
     
@@ -1865,6 +1853,7 @@
           <div>الحالة: ${data.status || 'نجح'}</div>
           <div>الرسالة: ${data.message || 'متصل'}</div>
           <div>الإصدار: ${data.version || 'غير معروف'}</div>
+          ${data.features ? '<div style="margin-top: 0.5rem; padding: 0.5rem; background: #ecfdf5; border-radius: 6px; color: #047857;">✅ منع تكرار الهاتف مفعّل<br>✅ حقل المدرسة إلزامي</div>' : ''}
         </div>
       `;
       return true;
@@ -1910,7 +1899,7 @@
         phone: sanitizeInput(document.getElementById('phone').value),
         governorate: document.getElementById('governorate').value,
         wilayat: document.getElementById('wilayat').value,
-        school: sanitizeInput(document.getElementById('school').value) || 'غير محدد',
+        school: sanitizeInput(document.getElementById('school').value),
         submitted_at: new Date().toISOString()
       };
       
@@ -1931,7 +1920,19 @@
           document.getElementById('form-container').style.display = 'none';
           document.getElementById('success-view').classList.add('show');
         } else {
-          showStatusMessage(`❌ ${result.message}`, 'error');
+          // ⭐ معالجة محسنة للأخطاء
+          let errorMessage = result.message || 'حدث خطأ غير معروف';
+          
+          // إذا كان الخطأ تكرار رقم الهاتف
+          if (result.code === 'DUPLICATE_PHONE') {
+            showFieldError('phone', 'رقم الهاتف مسجل مسبقاً');
+          }
+          // إذا كان الخطأ تكرار البريد
+          else if (result.code === 'DUPLICATE_EMAIL') {
+            showFieldError('email', 'البريد الإلكتروني مسجل مسبقاً');
+          }
+          
+          showStatusMessage(`❌ ${errorMessage}`, 'error');
         }
         
       } catch (error) {
@@ -2241,7 +2242,9 @@
 🕒 وقت التحميل: ${new Date().toLocaleString('ar-SA')}
 🌐 الموقع: ${window.location.href}
 🔐 حالة الجلسة: ${adminPassword ? 'مسجل الدخول' : 'غير مسجل'}
-📊 السعة القصوى: ${MAX_CAPACITY}`;
+📊 السعة القصوى: ${MAX_CAPACITY}
+✅ منع تكرار الهاتف: مفعّل
+✅ حقل المدرسة: إلزامي`;
   }
   
   // ============================================
