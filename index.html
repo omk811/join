@@ -1765,7 +1765,7 @@
       isValid = false;
     }
     
-    // ⭐ التحقق من المدرسة - جديد
+    // التحقق من المدرسة
     const school = sanitizeInput(document.getElementById('school').value);
     if (!school || school.length < 3) {
       showFieldError('school', 'يرجى إدخال اسم المدرسة (3 أحرف على الأقل)');
@@ -1920,14 +1920,11 @@
           document.getElementById('form-container').style.display = 'none';
           document.getElementById('success-view').classList.add('show');
         } else {
-          // ⭐ معالجة محسنة للأخطاء
           let errorMessage = result.message || 'حدث خطأ غير معروف';
           
-          // إذا كان الخطأ تكرار رقم الهاتف
           if (result.code === 'DUPLICATE_PHONE') {
             showFieldError('phone', 'رقم الهاتف مسجل مسبقاً');
           }
-          // إذا كان الخطأ تكرار البريد
           else if (result.code === 'DUPLICATE_EMAIL') {
             showFieldError('email', 'البريد الإلكتروني مسجل مسبقاً');
           }
@@ -1966,7 +1963,6 @@
     document.getElementById('admin-password').value = '';
     document.getElementById('login-error').classList.remove('show');
     
-    // التركيز على حقل كلمة المرور
     setTimeout(() => {
       document.getElementById('admin-password').focus();
     }, 100);
@@ -2020,7 +2016,6 @@
       }
     });
     
-    // إغلاق النافذة عند النقر خارجها
     document.getElementById('login-modal').addEventListener('click', function(e) {
       if (e.target === this) {
         hideAdminLogin();
@@ -2114,6 +2109,7 @@
     }
   };
   
+  // ⭐ دالة displayRecords المحدثة لعرض البيانات من الأحدث إلى الأقدم
   function displayRecords(records) {
     const list = document.getElementById('records-list');
     
@@ -2127,8 +2123,11 @@
       return;
     }
     
+    // ⭐ عكس ترتيب السجلات لعرض الأحدث أولاً
+    const sortedRecords = [...records].reverse();
+    
     let html = '';
-    records.forEach((record, index) => {
+    sortedRecords.forEach((record, index) => {
       const name = record['الاسم'] || record.name || 'غير معروف';
       const email = record['البريد الإلكتروني'] || record.email || 'لا يوجد';
       const phone = record['رقم الهاتف'] || record.phone || 'لا يوجد';
@@ -2141,7 +2140,7 @@
         <div class="record-card">
           <div class="record-header">
             <div class="record-name">${escapeHtml(name)}</div>
-            <div class="record-badge">#${index + 1}</div>
+            <div class="record-badge">#${records.length - index}</div>
           </div>
           <div class="record-grid">
             <div class="record-item">
@@ -2176,7 +2175,6 @@
     list.innerHTML = html;
   }
   
-  // دالة لحماية من XSS
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
@@ -2212,7 +2210,7 @@
       return;
     }
     
-    let csv = '\uFEFF'; // BOM for Arabic
+    let csv = '\uFEFF';
     csv += 'الاسم,البريد الإلكتروني,رقم الهاتف,المحافظة,الولاية,المدرسة,تاريخ التسجيل\n';
     
     allRecords.forEach(record => {
@@ -2244,7 +2242,8 @@
 🔐 حالة الجلسة: ${adminPassword ? 'مسجل الدخول' : 'غير مسجل'}
 📊 السعة القصوى: ${MAX_CAPACITY}
 ✅ منع تكرار الهاتف: مفعّل
-✅ حقل المدرسة: إلزامي`;
+✅ حقل المدرسة: إلزامي
+⭐ ترتيب العرض: من الأحدث إلى الأقدم`;
   }
   
   // ============================================
@@ -2255,16 +2254,13 @@
     setupFormSubmission();
     setupAdminLogin();
     
-    // اختبار اتصال تلقائي بعد التحميل
     setTimeout(testScript, 1500);
     
-    // منع إعادة إرسال النموذج عند تحديث الصفحة
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
   }
   
-  // تحذير قبل المغادرة أثناء الإرسال
   window.addEventListener('beforeunload', function(e) {
     if (isSubmitting) {
       e.preventDefault();
@@ -2273,7 +2269,6 @@
     }
   });
   
-  // بدء التطبيق عند تحميل الصفحة
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
