@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, ">
-  <meta name="description" content="نموذج الانضمام لمجتمع اللغة العربية - الصف الخامس">
-  <title>مجتمع اللغة العربية - الصف الخامس</title>
+  <meta name="description" content="التسجيل في قناة الدروس عن بُعد لحصص المراجعة - الصف الخامس">
+  <title>قناة الدروس عن بُعد | الأستاذ خليل البلوشي</title>
   
   <!-- الخطوط -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1291,6 +1291,42 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
+    /* إعادة تصميم الهوية البصرية لقناة الدروس عن بُعد */
+    :root { --primary:#2563eb; --primary-light:#3b82f6; --primary-dark:#1d4ed8; --accent:#0f766e; --bg-light:#f8fafc; --text-dark:#14243b; --text-muted:#53657e; }
+    body { background:#f4f7fc; color:var(--text-dark); }
+    .bg-pattern { background-image:radial-gradient(circle at 85% 5%,rgba(37,99,235,.09),transparent 38%),radial-gradient(circle at 5% 65%,rgba(13,148,136,.06),transparent 40%); }
+    .floating-shapes { display:none; }
+    .main-container { padding:clamp(24px,4vw,64px) 16px 36px; }
+    .header { max-width:760px; margin-bottom:25px; animation:none; }
+    .header .badge { background:#e8f0ff; color:#1d4ed8; box-shadow:none; border:1px solid #dbeafe; font-size:.88rem; margin-bottom:17px; }
+    .main-title { -webkit-text-fill-color:initial; background:none; color:#14243b; font-size:clamp(2.1rem,5vw,3.6rem); line-height:1.35; letter-spacing:0; margin-bottom:10px; }
+    .hero-lead { color:#475569; font-size:clamp(.96rem,2vw,1.12rem); line-height:1.95; margin:0 0 10px; }
+    .subtitle { font-size:.89rem; font-weight:600; color:#64748b; }
+    .channel-guidelines,.form-card { width:100%; max-width:680px; }
+    .channel-guidelines { background:#fff; border:1px solid #dde8f6; border-radius:22px; padding:clamp(20px,3vw,30px); margin-bottom:18px; box-shadow:0 12px 36px rgba(29,78,216,.045); }
+    .guidelines-head { display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+    .guidelines-mark { width:54px; height:54px; display:grid; place-items:center; background:#eaf2ff; border-radius:16px; font-size:1.6rem; flex:none; }
+    .eyebrow { font-size:.76rem; font-weight:800; color:#2563eb; margin-bottom:3px; }
+    .channel-guidelines h2 { font-size:clamp(1.08rem,2.2vw,1.35rem); line-height:1.55; margin:0; }
+    .channel-guidelines>p { color:#52647b; font-size:.93rem; margin:0 0 15px; line-height:1.95; }
+    .guidelines-rule { display:flex; gap:12px; align-items:flex-start; padding:14px; border:1px solid #fee2e2; background:#fff7f7; border-radius:13px; margin-top:10px; }
+    .guidelines-rule.green { border-color:#cceee5; background:#f0fdf9; }
+    .guidelines-rule>span { flex:none; font-size:1.15rem; }
+    .guidelines-rule div { display:grid; gap:3px; }
+    .guidelines-rule strong { font-size:.91rem; color:#26344c; }
+    .guidelines-rule div span { color:#566579; font-size:.85rem; line-height:1.8; }
+    .form-card { border:1px solid #dde8f6; border-radius:22px; padding:clamp(20px,4vw,36px); box-shadow:0 15px 50px rgba(29,78,216,.06); animation:none; }
+    .form-header { margin-bottom:1.5rem; padding-bottom:1.3rem; }
+    .form-icon { border-radius:16px; background:#eff6ff; }
+    .form-title { font-size:clamp(1.2rem,2.4vw,1.5rem); }
+    .form-desc { line-height:1.85; color:#64748b; }
+    .form-input { background:#fff; border:1.5px solid #cdd9e8; border-radius:12px; }
+    .form-input:focus { border-color:#2563eb; box-shadow:0 0 0 4px rgba(37,99,235,.09); }
+    .submit-btn { background:#2563eb; border-radius:12px; box-shadow:0 5px 16px rgba(37,99,235,.2); }
+    .submit-btn::before { background:#1d4ed8; }
+    .admin-trigger { margin-top:24px; animation:none; }
+    .admin-btn { background:#e9eef7; color:#4b5e78; border:1px solid #dbe4f0; box-shadow:none; }
+    @media(max-width:600px){ .main-container{padding:24px 12px;} .channel-guidelines,.form-card{border-radius:17px;} .channel-guidelines{padding:18px;} .guidelines-rule{padding:12px;} .header{margin-bottom:18px;} }
   </style>
 </head>
 <body>
@@ -1312,29 +1348,17 @@
       <span class="badge-icon">✨</span>
       <span>مرحباً بكم</span>
     </div>
-    <h1 class="main-title">مجتمع اللغة العربية- الصف الخامس ( الانضمام مجاني ) </h1>
+    <h1 class="main-title">قناة الدروس عن بُعد</h1>
+    <p class="hero-lead">حصص مراجعة تعليمية لطلبة الصف الخامس في مادة اللغة العربية</p>
     <p class="subtitle">إشراف: الأستاذ خليل البلوشي</p>
   </header>
   
-  <!-- قسم الاختبار -->
-  <div class="test-section">
-    <button type="button" onclick="testScript()" class="test-btn">
-      <span>🔧</span>
-      <span>اختبار الاتصال بالسكربيت</span>
-    </button>
-    <div id="test-result" class="test-result"></div>
-  </div>
-  
-  <!-- تنويه للمعلمين -->
-  <div class="teacher-notice">
-    <div class="notice-content">
-      <div class="notice-icon">👨‍🏫</div>
-      <div class="notice-text">
-        <p class="notice-title">تنويه للزملاء المعلمين</p>
-        <p class="notice-desc">هذا المجتمع موجه لطلبة الصف الخامس وأولياء أمورهم فقط. عذرا من الجميع .</p>
-      </div>
-    </div>
-  </div>
+  <section class="channel-guidelines" aria-labelledby="guidelines-title">
+    <div class="guidelines-head"><span class="guidelines-mark" aria-hidden="true">📚</span><div><p class="eyebrow">قبل التسجيل</p><h2 id="guidelines-title">مرحبًا بك في قناة المراجعة</h2></div></div>
+    <p>هذه القناة مخصصة لطلبة الصف الخامس لحضور حصص المراجعة عن بُعد ومتابعة الشرح التعليمي.</p>
+    <div class="guidelines-rule"><span aria-hidden="true">🔕</span><div><strong>قناة تعليمية للإعلان والمتابعة فقط</strong><span>يُمنع الحوار والنقاش والدردشة داخل القناة، ويُرجى الالتزام بالتعليمات وتنظيم الحصص.</span></div></div>
+    <div class="guidelines-rule green"><span aria-hidden="true">✉️</span><div><strong>البريد الوزاري شرط للتسجيل</strong><span>يجب إدخال بريد الطالب المنتهي بـ <b dir="ltr">@std.moe.om</b>، ورقم الهاتف اختياري.</span></div></div>
+  </section>
   
   <!-- نموذج التسجيل -->
   <div id="form-container" class="form-card">
@@ -1342,8 +1366,8 @@
       
       <div class="form-header">
         <div class="form-icon">📝</div>
-        <h2 class="form-title">نموذج الانضمام</h2>
-        <p class="form-desc">املأ البيانات التالية للانضمام إلى المجتمع</p>
+        <h2 class="form-title">طلب الانضمام إلى القناة</h2>
+        <p class="form-desc">أدخل بيانات الطالب بدقة لإرسال طلب الانضمام إلى قناة حصص المراجعة</p>
       </div>
       
       <div class="form-group">
@@ -1481,7 +1505,7 @@
       </div>
       
       <button type="submit" id="submit-btn" class="submit-btn">
-        <span>✅ إرسال طلب الانضمام</span>
+        <span>إرسال طلب الانضمام</span>
       </button>
       
       <div id="form-status" class="status-message"></div>
@@ -1492,7 +1516,7 @@
   <div id="success-view" class="success-view">
     <div class="success-icon">🎉</div>
     <h2 class="success-title">تم الإرسال بنجاح!</h2>
-    <p class="success-desc">شكراً لك! سيتم التواصل معك قريباً.</p>
+    <p class="success-desc">تم استلام طلب الانضمام إلى قناة حصص المراجعة.</p>
     <button type="button" onclick="resetForm()" class="reset-btn">📝 إرسال طلب آخر</button>
   </div>
   
